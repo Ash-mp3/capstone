@@ -1,5 +1,4 @@
 //imported modules
-const path = require("path");
 const express = require("express");
 const cors = require('cors')
 const app = express();
@@ -16,8 +15,7 @@ const PORT = process.env.PORT || 3001;
 
 
 
-// Have Node serve the files for our built React app
-app.use(express.static(path.resolve(__dirname, "../client/dist")));
+
 
 // Handle requests to /api route
 app.use('/api', apiRouter)
