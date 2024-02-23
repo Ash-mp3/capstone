@@ -1,7 +1,5 @@
 // client/src/App.js
 
-// client/src/App.js
-
 import React from "react";
 import "./App.css";
 
@@ -9,9 +7,12 @@ function App() {
   const [data, setData] = React.useState(null);
 
   React.useEffect(() => {
-    fetch("/api")
+    fetch("../../server/server")
       .then((res) => res.json())
-      .then((data) => {setData(data); console.log(data)});
+      .then((data) => {
+        setData(data);
+        console.log(data);
+      });
   }, []);
 
   return (
