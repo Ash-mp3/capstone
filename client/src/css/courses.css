@@ -1,0 +1,9 @@
+/* Courses page */
+
+
+#typicalFooter {
+  box-shadow: 0 -5px 20px gray;
+  background-color: #2C2C54;
+  color: #AAABB8;
+  gap: 70px;
+}
