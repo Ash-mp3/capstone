@@ -1,9 +1,13 @@
+const path = require("path");
 const express = require('express')
 const apiRouter = express.Router()
+const app = express()
 
+app.use(express.static(path.resolve(__dirname, ".../client/dist")));
 
 apiRouter.get('/',(req, res) => {
-    res.json({ message: "Hello from server!" });
+    const file = __dirname + '.../client/index.html'
+    res.send(file);
 })
 
 apiRouter.post('/login', (req, res) => {
