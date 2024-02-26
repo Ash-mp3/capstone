@@ -1,36 +1,27 @@
 // client/src/App.js
-
-// client/src/App.js
-
 import React from "react";
-import ReactDOMServer from "react-dom/server";
+import { useEffect, useState } from "react";
 import "./css/App.css";
-import Login from "./components/Login.jsx"
+import { ReactRoutes } from "./components/ReactRoutes";
+import { BrowserRouter } from "react-router-dom";
 
 function App() {
-  const [data, setData] = React.useState(null);
+  const [data, setData] = useState(null);
 
-  const [Component, setComponent] = React.useState((null));
-
-  React.useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch("/api");
-      const data = await response.json();
-      const component = data.content; // Dynamic import
-      setComponent(() => component);
-    };
-
-    fetchData();
+  useEffect(() => {
+    fetch("/api")
+      .then((res) => res.json())
+      .then((data) => setData(data.message));
   }, []);
 
   return (
-    <div className="App">
-    {console.log(component)}
-
-      <header className="App-header">
-        <>{!data ? "Loading..." : <Component />}</>
-      </header>
-    </div>
+    <>
+      <div className="App">
+        <BrowserRouter>
+          <ReactRoutes />
+        </BrowserRouter>
+      </div>
+    </>
   );
 }
 
