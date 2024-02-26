@@ -31,7 +31,7 @@ const [loggedIn, setLoggedIn] = useState(false)
         <img src={Logo} alt="logo" />
       </header>
       <div id="LoginInfo">
-        <h1 >Welcome back!</h1>
+        <h1 className="text-[60px]">Welcome back!</h1>
         <form class="LoginForm">
           <input placeholder="Email Address"></input>
           <input type="password" placeholder="Password"></input>
