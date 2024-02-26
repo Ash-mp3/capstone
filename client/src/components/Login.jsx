@@ -1,4 +1,4 @@
-/* import Logo from "../images/Registration_App_Logo.png";
+import Logo from "../assets/Registration_App_Logo.png";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import { Link } from "react-router-dom"; */
@@ -21,7 +21,6 @@ const [loggedIn, setLoggedIn] = useState(false)
       .then((res) => res.json())
       .then((data) => setLoggedIn(data.loggedIn));
   }
-  console.log(loggedIn)
 
 /*   return (
     <div
@@ -32,7 +31,7 @@ const [loggedIn, setLoggedIn] = useState(false)
         <img src={Logo} alt="logo" />
       </header>
       <div id="LoginInfo">
-        <h1 className="">Welcome back!</h1>
+        <h1 >Welcome back!</h1>
         <form class="LoginForm">
           <input placeholder="Email Address"></input>
           <input type="password" placeholder="Password"></input>
