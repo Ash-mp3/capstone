@@ -1,4 +1,4 @@
-import Logo from "../images/Registration_App_Logo.png";
+import Logo from "../assets/Registration_App_Logo.png";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import { Link } from "react-router-dom";
