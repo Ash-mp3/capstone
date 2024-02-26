@@ -50,7 +50,7 @@ function Signup() {
 
       <div id="SignupInfo">
         <div className="flex flex-col text-center items-center w-1/2 gap-4">
-          <h1 className="w-min text-left">
+          <h1 className="w-min text-left text-[60px]">
             Create
             <br />
             Your
