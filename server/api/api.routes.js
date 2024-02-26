@@ -3,10 +3,11 @@ const express = require('express')
 const apiRouter = express.Router()
 const app = express()
 
-app.use(express.static(path.resolve(__dirname, "./../client/dist")));
+app.use(express.static(path.resolve(__dirname, "./../client/src/components")));
 
 apiRouter.get('/',(req, res) => {
-    const file = path.join(__dirname, "../../client/index.html");
+    const file = path.join(__dirname, "../../client/src/components/Login");
+    console.log('file' ,file)
     res.send(file);
 })
 
