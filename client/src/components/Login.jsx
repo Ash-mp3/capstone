@@ -2,7 +2,7 @@ import Logo from "../assets/Registration_App_Logo.png";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const ColorButton = styled(Button)(({ theme }) => ({
   color: theme.palette.getContrastText("#474787"),
@@ -14,10 +14,26 @@ const ColorButton = styled(Button)(({ theme }) => ({
 
 function Login() {
 const [loggedIn, setLoggedIn] = useState(false)
+const [email, setEmail] = useState('')
+const [password, setPassword] = useState('')
+
+const handleEmailChange = (e) => {
+  setEmail(e.target.value)
+}
+const handlePasswordChange = (e) => {
+  setPassword(e.target.value)
+}
+
   //Sign the User in 
   function SignIn(){
     console.log(`signing in`)
-    fetch("http://localhost:8000/login")
+    fetch("http://localhost:3001/api/login", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password }),
+    })
       .then((res) => res.json())
       .then((data) => setLoggedIn(data.loggedIn));
   }
@@ -33,9 +49,18 @@ const [loggedIn, setLoggedIn] = useState(false)
       <div id="LoginInfo">
         <h1 className="text-[60px]">Welcome back!</h1>
         <form class="LoginForm">
-          <input placeholder="Email Address"></input>
-          <input type="password" placeholder="Password"></input>
-          <ColorButton className="w-1/2" /* type="submit" */ onClick={SignIn}>
+          <input 
+            placeholder="Email Address"
+            onChange={handleEmailChange}
+            value={email}
+          />
+          <input            
+            placeholder="Password"
+            onChange={handlePasswordChange}
+            value={password}
+            type="password"
+          />
+          <ColorButton className="w-1/2" onClick={SignIn}>
             LogIn
           </ColorButton>
         </form>
