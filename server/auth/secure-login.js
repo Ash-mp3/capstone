@@ -7,6 +7,8 @@ const Strategy = require("passport-local").Strategy;
 const login = require("connect-ensure-login");
 const bcrypt = require("bcryptjs");
 
+const app = express()
+
 function secureLogIn(){
     
 //middleware configuration
