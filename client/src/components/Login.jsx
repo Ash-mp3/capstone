@@ -26,7 +26,6 @@ const handlePasswordChange = (e) => {
 
   //Sign the User in 
   function SignIn(){
-    console.log(`signing in`)
     fetch("http://localhost:3001/api/login", {
       method: 'POST',
       headers: {
@@ -36,6 +35,10 @@ const handlePasswordChange = (e) => {
     })
       .then((res) => res.json())
       .then((data) => setLoggedIn(data.loggedIn));
+  }
+  //redirect to courses page when logged in
+  if(loggedIn){
+    window.location.href="/courses"
   }
 
   return (
@@ -52,11 +55,13 @@ const handlePasswordChange = (e) => {
           <input 
             placeholder="Email Address"
             onChange={handleEmailChange}
+            autoComplete="username"
             value={email}
           />
           <input            
             placeholder="Password"
             onChange={handlePasswordChange}
+            autoComplete="current-password"
             value={password}
             type="password"
           />
