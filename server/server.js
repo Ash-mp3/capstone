@@ -1,22 +1,22 @@
 //imported modules
+require("dotenv").config({ path: "../.env" });
 const express = require("express");
-const cors = require('cors')
+const cors = require("cors");
 const app = express();
 
+//code from local files
+const apiRouter = require("./api/api.routes.js");
+
 //environment variables
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.SERVER_PORT;
 
 //app config
 app.use(cors());
 app.use(express.json());
 
-//code from local files
-const apiRouter = require('./api/api.routes.js')
-
 // Handle requests to /api route
-app.use('/api', apiRouter)
+app.use("/api", apiRouter);
 
-app.listen(PORT, () => {
+app.listen(3001, () => {
   console.log(`Server listening on ${PORT}`);
 });
-
