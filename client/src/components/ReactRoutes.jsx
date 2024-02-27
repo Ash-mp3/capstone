@@ -13,4 +13,3 @@ import Courses from "./courses";
     </Routes>
   );
  };
-

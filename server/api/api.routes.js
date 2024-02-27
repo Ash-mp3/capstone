@@ -1,5 +1,7 @@
 const path = require("path");
-const express = require('express')
+const express = require('express');
+const client = require("../config/database");
+const { stringify } = require("querystring");
 const apiRouter = express.Router()
 const app = express()
 
@@ -16,5 +18,20 @@ apiRouter.post('/login', (req, res) => {
     console.log(req.body)
     res.json({ message: "login request", loggedIn: true });
 })
+
+apiRouter.get("/courses", async (req, res) => {
+  try {
+    const results = await client.query(`SELECT title FROM classes`);
+    console.log(typeof results.rows);
+    let realRes = '';
+    results.rows.forEach(row => {
+      realRes = realRes + `${row.title}. `;
+    })
+    res.json(realRes);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error retrieving classes from database");
+  }
+});
 
 module.exports = apiRouter
