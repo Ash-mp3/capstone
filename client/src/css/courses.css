@@ -1,9 +1,22 @@
 /* Courses page */
+#avatarDropDown {
+  display: flex;
+  justify-content: flex-end;
+  margin-left: 85%;
+}
+#typoCourse {
+  padding-right: 33%;
+}
 
+#logoImage {
+  height: auto;
+  width: 3%;
+  margin-left: -14%;
+}
 
 #typicalFooter {
   box-shadow: 0 -5px 20px gray;
-  background-color: #2C2C54;
+  background-color: #474787;
   color: #AAABB8;
   gap: 70px;
 }
