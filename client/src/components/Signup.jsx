@@ -3,6 +3,7 @@ import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 import TextField from "@mui/material/TextField";
+import { useState } from "react";
 
 const ColorButton = styled(Button)(({ theme }) => ({
   color: theme.palette.getContrastText("#474787"),
@@ -36,6 +37,27 @@ const ColorInput = styled(TextField)(({ theme }) => ({
 }));
 
 function Signup() {
+  const [username, setUsername] = useState('')
+  const [email, setEmail] = useState('')
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [phoneNum, setPhoneNum] = useState(0)
+  const [adress, setAdress] = useState('')
+  const [password, setPassword] = useState('')
+  const [passwordConfirmation, setPasswordConfirmation] = useState('')
+
+  function createAccount(){
+    console.log(username)
+    console.log(email)
+    console.log(firstName)
+    console.log(lastName)
+    console.log(phoneNum)
+    console.log(adress)
+    console.log(password)
+    console.log(passwordConfirmation)
+  }
+
+
   return (
     <div
       id="SignupPage"
@@ -68,31 +90,67 @@ function Signup() {
         <form className="flex flex-col w-1/2 gap-10 relative">
           <div className="flex gap-5 mt-6 ">
             <div className="flex flex-col gap-3">
-              <ColorInput variant="outlined" size="small" label="Username" />
-              <ColorInput variant="outlined" size="small" label="First Name" />
+              <ColorInput
+                variant="outlined"
+                size="small"
+                label="Username" 
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+              <ColorInput
+                variant="outlined"
+                size="small"
+                label="First Name"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+              />
               <ColorInput
                 variant="outlined"
                 size="small"
                 label="Phone Number"
+                value={phoneNum}
+                onChange={(e) => setPhoneNum(e.target.value)}
               />
-              <ColorInput variant="outlined" size="small" label="Password" />
+              <ColorInput
+                variant="outlined"
+                size="small"
+                label="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </div>
             <div className="flex flex-col gap-3">
-              <ColorInput variant="outlined" size="small" label="Email" />
-              <ColorInput variant="outlined" size="small" label="Last Name" />
+              <ColorInput
+                variant="outlined"
+                size="small"
+                label="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <ColorInput
+                variant="outlined"
+                size="small"
+                label="Last Name"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+              />
               <ColorInput
                 variant="outlined"
                 size="small"
                 label="Home Address"
+                value={adress}
+                onChange={(e) => setAdress(e.target.value)}
               />
               <ColorInput
                 variant="outlined"
                 size="small"
-                label="Password Agian"
+                label="Password Agian"    
+                value={passwordConfirmation}
+                onChange={(e) => setPasswordConfirmation(e.target.value)}
               />
             </div>
           </div>
-          <ColorButton className="self-start" type="submit">
+          <ColorButton className="self-start" onClick={createAccount}>
             Sign up
           </ColorButton>
         </form>

@@ -5,18 +5,28 @@ const { stringify } = require("querystring");
 const apiRouter = express.Router()
 const app = express()
 
-app.use(express.static(path.resolve(__dirname, "./../client/src/components")));
+//code from other files
+const secureLogIn = require('../auth/secure-login.js')
+
 
 apiRouter.get('/',(req, res) => {
-    const file = path.join(__dirname, "../../client/src/components/Login");
-    console.log('file' ,file)
-    res.send(file);
+    res.json({message: '/'})
 })
 
 apiRouter.post('/login', (req, res) => {
-    const { username, password } = req.body
+    const { email, password } = req.body
     console.log(req.body)
-    res.json({ message: "login request", loggedIn: true });
+    secureLogIn({ email, password })
+    res.json({loggedIn: true});
+})
+
+apiRouter.post('signup', (req, res) => {
+    
+})
+
+apiRouter.post('/courses', (req, res) => {
+    const courses = [{title: '1'},{title: '2'},{title: '3'},]
+    res.json(courses)
 })
 
 apiRouter.get("/courses", async (req, res) => {
