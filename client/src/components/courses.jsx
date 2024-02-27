@@ -60,6 +60,7 @@ function Courses() {
               Courses
             </Typography>
             <Box id="avatarDropDown" sx={{ flexGrow: 2 }}>
+            
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar alt="Logo" src={Logo} />
