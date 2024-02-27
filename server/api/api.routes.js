@@ -14,8 +14,17 @@ apiRouter.get('/',(req, res) => {
 apiRouter.post('/login', (req, res) => {
     const { email, password } = req.body
     console.log(req.body)
-    secureLogIn()
+    secureLogIn({ email, password })
     res.json({loggedIn: true});
+})
+
+apiRouter.post('signup', (req, res) => {
+    
+})
+
+apiRouter.post('/courses', (req, res) => {
+    const courses = [{title: '1'},{title: '2'},{title: '3'},]
+    res.json(courses)
 })
 
 module.exports = apiRouter
