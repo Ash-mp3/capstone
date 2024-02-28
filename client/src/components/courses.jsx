@@ -9,30 +9,37 @@ import { useEffect, useState } from "react";
 
 function Courses() {
   const [courses, setCourses] = useState('')
-  const [authorized, setAuthorized] = useState(false)
-  useEffect(() => {
-    try{
-      fetch("http://localhost:3001/api/courses", {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          "Authorization": `Bearer ${localStorage.getItem("token")}`
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          setCourses(data.courses)
-          setAuthorized(true)
-        });
-    } catch (err){
-      setAuthorized(false)
-    }
+  const [authorizeStatus, setAuthorizeStatus] = useState("authorizing")
 
+  //fetch courses
+  useEffect(() => {
+    fetch("http://localhost:3001/api/courses", {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        "Authorization": `Bearer ${localStorage.getItem("token")}`
+      },
+    })
+    .then((res) => {
+      //if the status is OK, set the authorizeStatus to authorized.
+      //Otherwise, set the authorizeStatus to unauthorized
+      if(res.status === 200){
+        setAuthorizeStatus('authorized')
+        return(res.json())
+      } else {
+        setAuthorizeStatus('unauthorized')
+        return
+      }
+    })
+    .then((data) => {
+      setCourses(data.courses)
+    });
   },[])
 
   return (
     <div className="Courses">
-    {authorized ?
+    {
+    authorizeStatus === 'authorized' ?
       <div>
       <ResponsiveAppBar>
       </ResponsiveAppBar>
@@ -56,7 +63,7 @@ function Courses() {
 
     </div>
     :
-    <div>unauthorized</div>
+    <div>{authorizeStatus}</div>
     }
     </div>
 
