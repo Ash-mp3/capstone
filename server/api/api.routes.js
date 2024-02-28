@@ -1,5 +1,6 @@
 //imported modules
 const path = require("path");
+
 const express = require('express');
 const { stringify } = require("querystring");
 const apiRouter = express.Router()
@@ -13,6 +14,7 @@ const client = require("../config/database");
 
 //Environment variables
 const secret = process.env.JWT_SECRET
+
 
 
 apiRouter.get('/',(req, res) => {
