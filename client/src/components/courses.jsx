@@ -1,7 +1,9 @@
-import Logo from "../assets/Registration_App_Logo.png"
-import Button from "@mui/material/Button"
+import * as React from 'react';
+import AccordionCom from './AccordionCom';
 import '../css/courses.css'; 
-//import { ReactRoutes } from "./components/ReactRoutes";
+import ResponsiveAppBar from "./ResponsiveAppBar";
+import Footer from "./Footer";
+
 //This is for user course page
 import { useEffect, useState } from "react";
 
@@ -30,21 +32,35 @@ function Courses() {
 
   return (
     <div className="Courses">
-      {authorized ?
-        <div>
-        <h1 id="userWelcome">Welcome User!</h1>
-          <footer id="typicalFooter" className="w-full h-[25px] flex justify-center items-center absolute bottom-0">
-              <p>Help</p>
-              <p>@2023 - MtecPro</p>
-              <p>About</p>
-          </footer>
-        </div>
-      :
-      <div>unauthorized</div>
-      }
+    {authorized ?
+      <div>
+      <ResponsiveAppBar>
+      </ResponsiveAppBar>
+      
+      <div id="listOfAvailable">
+        <AccordionCom>
+        </AccordionCom>
+
+        <AccordionCom>
+        </AccordionCom>
+
+        <AccordionCom>
+        </AccordionCom>
+
+        <AccordionCom>
+        </AccordionCom>
+      </div>
+
+      <Footer>
+      </Footer>
+
+    </div>
+    :
+    <div>unauthorized</div>
+    }
     </div>
 
   );
 }
-
 export default Courses;
+
