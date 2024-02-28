@@ -2,6 +2,7 @@
 require("dotenv").config({ path: "../.env" });
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 const app = express();
 
 //code from local files
@@ -13,6 +14,8 @@ const PORT = process.env.SERVER_PORT;
 //app config
 app.use(cors());
 app.use(express.json());
+
+app.use(express.static(path.join(__dirname, "../client/dist")));
 
 // Handle requests to /api route
 app.use("/api", apiRouter);
