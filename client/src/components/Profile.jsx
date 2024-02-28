@@ -1,11 +1,10 @@
 import * as React from 'react';
-import AccordionCom from './AccordionCom';
-import '../css/courses.css'; 
 import ResponsiveAppBar from "./ResponsiveAppBar";
 import Footer from "./Footer";
 import { useEffect, useState } from "react";
 
-function Courses() {
+
+function Profile() {
   const [courses, setCourses] = useState('')
   const [authorized, setAuthorized] = useState(false)
   useEffect(() => {
@@ -34,33 +33,11 @@ function Courses() {
       <div>
         <ResponsiveAppBar>
         </ResponsiveAppBar>
-      
-        <div id="listOfAvailable">
-          <AccordionCom>
-          </AccordionCom>
 
-          <AccordionCom>
-          </AccordionCom>
-
-          <AccordionCom>
-          </AccordionCom>
-
-          <AccordionCom>
-          </AccordionCom>
-
-          <AccordionCom>
-          </AccordionCom>
-
-          <AccordionCom>
-          </AccordionCom>
-
-          <AccordionCom>
-          </AccordionCom>
-          
-          <AccordionCom>
-          </AccordionCom>
+        <div>
+          m
         </div>
-
+      
         <Footer>
         </Footer>
     </div>
@@ -71,5 +48,5 @@ function Courses() {
 
   );
 }
-export default Courses;
+export default Profile;
 

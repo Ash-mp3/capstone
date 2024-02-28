@@ -13,6 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import Logo from '../assets/Registration_App_Logo.png';
 import SearchBar from './SearchBarCom';
+import { Link } from 'react-router-dom';
 
 const pages = ['Courses'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -119,15 +120,16 @@ function ResponsiveAppBar() {
              
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
+          {pages.map((page) => (
+            <Link to={`/${page.toLowerCase()}`} key={page}>
               <Button
-                key={page}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'black', display: 'block' }}
               >
                 {page}
               </Button>
-            ))}
+            </Link>
+          ))}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
@@ -152,11 +154,13 @@ function ResponsiveAppBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+            {settings.map((setting) => (
+              <Link to={`/${setting.toLowerCase()}`} key={setting}>
+                <MenuItem onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
-              ))}
+              </Link>
+            ))}
             </Menu>
           </Box>
         </Toolbar>
