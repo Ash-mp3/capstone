@@ -13,6 +13,7 @@ const ColorButton = styled(Button)(({ theme }) => ({
 }));
 
 function Login() {
+const [token, setToken] = useState('')
 const [loggedIn, setLoggedIn] = useState(false)
 const [email, setEmail] = useState('')
 const [password, setPassword] = useState('')
@@ -34,7 +35,10 @@ const handlePasswordChange = (e) => {
       body: JSON.stringify({ email, password }),
     })
       .then((res) => res.json())
-      .then((data) => setLoggedIn(data.loggedIn));
+      .then((data) => {
+        setLoggedIn(data.loggedIn)
+        localStorage.setItem("token", data.token)
+      });
   }
   //redirect to courses page when logged in
   if(loggedIn){
