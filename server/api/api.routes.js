@@ -1,4 +1,4 @@
-const path = require("path");
+
 const express = require('express');
 const client = require("../config/database");
 const { stringify } = require("querystring");
