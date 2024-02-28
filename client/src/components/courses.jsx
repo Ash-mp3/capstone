@@ -37,6 +37,10 @@ function Courses() {
     });
   },[])
 
+/*   if(courses !== ''){
+    console.log(courses)
+  }
+ */
   return (
     <div className="Courses">
     {
@@ -46,29 +50,21 @@ function Courses() {
         </ResponsiveAppBar>
       
         <div id="listOfAvailable">
-          <AccordionCom>
-          </AccordionCom>
-
-          <AccordionCom>
-          </AccordionCom>
-
-          <AccordionCom>
-          </AccordionCom>
-
-          <AccordionCom>
-          </AccordionCom>
-
-          <AccordionCom>
-          </AccordionCom>
-
-          <AccordionCom>
-          </AccordionCom>
-
-          <AccordionCom>
-          </AccordionCom>
-          
-          <AccordionCom>
-          </AccordionCom>
+          { 
+            courses !== '' 
+            ?
+            courses.map((course, index) => {
+              return(
+                <div key={index}>
+                  {AccordionCom(course.title, course.description)}
+                </div>
+              )
+            })
+            : 
+            <div>
+              loading...
+            </div>
+          }
         </div>
 
         <Footer>
