@@ -6,11 +6,15 @@ const passport = require("passport");
 const Strategy = require("passport-local").Strategy;
 const login = require("connect-ensure-login");
 const bcrypt = require("bcryptjs");
-
 const jwt = require('jsonwebtoken')
-const secret = 'something'
 
+//app config
 const app = express()
+
+//Environment variables
+const secret = process.env.JWT_SECRET
+
+
 
 function secureLogIn( email, password ){
     
@@ -23,8 +27,7 @@ function secureLogIn( email, password ){
     })
   );
 
-  console.log(`email: ${email}`)
-  console.log(`password: ${password}`)
+ 
   const token = jwt.sign({ email: email, password: password }, secret, {
     algorithm: "HS256",
     expiresIn: "5s",

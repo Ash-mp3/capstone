@@ -5,13 +5,14 @@ const { stringify } = require("querystring");
 const apiRouter = express.Router()
 const app = express()
 const { expressjwt } = require('express-jwt')
-const secret = 'something'
 
 
 //code from other files
 const secureLogIn = require('../auth/secure-login.js')
 const client = require("../config/database");
 
+//Environment variables
+const secret = process.env.JWT_SECRET
 
 
 apiRouter.get('/',(req, res) => {
