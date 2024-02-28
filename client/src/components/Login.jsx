@@ -61,7 +61,7 @@ const handlePasswordChange = (e) => {
             type="password"
           />
           <ColorButton className="w-1/2" onClick={SignIn}>
-            LogIn
+            Log In
           </ColorButton>
         </form>
         <div class="OrLine">
@@ -70,7 +70,7 @@ const handlePasswordChange = (e) => {
           <hr />
         </div>
         <div class="signUp">
-          <p>Don't have an accont?</p>
+          <p>Don't have an account?</p>
           <Link to={`/SignUp`} className="w-full flex justify-center">
             <ColorButton className="w-5/6">Sign Up</ColorButton>
           </Link>
