@@ -3,10 +3,7 @@ import AccordionCom from './AccordionCom';
 import '../css/courses.css'; 
 import ResponsiveAppBar from "./ResponsiveAppBar";
 import Footer from "./Footer";
-
-//This is for user course page
 import { useEffect, useState } from "react";
-import SearchBarCom from './SearchBarCom';
 
 function Courses() {
   const [courses, setCourses] = useState('')
