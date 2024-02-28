@@ -6,7 +6,7 @@ const client = new pg.Client({
   database: process.env.DB_NAME,
   password: process.env.DB_PASSWORD,
   port: process.env.DB_PORT,
-  ssl: process.env.USE_SSL || true
+  ssl: true
 });
 
 client.connect((err) => {
