@@ -3,11 +3,12 @@ const express = require('express');
 const client = require("../config/database");
 const { stringify } = require("querystring");
 const apiRouter = express.Router()
-const app = express()
+
 
 //code from other files
 const secureLogIn = require('../auth/secure-login.js')
 
+apiRouter.use(express.static(path.join(__dirname, "../client/dist")));
 
 apiRouter.get('/',(req, res) => {
     res.json({message: '/'})
