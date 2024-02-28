@@ -6,6 +6,7 @@ import Footer from "./Footer";
 
 //This is for user course page
 import { useEffect, useState } from "react";
+import SearchBarCom from './SearchBarCom';
 
 function Courses() {
   const [courses, setCourses] = useState('')
@@ -34,26 +35,37 @@ function Courses() {
     <div className="Courses">
     {authorized ?
       <div>
-      <ResponsiveAppBar>
-      </ResponsiveAppBar>
+        <ResponsiveAppBar>
+        </ResponsiveAppBar>
       
-      <div id="listOfAvailable">
-        <AccordionCom>
-        </AccordionCom>
+        <div id="listOfAvailable">
+          <AccordionCom>
+          </AccordionCom>
 
-        <AccordionCom>
-        </AccordionCom>
+          <AccordionCom>
+          </AccordionCom>
 
-        <AccordionCom>
-        </AccordionCom>
+          <AccordionCom>
+          </AccordionCom>
 
-        <AccordionCom>
-        </AccordionCom>
-      </div>
+          <AccordionCom>
+          </AccordionCom>
 
-      <Footer>
-      </Footer>
+          <AccordionCom>
+          </AccordionCom>
 
+          <AccordionCom>
+          </AccordionCom>
+
+          <AccordionCom>
+          </AccordionCom>
+          
+          <AccordionCom>
+          </AccordionCom>
+        </div>
+
+        <Footer>
+        </Footer>
     </div>
     :
     <div>unauthorized</div>
