@@ -26,12 +26,50 @@ apiRouter.post('/login', (req, res) => {
     res.json({loggedIn: true, token: token});
 })
 
-apiRouter.post('signup', (req, res) => {
+apiRouter.post('/signup', (req, res) => {
     
 })
 
 apiRouter.get('/courses', expressjwt({secret: secret, algorithms: ['HS256']}), (req, res) => {
-    const courses = [{title: '1'},{title: '2'},{title: '3'},]
+    const courses = 
+    [
+        {
+            title: '1',
+            description: 'course 1'
+        },
+        {
+            title: '2',
+            description: 'course 2'
+        },
+        {
+            title: '3',
+            description: 'course 3'
+        },
+        {
+            title: '4',
+            description: 'course 4'
+        },
+        {
+            title: '5',
+            description: 'course 5'
+        },
+        {
+            title: '6',
+            description: 'course 6'
+        },
+        {
+            title: '7',
+            description: 'course 7'
+        },
+        {
+            title: '8',
+            description: 'course 8'
+        },
+        {
+            title: '9',
+            description: 'course 9'
+        },
+    ]
     res.json({courses: courses})
 })
 
