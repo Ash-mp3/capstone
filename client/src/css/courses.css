@@ -1,17 +1,8 @@
 /* Courses page */
-#avatarDropDown {
-  display: flex;
-  justify-content: flex-end;
-  margin-left: 85%;
-}
-#typoCourse {
-  padding-right: 33%;
-}
-
 #logoImage {
   height: auto;
   width: 3%;
-  margin-left: -14%;
+  min-width: 40px;
 }
 
 #typicalFooter {
