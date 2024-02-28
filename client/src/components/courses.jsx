@@ -31,14 +31,14 @@ function Courses() {
   return (
     <div className="Courses">
       {authorized ?
-      <div>
-      <h1 id="userWelcome">Welcome User!</h1>
-        <footer id="typicalFooter" className="w-full h-[25px] flex justify-center items-center absolute bottom-0">
-            <p>Help</p>
-            <p>@2023 - MtecPro</p>
-            <p>About</p>
-        </footer>
-      </div>
+        <div>
+        <h1 id="userWelcome">Welcome User!</h1>
+          <footer id="typicalFooter" className="w-full h-[25px] flex justify-center items-center absolute bottom-0">
+              <p>Help</p>
+              <p>@2023 - MtecPro</p>
+              <p>About</p>
+          </footer>
+        </div>
       :
       <div>unauthorized</div>
       }
