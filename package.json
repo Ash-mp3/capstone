@@ -8,7 +8,7 @@
   },
   "scripts": {
     "build": "cd server && npm i && cd ../client && npm i && npm run build",
-    "start": "node server/server.js && node server/config/database.js && cd client && npm start"
+    "start": "node server/server.js && cd client && npm start"
   },
   "keywords": [],
   "author": "",
