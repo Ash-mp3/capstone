@@ -8,7 +8,7 @@ const apiRouter = express.Router()
 //code from other files
 const secureLogIn = require('../auth/secure-login.js')
 
-apiRouter.use(express.static(path.join(__dirname, "../client/dist")));
+
 
 apiRouter.get('/',(req, res) => {
     res.json({message: '/'})

@@ -14,6 +14,8 @@ const PORT = process.env.SERVER_PORT;
 app.use(cors());
 app.use(express.json());
 
+app.use(express.static(path.join(__dirname, "../client/dist")));
+
 // Handle requests to /api route
 app.use("/api", apiRouter);
 
