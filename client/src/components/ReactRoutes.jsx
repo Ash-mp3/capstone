@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import Login from "./Login";
 import Signup from "./Signup";
 import Courses from "./courses";
+import Profile from "./Profile";
 
  export const ReactRoutes = () => {
   return (
@@ -10,6 +11,7 @@ import Courses from "./courses";
       <Route path="/LogIn" exact element={<Login />}></Route>
       <Route path="/SignUp" exact element={<Signup />}></Route>
       <Route path="/courses" exact element={<Courses />}></Route>
+      <Route path="/Profile" exact element={<Profile/>}></Route>
     </Routes>
   );
  };
