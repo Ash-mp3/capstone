@@ -16,7 +16,7 @@ import SearchBar from './SearchBarCom';
 import { Link } from 'react-router-dom';
 
 const pages = ['Courses'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = ['Profile', 'Courses', 'Logout'];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
