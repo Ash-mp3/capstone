@@ -47,7 +47,7 @@ function Signup() {
   const [phoneNum, setPhoneNum] = useState('')
   const [phoneNumErr, setPhoneNumErr] = useState(null)
 
-  const [adress, setAdress] = useState('')
+  const [address, setAddress] = useState('')
 
   const [password, setPassword] = useState('')
   const [passwordError, setPasswordError] = useState(null)
@@ -78,7 +78,7 @@ function Signup() {
         firstName,
         lastName,
         phoneNum,
-        adress,
+        address,
         password,
       }),
     })
@@ -91,7 +91,7 @@ function Signup() {
     console.log(firstName)
     console.log(lastName)
     console.log(phoneNum)
-    console.log(adress)
+    console.log(address)
     console.log(password)
     console.log(passwordConfirmation) */
   }
@@ -177,8 +177,8 @@ function Signup() {
                 variant="outlined"
                 size="small"
                 label="Home Address"
-                value={adress}
-                onChange={(e) => setAdress(e.target.value)}
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
               />
               <ColorInput
                 variant="outlined"
