@@ -1,6 +1,7 @@
 import * as React from 'react';
 import ResponsiveAppBar from "./ResponsiveAppBar";
 import Footer from "./Footer";
+import UserInfo from './userInformation';
 import { useEffect, useState } from "react";
 
 
@@ -34,9 +35,8 @@ function Profile() {
         <ResponsiveAppBar>
         </ResponsiveAppBar>
 
-        <div>
-          m
-        </div>
+        <UserInfo>
+        </UserInfo>
       
         <Footer>
         </Footer>
