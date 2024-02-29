@@ -41,7 +41,7 @@ apiRouter.post("/signup", (req, res) => {
   console.log(phoneNum)
   console.log(address)
   console.log(password)
-  res.json({ msg: 'success' })
+  res.json({ msg: 'api call success' })
 });
 
 
