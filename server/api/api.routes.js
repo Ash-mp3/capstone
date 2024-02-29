@@ -14,9 +14,7 @@ const client = require("../config/database");
 //Environment variables
 const secret = process.env.JWT_SECRET;
 
-// apiRouter.get('/',(req, res) => {
-//     res.json({message: '/'})
-// })
+
 
 apiRouter.post("/login", (req, res) => {
   const { email, password } = req.body;
@@ -25,58 +23,36 @@ apiRouter.post("/login", (req, res) => {
   res.json({ loggedIn: true, token: token });
 });
 
-apiRouter.post("/signup", (req, res) => {});
+apiRouter.post("/signup", (req, res) => {
+  const {
+    username,
+    email,
+    firstName,
+    lastName,
+    phoneNum,
+    adress,
+    password,
+    passwordConfirmation,
+  } = req.body
 
-// apiRouter.get('/courses', expressjwt({secret: secret, algorithms: ['HS256']}), (req, res) => {
-//     const courses =
-//     [
-//         {
-//             title: '1',
-//             description: 'course 1'
-//         },
-//         {
-//             title: '2',
-//             description: 'course 2'
-//         },
-//         {
-//             title: '3',
-//             description: 'course 3'
-//         },
-//         {
-//             title: '4',
-//             description: 'course 4'
-//         },
-//         {
-//             title: '5',
-//             description: 'course 5'
-//         },
-//         {
-//             title: '6',
-//             description: 'course 6'
-//         },
-//         {
-//             title: '7',
-//             description: 'course 7'
-//         },
-//         {
-//             title: '8',
-//             description: 'course 8'
-//         },
-//         {
-//             title: '9',
-//             description: 'course 9'
-//         },
-//     ]
-//     res.json({courses: courses})
-// })
+  console.log(username)
+  console.log(email)
+  console.log(username)
+  console.log(username)
+  console.log(username)
+  console.log(username)
+  console.log(username)
+  res.json({ msg: 'success' })
+});
 
-//commented this out so I could test JWT
-// expressjwt({ secret: secret, algorithms: ["HS256"] }),
+
+//get courses from database
 apiRouter.get(
   "/courses",
   expressjwt({ secret: secret, algorithms: ["HS256"] }),
   async (req, res) => {
     try {
+      //select title and description from title and put them into one variable
       const Tresult = await client.query(`SELECT title FROM classes`);
       const Dresult = await client.query(`SELECT description FROM classes`);
       let realRes = [];
@@ -86,7 +62,7 @@ apiRouter.get(
           description: Dresult.rows[index].description,
         });
       });
-      console.log(realRes);
+      //send formatted object
       res.json({ courses: realRes });
     } catch (error) {
       console.error(error);

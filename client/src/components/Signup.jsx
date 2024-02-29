@@ -39,14 +39,53 @@ const ColorInput = styled(TextField)(({ theme }) => ({
 function Signup() {
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
+  const [emailErr, setEmailErr] = useState(null)
+
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
-  const [phoneNum, setPhoneNum] = useState(0)
+
+  const [phoneNum, setPhoneNum] = useState('')
+  const [phoneNumErr, setPhoneNumErr] = useState(null)
+
   const [adress, setAdress] = useState('')
+
   const [password, setPassword] = useState('')
+  const [passwordError, setPasswordError] = useState(null)
+
   const [passwordConfirmation, setPasswordConfirmation] = useState('')
+  const [passwordConfirmationError, setPasswordConfirmationError] = useState(null)
 
   function createAccount(){
+    const emailRegex = /^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$/
+    const isValidEmail = emailRegex.test(email)
+
+    const phoneNumRegex = /^\(?\d{3}\)?[- ]?\d{3}[- ]?\d{4}$/
+    const isValidPhoneNum = emailRegex.test(email)
+
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+    const isValidPassword = passwordRegex.test(password)
+
+    const passwordIsVerified = password === passwordConfirmation
+    /* 
+    fetch("http://localhost:3001/api/login", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username,
+        email,
+        firstName,
+        lastName,
+        phoneNum,
+        adress,
+        password,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data.msg)
+      });
     console.log(username)
     console.log(email)
     console.log(firstName)
@@ -54,7 +93,7 @@ function Signup() {
     console.log(phoneNum)
     console.log(adress)
     console.log(password)
-    console.log(passwordConfirmation)
+    console.log(passwordConfirmation) */
   }
 
 
