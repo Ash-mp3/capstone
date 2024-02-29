@@ -13,6 +13,7 @@ let city = 'Lehi';
 let country = 'USA';
 let postal = '84043';
 let phone = '801-123-4567'
+let password = '*****';
 
 export default function SearchAppBar() {
 
@@ -58,6 +59,9 @@ export default function SearchAppBar() {
                         <h4 class='m-1'>Email</h4>
                         <input class='m-1' placeholder={email} readOnly={!isEditable} style={{ outline: isEditable ? "" : "none", color: isEditable ? "black" : "grey" }} onChange={handleInputChange}></input>
 
+                        <h4 class='m-1'>Password</h4>
+                        <input class='m-1' placeholder={password} readOnly={!isEditable} style={{ outline: isEditable ? "" : "none", color: isEditable ? "black" : "grey" }} onChange={handleInputChange}></input>
+
                         <h4 class='m-1'>First Name</h4>
                         <input class='m-1' placeholder={firstName} readOnly={!isEditable} style={{ outline: isEditable ? "" : "none", color: isEditable ? "black" : "grey" }} onChange={handleInputChange}></input>
 
@@ -85,9 +89,6 @@ export default function SearchAppBar() {
 
                 <h4 class='m-1'>Country</h4>
                 <input class='m-1' placeholder={country} readOnly={!isEditable} style={{ outline: isEditable ? "" : "none", color: isEditable ? "black" : "grey" }} onChange={handleInputChange}></input>   
-                
-                <h4 class='m-1'>Postal</h4>
-                <input class='m-1' placeholder={postal} readOnly={!isEditable} style={{ outline: isEditable ? "" : "none", color: isEditable ? "black" : "grey" }} onChange={handleInputChange}></input>
 
                 <h4 class='m-1'>Phone #</h4>
                 <input class='m-1' placeholder={phone} readOnly={!isEditable} style={{ outline: isEditable ? "" : "none", color: isEditable ? "black" : "grey" }} onChange={handleInputChange}></input>
