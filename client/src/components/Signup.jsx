@@ -19,6 +19,7 @@ const ColorInput = styled(TextField)(({ theme }) => ({
   },
   "& label": {
     color: "#666",
+    zIndex: 2
   },
   "& .MuiOutlinedInput-root": {
     "& fieldset": {
@@ -39,42 +40,90 @@ const ColorInput = styled(TextField)(({ theme }) => ({
 function Signup() {
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
-  const [emailErr, setEmailErr] = useState(null)
-
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
-
   const [phoneNum, setPhoneNum] = useState('')
-  const [phoneNumErr, setPhoneNumErr] = useState(null)
-
   const [address, setAddress] = useState('')
-
   const [password, setPassword] = useState('')
-  const [passwordError, setPasswordError] = useState(null)
-
   const [passwordConfirmation, setPasswordConfirmation] = useState('')
-  const [passwordConfirmationError, setPasswordConfirmationError] = useState(null)
+
+  const [errMessages, setErrMessages] = useState({
+    emailErr: '',
+    phoneNumErr: '',
+    passwordErr: '',
+    passwordConfirmationErr: '',
+  })
 
   function createAccount(){
+    //email must contain word characters, ".", or "_" followed by "@" any combination of letters or digits, followed by a ".", then 3 more letters
+    //example: "a@a.aaa"
     const emailRegex = /^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$/
     const isValidEmail = emailRegex.test(email)
+    console.log(`isValidEmail: ${isValidEmail}`)
 
+    //phone number must contain 3 digits enclosed in optional parentheses followed by an optional space or hyphen, three more digits, another optional space/hyphen, then four digits
+    //example: "(111)1111111", "(123)-123-1234", or "9999999999"
     const phoneNumRegex = /^\(?\d{3}\)?[- ]?\d{3}[- ]?\d{4}$/
-    const isValidPhoneNum = emailRegex.test(email)
+    const isValidPhoneNum = phoneNumRegex.test(phoneNum)
+    console.log(`isValidPhoneNum: ${isValidPhoneNum}`)
 
+    //password must contain more than 8 characters; one uppercase, one lowercase, one number, one special character
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
     const isValidPassword = passwordRegex.test(password)
+    console.log(`isValidPassword: ${isValidPassword}`)
 
+    //password must match password confirmation
     const passwordIsVerified = password === passwordConfirmation
+    console.log(`passwordIsVerified: ${passwordIsVerified}`)
+    
+    console.log(``)
 
-    console.log(username)
-    console.log(email)
-    console.log(firstName)
-    console.log(lastName)
-    console.log(phoneNum)
-    console.log(address)
-    console.log(password)
-    console.log(passwordConfirmation) 
+    let allInfoIsVerified = true
+
+    //you can comment this next line out so that you don't have to enter valid information when testing
+    allInfoIsVerified = isValidEmail && isValidPhoneNum && isValidPassword && passwordIsVerified 
+    if(allInfoIsVerified){
+      fetch("http://localhost:3001/api/signup", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username,
+          email,
+          firstName,
+          lastName,
+          phoneNum,
+          address,
+          password,
+        }),
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data.msg)
+      });
+    } else {
+      //if not all info is correctly verified, set error messages accordingly
+      let updatedErrMsgs = {
+        emailErr: '',
+        phoneNumErr: '',
+        passwordErr: '',
+        passwordConfirmationErr: '',
+      }
+      if(!isValidEmail){
+        updatedErrMsgs.emailErr = 'invalid email'
+      }
+      if(!isValidPhoneNum){
+        updatedErrMsgs.phoneNumErr = 'Invalid phone number'
+      }
+      if(!isValidPassword){
+        updatedErrMsgs.passwordErr = 'Password be at least 8 characters long with at least one uppercase letter, one lowercase letter, one special character, and one number'
+      }
+      if(!passwordIsVerified){
+        updatedErrMsgs.passwordConfirmationErr = 'Password confirmation does not match password'
+      }
+      setErrMessages(updatedErrMsgs)
+    }
   }
 
   const handleSubmit = async (e) => {
@@ -157,13 +206,16 @@ function Signup() {
                 value={phoneNum}
                 onChange={(e) => setPhoneNum(e.target.value)}
               />
+              <div>{errMessages.phoneNumErr}</div>
               <ColorInput
                 variant="outlined"
                 size="small"
                 label="Password"
+                type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
+              <div>{errMessages.passwordErr}</div>
             </div>
             <div className="flex flex-col gap-3">
               <ColorInput
@@ -173,6 +225,7 @@ function Signup() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
+              <div>{errMessages.emailErr}</div>
               <ColorInput
                 variant="outlined"
                 size="small"
@@ -190,10 +243,12 @@ function Signup() {
               <ColorInput
                 variant="outlined"
                 size="small"
-                label="Password Agian"    
+                label="Password Again"
+                type="password"
                 value={passwordConfirmation}
                 onChange={(e) => setPasswordConfirmation(e.target.value)}
               />
+              <div>{errMessages.passwordConfirmationErr}</div>
             </div>
           </div>
           <ColorButton className="self-start" onClick={createAccount}>
@@ -215,3 +270,5 @@ function Signup() {
 }
 
 export default Signup;
+
+

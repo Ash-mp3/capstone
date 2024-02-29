@@ -4,44 +4,35 @@ const path = require("path");
 const express = require("express");
 const { stringify } = require("querystring");
 const apiRouter = express.Router();
-const app = express();
 const { expressjwt } = require("express-jwt");
 
 //code from other files
 const secureLogIn = require("../auth/secure-login.js");
 const client = require("../config/database");
+const { insertUser } = require('../models/userModel.js')
 
 //Environment variables
 const secret = process.env.JWT_SECRET;
 
 apiRouter.post("/login", (req, res) => {
   const { email, password } = req.body;
-  console.log(req.body);
   const token = secureLogIn(email, password);
   res.json({ loggedIn: true, token: token });
-});
+})
 
-apiRouter.post("/signup", (req, res) => {
-  const {
-    username,
-    email,
-    firstName,
-    lastName,
-    phoneNum,
-    address,
-    password
-  } = req.body;
-
-  console.log(
-    username,
-    email,
-    firstName,
-    lastName,
-    phoneNum,
-    address,
-    password
-  );
-  res.json({ msg: "success" });
+//send user sign in info to database
+apiRouter.post("/signup", async (req, res) => {
+  try {
+    const userData = []
+    for (const key in req.body) {
+      userData.push(req.body[key])
+    };
+    const confirmMsg = await insertUser(userData);
+    res.json({ msg: confirmMsg });
+  } catch(err) {
+    console.error(err)
+    res.status(500).json({ message: "Error creating user" });
+  }
 });
 
 //get courses from database
@@ -69,4 +60,4 @@ apiRouter.get(
   }
 );
 
-module.exports = apiRouter;
+module.exports = apiRouter
