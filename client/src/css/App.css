@@ -4,6 +4,9 @@
   font-family: 'Open Sans',
     sans-serif;
 }
+input{
+  z-index: 1;
+}
 
 #LoginPage,
 #SignupPage {

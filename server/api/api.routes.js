@@ -30,18 +30,17 @@ apiRouter.post("/signup", (req, res) => {
     firstName,
     lastName,
     phoneNum,
-    adress,
+    address,
     password,
-    passwordConfirmation,
   } = req.body
 
   console.log(username)
   console.log(email)
-  console.log(username)
-  console.log(username)
-  console.log(username)
-  console.log(username)
-  console.log(username)
+  console.log(firstName)
+  console.log(lastName)
+  console.log(phoneNum)
+  console.log(address)
+  console.log(password)
   res.json({ msg: 'success' })
 });
 

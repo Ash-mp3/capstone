@@ -8,11 +8,11 @@ import { BrowserRouter } from "react-router-dom";
 function App() {
   const [data, setData] = useState(null);
 
-  useEffect(() => {
+/*   useEffect(() => {
     fetch("/api")
       .then((res) => res.json())
       .then((data) => setData(data.message));
-  }, []);
+  }, []); */
 
   return (
     <>
