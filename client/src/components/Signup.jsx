@@ -47,7 +47,7 @@ function Signup() {
   const [phoneNum, setPhoneNum] = useState('')
   const [phoneNumErr, setPhoneNumErr] = useState(null)
 
-  const [adress, setAdress] = useState('')
+  const [address, setAddress] = useState('')
 
   const [password, setPassword] = useState('')
   const [passwordError, setPasswordError] = useState(null)
@@ -66,36 +66,43 @@ function Signup() {
     const isValidPassword = passwordRegex.test(password)
 
     const passwordIsVerified = password === passwordConfirmation
-    /* 
-    fetch("http://localhost:3001/api/login", {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        username,
-        email,
-        firstName,
-        lastName,
-        phoneNum,
-        adress,
-        password,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data.msg)
-      });
+
     console.log(username)
     console.log(email)
     console.log(firstName)
     console.log(lastName)
     console.log(phoneNum)
-    console.log(adress)
+    console.log(address)
     console.log(password)
-    console.log(passwordConfirmation) */
+    console.log(passwordConfirmation) 
   }
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      fetch("http://localhost:3001/api/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username,
+          email,
+          firstName,
+          lastName,
+          phoneNum,
+          address,
+          password,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data.msg);
+        });
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   return (
     <div
@@ -126,7 +133,7 @@ function Signup() {
           </p>
         </div>
         <div className=" w-[4px] h-5/6 bg-black">.</div>
-        <form className="flex flex-col w-1/2 gap-10 relative">
+        <form className="flex flex-col w-1/2 gap-10 relative" onSubmit={handleSubmit}>
           <div className="flex gap-5 mt-6 ">
             <div className="flex flex-col gap-3">
               <ColorInput
@@ -177,8 +184,8 @@ function Signup() {
                 variant="outlined"
                 size="small"
                 label="Home Address"
-                value={adress}
-                onChange={(e) => setAdress(e.target.value)}
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
               />
               <ColorInput
                 variant="outlined"
