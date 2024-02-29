@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 
 function Courses() {
   const [courses, setCourses] = useState('')
-  const [authorizeStatus, setAuthorizeStatus] = useState("authorizing")
+  const [authorizeStatus, setAuthorizeStatus] = useState("loading...")
 
   //fetch courses
   useEffect(() => {
@@ -48,8 +48,10 @@ function Courses() {
       
         <div id="listOfAvailable">
           { 
+          //if there are courses to render, render them. Otherwise, display "loading..."
             courses !== '' 
             ?
+            //map courses
             courses.map((course, index) => {
               return(
                 <div key={index}>
@@ -66,10 +68,15 @@ function Courses() {
 
         <Footer>
         </Footer>
-    </div>
-    :
-    <div>{authorizeStatus}</div>
-    }
+      </div>
+      :
+      //if the user is not authorized, display the authorize status
+      <div>
+        <h1>{authorizeStatus}</h1>
+        {/* if user is unauthorized, give them an option to return to the login page */}
+        {authorizeStatus === 'unauthorized' ? <a href='/login'>Go back to login</a> : ''}
+      </div>
+      }
     </div>
 
   );
