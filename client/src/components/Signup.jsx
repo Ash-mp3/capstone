@@ -49,6 +49,10 @@ function Signup() {
 
   const [address, setAddress] = useState('')
 
+  const [city, setCity] = useState('')
+
+  const [country, setCountry] = useState('')
+
   const [password, setPassword] = useState('')
   const [passwordError, setPasswordError] = useState(null)
 
@@ -121,7 +125,7 @@ function Signup() {
           <p>
             Already have an account?{" "}
             <Link to={"/Login"}>
-              <span className="underline">LogIn</span>
+              <span className="underline">Log In</span>
             </Link>
           </p>
         </div>
@@ -146,9 +150,16 @@ function Signup() {
               <ColorInput
                 variant="outlined"
                 size="small"
-                label="Phone Number"
+                label="Phone"
                 value={phoneNum}
                 onChange={(e) => setPhoneNum(e.target.value)}
+              />
+              <ColorInput
+              variant="outlined"
+              size="small"
+              label="City"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
               />
               <ColorInput
                 variant="outlined"
@@ -176,14 +187,21 @@ function Signup() {
               <ColorInput
                 variant="outlined"
                 size="small"
-                label="Home Address"
+                label="Address"
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
               />
               <ColorInput
                 variant="outlined"
                 size="small"
-                label="Password Agian"    
+                label="Country"
+                value={country}
+                onChange={(e) => setCountry(e.target.value)}
+              />
+              <ColorInput
+                variant="outlined"
+                size="small"
+                label="Confirm Password"    
                 value={passwordConfirmation}
                 onChange={(e) => setPasswordConfirmation(e.target.value)}
               />
