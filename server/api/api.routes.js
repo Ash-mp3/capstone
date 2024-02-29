@@ -27,12 +27,12 @@ apiRouter.post("/signup", (req, res) => {
   const {
     username,
     email,
-    firstName,
-    lastName,
-    phoneNum,
-    adress,
+    first_name,
+    last_name,
+    phone_number,
+    address,
     password,
-    passwordConfirmation,
+    confirm_password,
   } = req.body
 
   console.log(username)
