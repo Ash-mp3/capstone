@@ -44,6 +44,11 @@ function Signup() {
   const [lastName, setLastName] = useState('')
   const [phoneNum, setPhoneNum] = useState('')
   const [address, setAddress] = useState('')
+
+  const [city, setCity] = useState('')
+
+  const [country, setCountry] = useState('')
+
   const [password, setPassword] = useState('')
   const [passwordConfirmation, setPasswordConfirmation] = useState('')
 
@@ -177,7 +182,7 @@ function Signup() {
           <p>
             Already have an account?{" "}
             <Link to={"/Login"}>
-              <span className="underline">LogIn</span>
+              <span className="underline">Log In</span>
             </Link>
           </p>
         </div>
@@ -202,11 +207,17 @@ function Signup() {
               <ColorInput
                 variant="outlined"
                 size="small"
-                label="Phone Number"
+                label="Phone"
                 value={phoneNum}
                 onChange={(e) => setPhoneNum(e.target.value)}
               />
-              <div>{errMessages.phoneNumErr}</div>
+              <ColorInput
+              variant="outlined"
+              size="small"
+              label="City"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+              />
               <ColorInput
                 variant="outlined"
                 size="small"
@@ -215,7 +226,6 @@ function Signup() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <div>{errMessages.passwordErr}</div>
             </div>
             <div className="flex flex-col gap-3">
               <ColorInput
@@ -225,7 +235,6 @@ function Signup() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-              <div>{errMessages.emailErr}</div>
               <ColorInput
                 variant="outlined"
                 size="small"
@@ -236,15 +245,21 @@ function Signup() {
               <ColorInput
                 variant="outlined"
                 size="small"
-                label="Home Address"
+                label="Address"
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
               />
               <ColorInput
                 variant="outlined"
                 size="small"
-                label="Password Again"
-                type="password"
+                label="Country"
+                value={country}
+                onChange={(e) => setCountry(e.target.value)}
+              />
+              <ColorInput
+                variant="outlined"
+                size="small"
+                label="Confirm Password"    
                 value={passwordConfirmation}
                 onChange={(e) => setPasswordConfirmation(e.target.value)}
               />
