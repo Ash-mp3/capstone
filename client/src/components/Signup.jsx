@@ -3,7 +3,7 @@ import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 import TextField from "@mui/material/TextField";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
 const ColorButton = styled(Button)(({ theme }) => ({
   color: theme.palette.getContrastText("#474787"),
@@ -51,6 +51,8 @@ function Signup() {
 
   const [password, setPassword] = useState('')
   const [passwordConfirmation, setPasswordConfirmation] = useState('')
+  const [, updateState] = useState();
+  const forceUpdate = useCallback(() => updateState({}), []);
 
   const [errMessages, setErrMessages] = useState({
     emailErr: '',
@@ -60,33 +62,11 @@ function Signup() {
   })
 
   function createAccount(){
-    //email must contain word characters, ".", or "_" followed by "@" any combination of letters or digits, followed by a ".", then 3 more letters
-    //example: "a@a.aaa"
-    const emailRegex = /^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$/
-    const isValidEmail = emailRegex.test(email)
-    console.log(`isValidEmail: ${isValidEmail}`)
-
-    //phone number must contain 3 digits enclosed in optional parentheses followed by an optional space or hyphen, three more digits, another optional space/hyphen, then four digits
-    //example: "(111)1111111", "(123)-123-1234", or "9999999999"
-    const phoneNumRegex = /^\(?\d{3}\)?[- ]?\d{3}[- ]?\d{4}$/
-    const isValidPhoneNum = phoneNumRegex.test(phoneNum)
-    console.log(`isValidPhoneNum: ${isValidPhoneNum}`)
-
-    //password must contain more than 8 characters; one uppercase, one lowercase, one number, one special character
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
-    const isValidPassword = passwordRegex.test(password)
-    console.log(`isValidPassword: ${isValidPassword}`)
-
-    //password must match password confirmation
-    const passwordIsVerified = password === passwordConfirmation
-    console.log(`passwordIsVerified: ${passwordIsVerified}`)
-    
-    console.log(``)
-
     let allInfoIsVerified = true
 
     //you can comment this next line out so that you don't have to enter valid information when testing
-    allInfoIsVerified = isValidEmail && isValidPhoneNum && isValidPassword && passwordIsVerified 
+    allInfoIsVerified = checkValidity(['email', 'phoneNum', 'password', 'passwordConfirmation'])
+
     if(allInfoIsVerified){
       fetch("http://localhost:3001/api/signup", {
         method: 'POST',
@@ -107,27 +87,6 @@ function Signup() {
       .then((data) => {
         console.log(data.msg)
       });
-    } else {
-      //if not all info is correctly verified, set error messages accordingly
-      let updatedErrMsgs = {
-        emailErr: '',
-        phoneNumErr: '',
-        passwordErr: '',
-        passwordConfirmationErr: '',
-      }
-      if(!isValidEmail){
-        updatedErrMsgs.emailErr = 'invalid email'
-      }
-      if(!isValidPhoneNum){
-        updatedErrMsgs.phoneNumErr = 'Invalid phone number'
-      }
-      if(!isValidPassword){
-        updatedErrMsgs.passwordErr = 'Password be at least 8 characters long with at least one uppercase letter, one lowercase letter, one special character, and one number'
-      }
-      if(!passwordIsVerified){
-        updatedErrMsgs.passwordConfirmationErr = 'Password confirmation does not match password'
-      }
-      setErrMessages(updatedErrMsgs)
     }
   }
 
@@ -209,6 +168,7 @@ function Signup() {
                 size="small"
                 label="Phone"
                 value={phoneNum}
+                onBlur={() => checkValidity(['phoneNum'])}
                 onChange={(e) => setPhoneNum(e.target.value)}
               />
               <ColorInput
@@ -224,6 +184,7 @@ function Signup() {
                 label="Password"
                 type="password"
                 value={password}
+                onBlur={() => checkValidity(['password'])}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
@@ -233,6 +194,7 @@ function Signup() {
                 size="small"
                 label="Email"
                 value={email}
+                onBlur={() => checkValidity(['email'])}
                 onChange={(e) => setEmail(e.target.value)}
               />
               <ColorInput
@@ -261,6 +223,7 @@ function Signup() {
                 size="small"
                 label="Confirm Password"    
                 value={passwordConfirmation}
+                onBlur={() => checkValidity(['passwordConfirmation'])}
                 onChange={(e) => setPasswordConfirmation(e.target.value)}
               />
               <div>{errMessages.passwordConfirmationErr}</div>
@@ -282,6 +245,72 @@ function Signup() {
       </footer>
     </div>
   );
+
+
+
+  function checkValidity(fields){ //fields is passed in as array of strings corresponding to the error that need to be checked
+    let err = false
+    let newErrMsgs = errMessages
+    fields.forEach(field => {
+      switch(field){
+        case 'email':
+          //email must contain word characters, ".", or "_" followed by "@" any combination of letters or digits, followed by a ".", then 3 more letters
+          //example: "a@a.aaa"
+          const emailRegex = /^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$/
+          const isValidEmail = emailRegex.test(email)
+          if(isValidEmail){
+            newErrMsgs.emailErr = ''
+          } else {
+            newErrMsgs.emailErr = 'invalid email'
+            err=true
+          }
+          break;
+        case 'phoneNum':
+          //phone number must contain 3 digits enclosed in optional parentheses followed by an optional space or hyphen, three more digits, another optional space/hyphen, then four digits
+          //example: "(111)1111111", "(123)-123-1234", or "9999999999"
+          const phoneNumRegex = /^\(?\d{3}\)?[- ]?\d{3}[- ]?\d{4}$/
+          const isValidPhoneNum = phoneNumRegex.test(phoneNum)
+          if(isValidPhoneNum){
+            newErrMsgs.phoneNumErr = ''
+          } else {
+            newErrMsgs.phoneNumErr = 'Invalid phone number'
+            err=true
+          }
+          break;
+        case 'password':
+          //password must contain more than 8 characters; one uppercase, one lowercase, one number, one special character
+          const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+          const isValidPassword = passwordRegex.test(password)
+          if(isValidPassword){
+            newErrMsgs.passwordErr = ''
+          } else {
+            newErrMsgs.passwordErr = 'Password be at least 8 characters long with at least one uppercase letter, one lowercase letter, one special character, and one number'
+            err=true
+          }
+          break;
+        case 'passwordConfirmation':
+          //password must match password confirmation
+          const passwordIsVerified = password === passwordConfirmation
+          if(passwordIsVerified){
+            newErrMsgs.passwordConfirmationErr = ''
+          } else {
+            newErrMsgs.passwordConfirmationErr = 'Password confirmation does not match password'
+            err=true
+          }
+          break;
+        default:
+        return
+      }
+    })
+    //set the new error messages and return a boolean based on whether or not there were no errors
+    setErrMessages(newErrMsgs)
+    forceUpdate()
+    if(err){
+      return(false)
+    } else {
+      return(true)
+    }
+  }
 }
 
 export default Signup;
