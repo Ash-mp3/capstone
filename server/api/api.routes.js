@@ -14,8 +14,6 @@ const client = require("../config/database");
 //Environment variables
 const secret = process.env.JWT_SECRET;
 
-
-
 apiRouter.post("/login", (req, res) => {
   const { email, password } = req.body;
   console.log(req.body);
@@ -27,24 +25,24 @@ apiRouter.post("/signup", (req, res) => {
   const {
     username,
     email,
-    first_name,
-    last_name,
-    phone_number,
+    firstName,
+    lastName,
+    phoneNum,
     address,
-    password,
-    confirm_password,
-  } = req.body
+    password
+  } = req.body;
 
-  console.log(username)
-  console.log(email)
-  console.log(username)
-  console.log(username)
-  console.log(username)
-  console.log(username)
-  console.log(username)
-  res.json({ msg: 'success' })
+  console.log(
+    username,
+    email,
+    firstName,
+    lastName,
+    phoneNum,
+    address,
+    password
+  );
+  res.json({ msg: "success" });
 });
-
 
 //get courses from database
 apiRouter.get(
