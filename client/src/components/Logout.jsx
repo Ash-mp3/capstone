@@ -1,0 +1,48 @@
+import { useEffect, useState } from "react"
+
+function Logout(){
+    const [loggedOut, setLoggedOut] = useState(false)
+
+    useEffect(() => {
+        fetch("http://localhost:3001/api/logout", {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              "Authorization": `Bearer ${localStorage.getItem("token")}`
+            },
+          })
+        .then((res) => {
+              if(res.status === 200){
+                return(res.json())
+              } else {
+                setLoggedOut(true)
+                localStorage.setItem("token", "")
+                return
+              }
+            })
+        .then((data) => {
+            console.log(data.loggedOut)
+            localStorage.setItem("token", "")
+            setLoggedOut(data.loggedOut)
+        });
+    },[])
+    if(loggedOut){
+        window.location.href="/login"
+    }
+
+    return(
+        <>
+        {
+            !loggedOut
+            ?
+                <h1>
+                    Logging out
+                </h1>
+            :
+                ""
+        }
+        </>
+    )
+}
+
+export default Logout
