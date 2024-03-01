@@ -5,6 +5,7 @@ const express = require("express");
 const { stringify } = require("querystring");
 const apiRouter = express.Router();
 const { expressjwt } = require("express-jwt");
+const jwt = require('jsonwebtoken');
 
 //code from other files
 const secureLogIn = require("../auth/secure-login.js");
@@ -14,11 +15,27 @@ const { insertUser } = require('../models/userModel.js')
 //Environment variables
 const secret = process.env.JWT_SECRET;
 
+
 apiRouter.post("/login", (req, res) => {
   const { email, password } = req.body;
   const token = secureLogIn(email, password);
   res.json({ loggedIn: true, token: token });
 })
+apiRouter.post("/logout", expressjwt({ secret: secret, algorithms: ["HS256"] }), (req, res) => {
+
+  //we will want to put this "authorization" constant inside of a token blacklist and delete it automatically after it expires
+  const authorization = req.headers.authorization;
+
+  const token = authorization.slice(7,authorization.length)
+  const decodedToken = jwt.decode(token, { complete: true });
+
+
+  const tokenExp = decodedToken.payload.exp //this is the expiration date of the token
+
+
+  res.json({ loggedOut: true });
+})
+
 
 //send user sign in info to database
 apiRouter.post("/signup", async (req, res) => {
