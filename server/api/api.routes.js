@@ -9,7 +9,7 @@ const { expressjwt } = require("express-jwt");
 //code from other files
 const secureLogIn = require("../auth/secure-login.js");
 const client = require("../config/database");
-const { insertUser } = require('../models/userModel.js')
+const { insertUser } = require("../models/userModel.js");
 
 //Environment variables
 const secret = process.env.JWT_SECRET;
