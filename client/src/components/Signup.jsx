@@ -65,7 +65,8 @@ function Signup() {
     let allInfoIsVerified = true
 
     //you can comment this next line out so that you don't have to enter valid information when testing
-    // allInfoIsVerified = checkValidity(['email', 'phoneNum', 'password', 'passwordConfirmation'])
+/*     allInfoIsVerified = checkValidity(['email', 'phoneNum', 'password', 'passwordConfirmation'])
+ */
 
     if(allInfoIsVerified){
       fetch("http://localhost:3001/api/signup", {
