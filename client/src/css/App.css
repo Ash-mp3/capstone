@@ -5,7 +5,7 @@
     sans-serif;
 }
 input{
-  z-index: 0;
+  z-index: 1;
 }
 
 #LoginPage,
@@ -17,6 +17,7 @@ input{
 #SignupHeader {
   background-color: #474787;
   box-shadow: 0 5px 20px gray;
+  z-index: 2;
 }
 
 #LoginInfo {
@@ -81,4 +82,5 @@ hr {
   background-color: #474787;
   color: #AAABB8;
   gap: 70px;
+  z-index: 2;
 }

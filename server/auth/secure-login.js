@@ -26,7 +26,7 @@ function secureLogIn(email, password) {
 
   const token = jwt.sign({ email: email, password: password }, secret, {
     algorithm: "HS256",
-    expiresIn: "5s",
+    expiresIn: "10000s",
   });
 
   return token;
