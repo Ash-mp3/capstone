@@ -4,6 +4,7 @@ import { styled } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import { useState, useCallback } from "react";
+import Footer from './Footer';
 
 const ColorButton = styled(Button)(({ theme }) => ({
   color: theme.palette.getContrastText("#474787"),
@@ -236,14 +237,9 @@ function Signup() {
         </form>
       </div>
 
-      <footer
-        id="SignupFooter"
-        className="w-full h-[25px] flex justify-center items-center absolute bottom-0"
-      >
-        <p>Privacy Policy</p>
-        <p>@2023 - MtecPro</p>
-        <p>Terms Of Use</p>
-      </footer>
+      <div className="w-full h-[25px] flex justify-center items-center absolute bottom-0">
+        <Footer />
+      </div>
     </div>
   );
 

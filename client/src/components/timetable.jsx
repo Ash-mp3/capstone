@@ -14,18 +14,18 @@ for(let i = 7; i <= 16; i++) {
 
 function TimeTable() {
   return (
-    <table class="table-fixed border-2 border-black w-full">
+    <table className="table-fixed border-2 border-black w-full">
       <thead>
         <tr>
-          <th class="w-1/6 border-2 border-black">Time/Day</th>
-          {days.map(day => <th key={day} class="w-1/6 border-2 border-black">{day}</th>)}
+          <th className="w-1/6 border-2 border-black">Time/Day</th>
+          {days.map(day => <th key={day} className="w-1/6 border-2 border-black">{day}</th>)}
         </tr>
       </thead>
       <tbody>
         {times.map(time => (
           <tr key={time}>
-            <td class="border-2 border-black">{time}</td>
-            {days.map(day => <td key={day} class="border-2 border-black">-</td>)}
+            <td className="border-2 border-black">{time}</td>
+            {days.map(day => <td key={day} className="border-2 border-black">-</td>)}
           </tr>
         ))}
       </tbody>
