@@ -52,7 +52,7 @@ export default function SearchAppBar() {
                     <h2>User Information</h2>
                 </div>
 
-            <hr classNameName='w-full'/>
+            <hr className='w-full'/>
 
             <div id='userFields' className='grid grid-col-1 place-content-center m-2'>
                 <div id='userInfoSubSection' className='w-1/2'>

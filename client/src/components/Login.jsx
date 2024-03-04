@@ -58,7 +58,7 @@ const handlePasswordChange = (e) => {
       </header>
       <div id="LoginInfo">
         <h1 className="text-[60px]">Welcome back!</h1>
-        <form class="LoginForm">
+        <form className="LoginForm">
           <input 
             placeholder="Email Address"
             onChange={handleEmailChange}
@@ -76,12 +76,12 @@ const handlePasswordChange = (e) => {
             Log In
           </ColorButton>
         </form>
-        <div class="OrLine">
+        <div className="OrLine">
           <hr />
           OR
           <hr />
         </div>
-        <div class="signUp">
+        <div className="signUp">
           <p>Don't have an account?</p>
           <Link to={`/SignUp`} className="w-full flex justify-center">
             <ColorButton className="w-5/6">Sign Up</ColorButton>

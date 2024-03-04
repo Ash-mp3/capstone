@@ -54,6 +54,9 @@ function ResponsiveAppBar({ isLoggedIn }) {
     case '/profile':
       title = 'Profile';
       break;
+    case '/admin':
+      title = 'Administrator';
+      break;
     // Add more cases as needed
     default:
       title = 'Capstone Project'; 
