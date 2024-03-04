@@ -12,6 +12,7 @@ const secureLogIn = require("../auth/secure-login.js");
 const createSaltedPassword = require("../auth/createSaltedPassword.js")
 const client = require("../config/database");
 const { insertUser } = require("../models/userModel.js");
+const { loginUser } = require("../models/loginUser.js")
 const { sendToken } = require("../models/tokenBlackList.js");
 
 //Environment variables

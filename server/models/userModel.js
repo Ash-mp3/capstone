@@ -6,8 +6,8 @@ const insertUser = async (userData) => {
             SELECT * FROM users WHERE email = '${userData[1]}'
         `;
     const addUserQuery = `
-          INSERT INTO users (username, email, first_name, last_name, phone_number, address, password)
-              VALUES ($1, $2, $3, $4, $5, $6, $7)
+          INSERT INTO users (username, email, first_name, last_name, phone_number, address, password, user_role)
+              VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
       `;
       const isDoup = await client.query(checkDoupQuery)
     if (isDoup.rows.length === 0) {
