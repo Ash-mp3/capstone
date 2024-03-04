@@ -3,6 +3,7 @@ import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import ResponsiveAppBar from "./ResponsiveAppBar";
 
 const ColorButton = styled(Button)(({ theme }) => ({
   color: theme.palette.getContrastText("#474787"),
@@ -50,8 +51,10 @@ const handlePasswordChange = (e) => {
       id="LoginPage"
       className="w-full h-full relative flex justify-center items-center "
     >
-      <header id="LoginHeader" className="w-full h-[75px] flex justify-center absolute top-0">
-        <img src={Logo} alt="logo" />
+
+    
+      <header id="LoginHeader" className="w-full flex justify-center absolute top-0">
+        <ResponsiveAppBar/>
       </header>
       <div id="LoginInfo">
         <h1 className="text-[60px]">Welcome back!</h1>
