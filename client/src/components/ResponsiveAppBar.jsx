@@ -14,11 +14,12 @@ import MenuItem from '@mui/material/MenuItem';
 import Logo from '../assets/Registration_App_Logo.png';
 import SearchBar from './SearchBarCom';
 import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 const pages = ['Courses'];
 const settings = ['Profile', 'Courses', 'Logout'];
 
-function ResponsiveAppBar() {
+function ResponsiveAppBar({ isLoggedIn }) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -36,6 +37,57 @@ function ResponsiveAppBar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const location = useLocation();
+
+  let title;
+  switch(location.pathname) {
+    case '/registration':
+      title = 'Registration';
+      break;
+    case '/Login' && '/login':
+      title = 'Login';
+      break;
+    case '/courses':
+      title = 'Courses';
+      break;
+    case '/profile':
+      title = 'Profile';
+      break;
+    // Add more cases as needed
+    default:
+      title = 'Capstone Project'; 
+  }
+
+  if (!isLoggedIn && (location.pathname === '/login' || location.pathname === '/signup')) {
+    return (
+      <AppBar position="static">
+        <Container maxWidth="xl" class="bg-[#474787]">
+          <Toolbar disableGutters>
+            <Avatar id='logoImage' src={Logo} sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+            <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              href="#app-bar-with-responsive-menu"
+              sx={{
+                mr: 2,
+                display: { xs: 'none', md: 'flex' },
+                fontFamily: 'monospace',
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color: 'black',
+                textDecoration: 'none',
+              }}
+            >
+              {title}
+            </Typography>
+          </Toolbar>
+        </Container>
+      </AppBar>
+    );
+  }
+
 
   return (
     <AppBar position="static">
@@ -57,9 +109,8 @@ function ResponsiveAppBar() {
               textDecoration: 'none',
             }}
           >
-            Registration
+            {title}
           </Typography>
-            
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -71,7 +122,6 @@ function ResponsiveAppBar() {
             >
               <MenuIcon />
             </IconButton>
-            
             <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
@@ -94,10 +144,8 @@ function ResponsiveAppBar() {
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
-                
               ))}
             </Menu>
-            
           </Box>
           <SearchBar></SearchBar>
           <Avatar id="logoImage" src={Logo} sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
@@ -117,21 +165,19 @@ function ResponsiveAppBar() {
               textDecoration: 'none',
             }}
           >
-             
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-          {pages.map((page) => (
-            <Link to={`/${page.toLowerCase()}`} key={page}>
+          {location.pathname !== '/courses' && (
+            <Link to="/courses">
               <Button
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'black', display: 'block' }}
               >
-                {page}
+                Courses
               </Button>
             </Link>
-          ))}
+          )}
           </Box>
-
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -168,4 +214,5 @@ function ResponsiveAppBar() {
     </AppBar>
   );
 }
+
 export default ResponsiveAppBar;
