@@ -1,96 +1,46 @@
 //imported modules
-const path = require("path");
-
 const express = require("express");
-const { stringify } = require("querystring");
 const apiRouter = express.Router();
 const { expressjwt } = require("express-jwt");
-const jwt = require('jsonwebtoken');
 
-//code from other files
-const secureLogIn = require("../auth/secure-login.js");
-const createSaltedPassword = require("../auth/createSaltedPassword.js")
-const client = require("../config/database");
-const { insertUser } = require("../models/userModel.js");
-const { loginUser } = require("../models/loginUser.js")
-const { sendToken } = require("../models/tokenBlackList.js");
+//middleware
+const secureLogIn = require("../middleware/secure-login.js");
+const logout = require("../middleware/logout.js")
+const signup = require("../middleware/signup.js")
+
+//controllers
+const getCourses = require("../controllers/courseController.js")
 
 //Environment variables
 const secret = process.env.JWT_SECRET;
 
 
-apiRouter.post("/login", (req, res) => {
+
+//responds with a jwt and a logged in status
+apiRouter.post("/login", async(req, res) => {
   const { email, password } = req.body;
-  const token = secureLogIn(email, password);
-  res.json({ loggedIn: true, token: token });
-})
-apiRouter.post("/logout", expressjwt({ secret: secret, algorithms: ["HS256"] }), (req, res) => {
-
-  //we will want to put this "authorization" constant inside of a token blacklist and delete it automatically after it expires
-  const authorization = req.headers.authorization;
-  const token = authorization.slice(7,authorization.length)
-  const decodedToken = jwt.decode(token, { complete: true });
-  const tokenExp = decodedToken.payload.exp //this is the expiration date of the token
-
-  sendToken(token, tokenExp);
-
-  res.json({ loggedOut: true });
+  const result = secureLogIn(email, password)
+  res.status(result.status).json(result.res);
 })
 
+//responds with a logged out status
+apiRouter.post("/logout", expressjwt({ secret: secret, algorithms: ["HS256"] }), async(req, res) => {
+  const authorization = req.headers.authorization
+  const result = logout(authorization)
+  res.status(result.status).json(result.res);
+})
 
 //send user sign in info to database
 apiRouter.post("/signup", async (req, res) => {
-  console.log('/signup')
-  try {
-    const password = req.body.password
-
-    createSaltedPassword(password)
-      .then(async(saltedPassword) => {
-        //we'll want to put the salted password in our database
-        console.log(``)
-        console.log(`password: ${password}`);
-        console.log(`saltedPassword: ${saltedPassword}`);
-
-        const userData = []
-        for (const key in req.body) {
-          userData.push(req.body[key])
-        };
-        const confirmMsg = await insertUser(userData);
-        res.json({ msg: confirmMsg });
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-
-  } catch(err) {
-    console.error(err)
-    res.status(500).json({ message: "Error creating user" });
-  }
+  const info = req.body
+  const result = await signup(info)
+  res.status(result.status).json(result.res)
 });
 
 //get courses from database
-apiRouter.get(
-  "/courses",
-  expressjwt({ secret: secret, algorithms: ["HS256"] }),
-  async (req, res) => {
-    try {
-      //select title and description from title and put them into one variable
-      const Tresult = await client.query(`SELECT title FROM classes`);
-      const Dresult = await client.query(`SELECT description FROM classes`);
-      let realRes = [];
-      Tresult.rows.forEach((row, index) => {
-        realRes.push({
-          title: row.title,
-          description: Dresult.rows[index].description,
-        });
-      });
-      //send formatted object
-      res.json({ courses: realRes });
-    } catch (error) {
-      console.error(error);
-      res.status(500).send("Error retrieving classes from database");
-    }
-  }
-);
+apiRouter.get("/courses", expressjwt({ secret: secret, algorithms: ["HS256"] }), async (req, res) => {
+  const result = await getCourses()
+  res.status(result.status).json(JSON.parse(result.res))
+});
 
 module.exports = apiRouter

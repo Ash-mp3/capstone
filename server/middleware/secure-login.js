@@ -1,10 +1,5 @@
 //imported modules
 const express = require("express");
-const path = require("path");
-const session = require("express-session");
-const passport = require("passport");
-const Strategy = require("passport-local").Strategy;
-const login = require("connect-ensure-login");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
@@ -33,6 +28,6 @@ function secureLogIn(email, password) {
     expiresIn: "60s",
   });
 
-  return token;
+  return({status: 200, res:{token: token, loggedIn: true}});
 }
 module.exports = secureLogIn;
