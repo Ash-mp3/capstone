@@ -9,6 +9,7 @@ const jwt = require('jsonwebtoken');
 
 //code from other files
 const secureLogIn = require("../auth/secure-login.js");
+const createSaltedPassword = require("../auth/createSaltedPassword.js")
 const client = require("../config/database");
 const { insertUser } = require("../models/userModel.js");
 const { sendToken } = require("../models/tokenBlackList.js");
@@ -38,13 +39,28 @@ apiRouter.post("/logout", expressjwt({ secret: secret, algorithms: ["HS256"] }),
 
 //send user sign in info to database
 apiRouter.post("/signup", async (req, res) => {
+  console.log('/signup')
   try {
-    const userData = []
-    for (const key in req.body) {
-      userData.push(req.body[key])
-    };
-    const confirmMsg = await insertUser(userData);
-    res.json({ msg: confirmMsg });
+    const password = req.body.password
+
+    createSaltedPassword(password)
+      .then(async(saltedPassword) => {
+        //we'll want to put the salted password in our database
+        console.log(``)
+        console.log(`password: ${password}`);
+        console.log(`saltedPassword: ${saltedPassword}`);
+
+        const userData = []
+        for (const key in req.body) {
+          userData.push(req.body[key])
+        };
+        const confirmMsg = await insertUser(userData);
+        res.json({ msg: confirmMsg });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
   } catch(err) {
     console.error(err)
     res.status(500).json({ message: "Error creating user" });
