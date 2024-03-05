@@ -17,7 +17,7 @@ import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 
 const pages = ['Courses'];
-const settings = ['Profile', 'Courses', 'Logout'];
+const settings = ['Profile', 'Courses', 'Logout', 'admin'];
 
 function ResponsiveAppBar({ isLoggedIn }) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
