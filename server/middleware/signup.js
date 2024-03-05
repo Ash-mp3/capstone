@@ -17,7 +17,7 @@ async function createSaltedPassword(plaintextPassword) {
 }
 
 
-async function signUp(info){
+const signUp = async (info) => {
     try {
         const password = info.password;
         const saltedPassword = await createSaltedPassword(password);
@@ -26,7 +26,7 @@ async function signUp(info){
         for (const key in info) {
             userData.push(info[key]);
         }
-      
+        userData[6] = saltedPassword;
         const confirmMsg = await insertUser(userData);
         return { status: 200, res: { msg: confirmMsg } };
     } catch (error) {

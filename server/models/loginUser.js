@@ -5,8 +5,9 @@ const loginUser = async (email, password) => {
         select * from users where email = '${email}' and password = '${password}'
     `
     const login = await client.query(loginQuery);
+   
     if (login.rowCount === 1) {
-        return true
+        return `${login.rows[0].password}`
     } else {
         return false
     }
