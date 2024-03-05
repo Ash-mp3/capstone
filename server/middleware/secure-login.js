@@ -15,17 +15,19 @@ const { loginUser } = require("../models/loginUser");
 async function secureLogIn(email, password) {
   try {
     const hashedPassword = await loginUser(email, password); //we'll get this hashedPassword from the database. The password that created this hashedPassword is "123", so if you put that in as the password, the console will say "password is correct"
-    const isPasswordCorrect = bcrypt.compare(password, hashedPassword);
-    console.log(isPasswordCorrect);
+    if (!hashedPassword) {
+      return { status: 401, res: { msg: "Email or password incorrect", loggedIn: false } };
+    };
+    const isPasswordCorrect = await bcrypt.compare(password, hashedPassword)
     if (isPasswordCorrect) {
       console.log("Password is correct");
       const token = jwt.sign({ email: email, password: password }, secret, {
         algorithm: "HS256",
         expiresIn: "10000s",
       });
+      return { status: 200, res: { token: token, loggedIn: true } };
     } else {
-      console.log("Password is incorrect");
-      return { status: 401, res: { message: "password incorrect" } };
+      return { status: 401, res: { msg: "Password incorrect", loggedIn: false } };
     }
   } catch (error) {
     console.error(error);

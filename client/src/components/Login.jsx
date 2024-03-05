@@ -29,17 +29,21 @@ const handlePasswordChange = (e) => {
   //Sign the User in 
   function SignIn(){
     fetch("http://localhost:3001/api/login", {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ email, password }),
     })
       .then((res) => res.json())
       .then((data) => {
-        setLoggedIn(data.loggedIn)
-        localStorage.setItem("token", data.token)
-      });
+        if (data.loggedIn) {
+          setLoggedIn(data.loggedIn);
+          localStorage.setItem("token", data.token);
+        } else {
+          alert(data.msg)
+        }
+      })
   }
   //redirect to courses page when logged in
   if(loggedIn){
