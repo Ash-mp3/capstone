@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import "./css/App.css";
 import { ReactRoutes } from "./components/ReactRoutes";
 import { BrowserRouter } from "react-router-dom";
+import { StyledEngineProvider } from "@mui/material";
 
 function App() {
   const [data, setData] = useState(null);
@@ -17,9 +18,9 @@ function App() {
   return (
     <>
       <div className="App">
-        <BrowserRouter>
-          <ReactRoutes />
-        </BrowserRouter>
+      <BrowserRouter>
+        <ReactRoutes />
+      </BrowserRouter>
       </div>
     </>
   );
