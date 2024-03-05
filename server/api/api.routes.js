@@ -17,10 +17,15 @@ const secret = process.env.JWT_SECRET;
 
 
 //responds with a jwt and a logged in status
-apiRouter.post("/login", async(req, res) => {
+apiRouter.post("/login", async (req, res) => {
   const { email, password } = req.body;
-  const result = secureLogIn(email, password)
-  res.status(result.status).json(result.res);
+  try {
+    const result = await secureLogIn(email, password)
+    res.status(result.status).json(result.res);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({mesage: "ERror"})
+  }
 })
 
 //responds with a logged out status

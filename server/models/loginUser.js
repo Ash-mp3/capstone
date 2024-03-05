@@ -2,7 +2,7 @@ const client = require("../config/database")
 
 const loginUser = async (email, password) => {
     const loginQuery = `
-        select * from users where email = '${email}' and password = '${password}'
+        select * from users where email = '${email}'
     `
     const login = await client.query(loginQuery);
    
