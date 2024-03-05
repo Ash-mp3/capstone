@@ -45,7 +45,10 @@ function ResponsiveAppBar({ isLoggedIn }) {
     case '/registration':
       title = 'Registration';
       break;
-    case '/Login' && '/login':
+    case '/Login' && '/':
+      title = 'Login';
+      break;
+    case '/login':
       title = 'Login';
       break;
     case '/courses':
