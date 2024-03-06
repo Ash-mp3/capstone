@@ -1,13 +1,24 @@
-import * as React from 'react';
+import React, { useContext } from 'react';
 import AccordionCom from './AccordionCom';
 import '../css/courses.css'; 
 import ResponsiveAppBar from "./ResponsiveAppBar";
 import Footer from "./Footer";
 import { useEffect, useState } from "react";
+import { SearchContext } from './SearchContext';
 
 function Courses() {
-  const [courses, setCourses] = useState('')
+  const [courses, setCourses] = useState([])
   const [authorizeStatus, setAuthorizeStatus] = useState("loading...")
+  const {searchTerm, setSearchTerm} = useContext(SearchContext);
+
+  const handleSearch = (event) => {
+    console.log(event.target.value);
+    setSearchTerm(event.target.value);
+  };
+  
+  const filteredCourses = courses.filter(course =>
+      course.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
   //fetch courses
   useEffect(() => {
@@ -39,12 +50,13 @@ function Courses() {
   }
  */
   return (
+    <SearchContext.Provider value={{ searchTerm, setSearchTerm} }>
     <div className="Courses">
     {
     authorizeStatus === 'authorized' ?
       <div>
-        <ResponsiveAppBar>
-        </ResponsiveAppBar>
+        <ResponsiveAppBar onSearch={handleSearch}/>
+        
       
         <div id="listOfAvailable">
           { 
@@ -52,7 +64,7 @@ function Courses() {
             courses !== '' 
             ?
             //map courses
-            courses.map((course, index) => {
+            filteredCourses.map((course, index) => {
               return(
                 <div key={index}>
                   {AccordionCom(course.title, course.description)}
@@ -78,7 +90,7 @@ function Courses() {
       </div>
       }
     </div>
-
+    </SearchContext.Provider>
   );
 }
 export default Courses;
