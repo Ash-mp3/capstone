@@ -7,9 +7,22 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
+import { Select } from '@mui/material';
+import MenuItem from '@mui/material/MenuItem';
+import Autocomplete from '@mui/material/Autocomplete';
+import TextField from '@mui/material/TextField';
 
-export default function AccordionRegistered({ user, onRemoveUser }) {
+export default function AccordionRegistered({ user, onRemoveUser, allCourses }) {
+
   const [courses, setCourses] = React.useState(user.courses);
+  const [selectedCourse, setSelectedCourse] = React.useState('');
+
+  const handleAddCourse = () => {
+    if (selectedCourse && !courses.includes(selectedCourse))
+    {
+      setCourses([...courses, selectedCourse]);
+    }
+  };
 
   const handleRemoveCourse = (courseToRemove) => {
     setCourses(courses.filter(course => course !== courseToRemove));
@@ -44,6 +57,18 @@ export default function AccordionRegistered({ user, onRemoveUser }) {
       </Box>
     </AccordionDetails>
   ))}
+  <AccordionActions>
+          <Autocomplete
+            options={allCourses}
+            getOptionLabel={(option) => option.title}
+            renderInput={(params) => <TextField {...params} label="Courses" />}
+            onChange={(event, newValue) => {
+              setSelectedCourse(newValue.title);
+            }}
+            className='w-full'
+        />
+        <Button onClick={handleAddCourse} className='w-1/5'>Add Course</Button>
+      </AccordionActions>
     </Accordion>
   );
 }
