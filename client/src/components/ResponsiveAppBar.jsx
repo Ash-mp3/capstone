@@ -19,7 +19,7 @@ import { useLocation } from 'react-router-dom';
 const pages = ['Courses'];
 const settings = ['Profile', 'Courses', 'Logout', 'admin'];
 
-function ResponsiveAppBar({ isLoggedIn }) {
+function ResponsiveAppBar({ isLoggedIn, onSearch }) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -153,7 +153,7 @@ function ResponsiveAppBar({ isLoggedIn }) {
               ))}
             </Menu>
           </Box>
-          <SearchBar></SearchBar>
+          <SearchBar onSearch={onSearch}></SearchBar>
           <Avatar id="logoImage" src={Logo} sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
             variant="h5"

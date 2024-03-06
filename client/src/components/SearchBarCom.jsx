@@ -2,6 +2,7 @@ import * as React from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
+import { SearchContext } from './SearchContext';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -46,16 +47,25 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function SearchAppBar() {
-  return (
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search>
 
+  const { setSearchTerm } = React.useContext(SearchContext);
+
+
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  return (
+    <Search>
+      <SearchIconWrapper>
+        <SearchIcon />
+      </SearchIconWrapper>
+      <StyledInputBase
+        placeholder="Search…"
+        inputProps={{ 'aria-label': 'search' }}
+        onChange={(event) => handleSearch(event)}
+      />
+    </Search>
   );
 }
+
