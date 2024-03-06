@@ -4,9 +4,12 @@ import { useEffect, useState } from "react";
 import "./css/App.css";
 import { ReactRoutes } from "./components/ReactRoutes";
 import { BrowserRouter } from "react-router-dom";
+import { SearchContext } from "./components/SearchContext";
 
 function App() {
   const [data, setData] = useState(null);
+
+  const [searchTerm, setSearchTerm] = useState('');
 
 /*   useEffect(() => {
     fetch("/api")
@@ -15,13 +18,13 @@ function App() {
   }, []); */
 
   return (
-    <>
+    <SearchContext.Provider value={{ searchTerm, setSearchTerm }}>
       <div className="App">
-        <BrowserRouter>
-          <ReactRoutes />
-        </BrowserRouter>
+      <BrowserRouter>
+        <ReactRoutes />
+      </BrowserRouter>
       </div>
-    </>
+    </SearchContext.Provider>
   );
 }
 
