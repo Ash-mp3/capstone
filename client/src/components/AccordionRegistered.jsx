@@ -7,9 +7,20 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
+import { Select } from '@mui/material';
+import MenuItem from '@mui/material/MenuItem';
 
-export default function AccordionRegistered({ user, onRemoveUser }) {
+export default function AccordionRegistered({ user, onRemoveUser, allCourses }) {
+
   const [courses, setCourses] = React.useState(user.courses);
+  const [selectedCourse, setSelectedCourse] = React.useState('');
+
+  const handleAddCourse = () => {
+    if (selectedCourse && !courses.includes(selectedCourse))
+    {
+      setCourses([...courses, selectedCourse]);
+    }
+  };
 
   const handleRemoveCourse = (courseToRemove) => {
     setCourses(courses.filter(course => course !== courseToRemove));
@@ -20,6 +31,8 @@ export default function AccordionRegistered({ user, onRemoveUser }) {
     event.stopPropagation();
     onRemoveUser(user);
   };
+
+  console.log(allCourses);
 
   return (
     <Accordion>
@@ -44,6 +57,18 @@ export default function AccordionRegistered({ user, onRemoveUser }) {
       </Box>
     </AccordionDetails>
   ))}
+  <AccordionActions>
+          <Select
+          value={selectedCourse}
+          onChange={(event) => setSelectedCourse(event.target.value)}
+          className='w-full'
+        >
+          {allCourses.map((course) => (
+            <MenuItem value={course.title} key={course.title}>{course.title}</MenuItem>
+          ))}
+        </Select>
+        <Button onClick={handleAddCourse} className='w-1/5'>Add Course</Button>
+      </AccordionActions>
     </Accordion>
   );
 }
