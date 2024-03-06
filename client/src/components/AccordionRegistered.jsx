@@ -9,6 +9,8 @@ import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import { Select } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
+import Autocomplete from '@mui/material/Autocomplete';
+import TextField from '@mui/material/TextField';
 
 export default function AccordionRegistered({ user, onRemoveUser, allCourses }) {
 
@@ -31,8 +33,6 @@ export default function AccordionRegistered({ user, onRemoveUser, allCourses }) 
     event.stopPropagation();
     onRemoveUser(user);
   };
-
-  console.log(allCourses);
 
   return (
     <Accordion>
@@ -58,15 +58,15 @@ export default function AccordionRegistered({ user, onRemoveUser, allCourses }) 
     </AccordionDetails>
   ))}
   <AccordionActions>
-          <Select
-          value={selectedCourse}
-          onChange={(event) => setSelectedCourse(event.target.value)}
-          className='w-full'
-        >
-          {allCourses.map((course) => (
-            <MenuItem value={course.title} key={course.title}>{course.title}</MenuItem>
-          ))}
-        </Select>
+          <Autocomplete
+            options={allCourses}
+            getOptionLabel={(option) => option.title}
+            renderInput={(params) => <TextField {...params} label="Courses" />}
+            onChange={(event, newValue) => {
+              setSelectedCourse(newValue.title);
+            }}
+            className='w-full'
+        />
         <Button onClick={handleAddCourse} className='w-1/5'>Add Course</Button>
       </AccordionActions>
     </Accordion>
