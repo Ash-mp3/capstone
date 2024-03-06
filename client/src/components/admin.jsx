@@ -13,6 +13,31 @@ import { Button } from '@mui/material';
 import { SearchContext } from './SearchContext';
 
 function Admin() {
+
+  const [allCourses, setAllCourses] = React.useState([]);
+
+  // Fetch the list of all courses when the component mounts
+React.useEffect(() => {
+  fetch("http://localhost:3001/api/courses", {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      "Authorization": `Bearer ${localStorage.getItem("token")}`
+    },
+  })
+  .then((res) => {
+    if(res.status === 200){
+      return(res.json())
+    } else {
+      console.error('Failed to fetch courses');
+      return;
+    }
+  })
+  .then((data) => {
+    setAllCourses(data.courses)
+  });
+}, []);
+
   const [users, setUsers] = React.useState([
     { name: 'Asher Contreras', courses: ['Math 1010', 'Web Development', 'Science 1020'] },
     { name: 'Sergio Castillo', courses: ['Machine Learning', 'Computer Networking', 'Systems Programming'] },
@@ -24,10 +49,6 @@ function Admin() {
   const [userToRemove, setUserToRemove] = React.useState(null);
 
   const {searchTerm, setSearchTerm} = useContext(SearchContext);
-
-  const handleSearch = (event) => {
-    setSearchTerm(event.target.value);
-  };
 
   const filteredUsers = users.filter(user => 
     user.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -62,7 +83,7 @@ function Admin() {
         <div id='studentSection' className='flex w-full justify-center'>
           <div id='studentAccordion' className='w-4/5 pb-4'>
           {filteredUsers.map((user, index) => (
-            <AccordionRegistered key={user.name} user={user} onRemoveUser={handleOpenDialog} />
+            <AccordionRegistered key={user.name} user={user} onRemoveUser={handleOpenDialog} allCourses={allCourses} />
           ))}   
           </div>
         </div>
