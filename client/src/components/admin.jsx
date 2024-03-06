@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useContext } from 'react';
 import '../css/courses.css'; 
 import ResponsiveAppBar from "./ResponsiveAppBar";
 import Footer from "./Footer";
@@ -10,6 +10,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { Button } from '@mui/material';
+import { SearchContext } from './SearchContext';
 
 function Admin() {
   const [users, setUsers] = React.useState([
@@ -21,6 +22,16 @@ function Admin() {
   const [toastMessage, setToastMessage] = React.useState('');
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [userToRemove, setUserToRemove] = React.useState(null);
+
+  const {searchTerm, setSearchTerm} = useContext(SearchContext);
+
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const filteredUsers = users.filter(user => 
+    user.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
   const handleRemoveUser = () => {
     setUsers(users.filter(user => user !== userToRemove));
@@ -44,15 +55,15 @@ function Admin() {
 
   return (
     <div id='AdminPage' className='w-full'>
-      <ResponsiveAppBar />
+      <ResponsiveAppBar onSearch={setSearchTerm}/>
 
       <div id='registeredUsers' className='grid grid-cols-1 place-items-center'>
         <h1 className='underline font-bold py-2'>Registered Students</h1>
         <div id='studentSection' className='flex w-full justify-center'>
           <div id='studentAccordion' className='w-4/5 pb-4'>
-          {users.map((user, index) => (
+          {filteredUsers.map((user, index) => (
             <AccordionRegistered key={user.name} user={user} onRemoveUser={handleOpenDialog} />
-          ))}          
+          ))}   
           </div>
         </div>
       </div>
