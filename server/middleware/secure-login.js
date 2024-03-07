@@ -1,10 +1,6 @@
 //imported modules
-const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-
-//app config
-const app = express();
 
 //Environment variables
 const secret = process.env.JWT_SECRET;
@@ -22,8 +18,9 @@ function secureLogIn(email, password) {
     }
 });
 
+const id=12345678 //get the user id from the database
 
-  const token = jwt.sign({ email: email, password: password }, secret, {
+  const token = jwt.sign({id: id }, secret, {
     algorithm: "HS256",
     expiresIn: "10000s",
   });
