@@ -7,10 +7,10 @@ import { useEffect, useState } from "react";
 
 function Profile() {
   const [courses, setCourses] = useState('')
-  const [authorized, setAuthorized] = useState(false)
+  const [authorized, setAuthorized] = useState(true)
   useEffect(() => {
     try{
-      fetch("http://localhost:3001/api/courses", {
+      fetch("http://localhost:3001/api/profileInfo", {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -19,10 +19,12 @@ function Profile() {
       })
         .then((res) => res.json())
         .then((data) => {
+          console.log(data)
           setCourses(data.courses)
           setAuthorized(true)
         });
     } catch (err){
+      console.log(err)
       setAuthorized(false)
     }
 
