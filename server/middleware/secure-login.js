@@ -1,10 +1,6 @@
 //imported modules
-const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-
-//app config
-const app = express();
 
 //Environment variables
 const secret = process.env.JWT_SECRET;
