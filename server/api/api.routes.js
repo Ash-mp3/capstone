@@ -42,7 +42,7 @@ apiRouter.post("/signup", async (req, res) => {
 //get courses from database
 apiRouter.get(
   "/courses",
-  expressjwt({ secret: secret, algorithms: ["HS256"] }),
+  // expressjwt({ secret: secret, algorithms: ["HS256"] }),
   async (req, res) => {
     const result = await getCourses();
     res.status(result.status).json(JSON.parse(result.res));
