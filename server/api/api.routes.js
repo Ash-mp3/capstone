@@ -9,6 +9,9 @@ const secureLogIn = require("../middleware/secure-login.js");
 const logout = require("../middleware/logout.js");
 const signup = require("../middleware/signup.js");
 
+//database
+const findInfoById = require("../models/findInfoById.js")
+
 //controllers
 const getCourses = require("../controllers/courseController.js");
 
@@ -55,9 +58,10 @@ apiRouter.get("/profileInfo", expressjwt({ secret: secret, algorithms: ["HS256"]
   const auth = req.headers.authorization
   const token = auth.slice(7, auth.length)
   const userId = jwt.decode(token).id
-  console.log(userId)
+  const userInfo = await findInfoById(userId)
+  
   //use userId to find user info in database
-  res.status(200).json({courses:"courses"})
+  res.status(200).json(userInfo)
 })
 
 module.exports = apiRouter
