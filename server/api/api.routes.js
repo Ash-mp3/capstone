@@ -2,6 +2,7 @@
 const express = require("express");
 const apiRouter = express.Router();
 const { expressjwt } = require("express-jwt");
+const jwt = require('jsonwebtoken')
 
 //middleware
 const secureLogIn = require("../middleware/secure-login.js");
@@ -42,5 +43,15 @@ apiRouter.get("/courses", expressjwt({ secret: secret, algorithms: ["HS256"] }),
   const result = await getCourses()
   res.status(result.status).json(JSON.parse(result.res))
 });
+
+//get user's enrolled 
+apiRouter.get("/profileInfo", expressjwt({ secret: secret, algorithms: ["HS256"] }), async (req, res) => {
+  const auth = req.headers.authorization
+  const token = auth.slice(7, auth.length)
+  const userId = jwt.decode(token).id
+  console.log(userId)
+  //use userId to find user info in database
+  res.status(200).json({courses:"courses"})
+})
 
 module.exports = apiRouter
