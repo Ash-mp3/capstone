@@ -18,7 +18,8 @@ async function secureLogIn(email, password) {
     const isPasswordCorrect = true;
     if (isPasswordCorrect) {
       console.log("Password is correct");
-      const token = jwt.sign({ email: email, password: password }, secret, {
+      const id = 123456789
+      const token = jwt.sign({ id: id }, secret, {
         algorithm: "HS256",
         expiresIn: "10000s",
       });
