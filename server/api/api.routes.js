@@ -11,6 +11,7 @@ const signup = require("../middleware/signup.js");
 
 //database
 const findInfoById = require("../models/findInfoById.js")
+const addClass = require("../models/courseModel.js")
 
 //controllers
 const getCourses = require("../controllers/courseController.js");
@@ -63,5 +64,18 @@ apiRouter.get("/profileInfo", expressjwt({ secret: secret, algorithms: ["HS256"]
   //use userId to find user info in database
   res.status(200).json(userInfo)
 })
+
+apiRouter.post(
+  "/addClass", expressjwt({ secret: secret, algorithms: ["HS256"] }), async (req, res) => {
+    const classId = req.body.class_id
+
+    const auth = req.headers.authorization
+    const token = auth.slice(7, auth.length)
+    const userId = jwt.decode(token).id
+
+    const result = await addClass(userId, classId);
+    res.status(result.status).send({msg: result.msg});
+  }
+);
 
 module.exports = apiRouter

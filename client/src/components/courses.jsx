@@ -45,10 +45,7 @@ function Courses() {
     });
   },[])
 
-/*   if(courses !== ''){
-    console.log(courses)
-  }
- */
+
   return (
     <SearchContext.Provider value={{ searchTerm, setSearchTerm} }>
     <div className="Courses">
@@ -66,9 +63,14 @@ function Courses() {
             //map courses
             filteredCourses.map((course, index) => {
               return(
-                
                 <div key={index}>
-                  {AccordionCom(course.title, course.description, course.tuition_cost, course.credit_hours)}
+                  <AccordionCom
+                    title = {course.title}
+                    description = {course.description}
+                    tuition_cost = {course.tuition_cost}
+                    credit_hours = {course.credit_hours}
+                    class_id = {course.class_id}
+                  />
                 </div>
               )
             })    
