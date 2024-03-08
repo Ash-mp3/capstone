@@ -66,11 +66,12 @@ function Courses() {
             //map courses
             filteredCourses.map((course, index) => {
               return(
+                
                 <div key={index}>
-                  {AccordionCom(course.title, course.description)}
+                  {AccordionCom(course.title, course.description, course.tuition_cost, course.credit_hours)}
                 </div>
               )
-            })
+            })    
             : 
             <div>
               loading...
