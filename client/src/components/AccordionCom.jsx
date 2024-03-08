@@ -7,7 +7,12 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Button from '@mui/material/Button';
 
-export default function AccordionCom(title, description, tuition_cost, credit_hours) {
+//controllers
+import addClass from '../controllers/addClass';
+
+
+export default function AccordionCom(props) {
+  const { title, description, tuition_cost, credit_hours, class_id } = props
   return (
       <Accordion>
         <AccordionSummary
@@ -19,11 +24,11 @@ export default function AccordionCom(title, description, tuition_cost, credit_ho
         </AccordionSummary>
         <AccordionDetails>
           <Typography>{description}</Typography>
-          <Typography>Tuition Cost: {tuition_cost}</Typography>
+          <Typography>Tuition Cost: ${tuition_cost}</Typography>
           <Typography>Credit Hours: {credit_hours}</Typography>
         </AccordionDetails>
         <AccordionActions>
-          <Button id='addCourse'>Add Course</Button>
+          <Button id='addCourse' onClick={() => addClass(class_id)}>Add Course</Button>
           <Button id='removeCourse'>Remove Course</Button>
         </AccordionActions>
       </Accordion>
