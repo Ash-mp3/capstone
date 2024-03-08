@@ -12,6 +12,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { Button } from '@mui/material';
 import { SearchContext } from './SearchContext';
 import AddCourse from './adminAddForm';
+import AddStudent from './AddStudent';
 
 function Admin() {
 
@@ -44,6 +45,7 @@ React.useEffect(() => {
     { name: 'Sergio Castillo', courses: ['Machine Learning', 'Computer Networking', 'Systems Programming'] },
     { name: 'Anderson Bills', courses: ['Data Structures', 'Computer Architecture', 'Computer Vision']}
   ]);
+
   const [toastOpen, setToastOpen] = React.useState(false);
   const [toastMessage, setToastMessage] = React.useState('');
   const [dialogOpen, setDialogOpen] = React.useState(false);
@@ -52,8 +54,12 @@ React.useEffect(() => {
   const {searchTerm, setSearchTerm} = useContext(SearchContext);
 
   const filteredUsers = users.filter(user => 
-    user.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    user.name && user.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+  
+  const handleAddUser = (newUser) => {
+    setUsers((prevUsers) => [...prevUsers, newUser]);
+  };
 
   const handleRemoveUser = () => {
     setUsers(users.filter(user => user !== userToRemove));
@@ -79,8 +85,10 @@ React.useEffect(() => {
     <div id='AdminPage' className='w-full'>
       <ResponsiveAppBar onSearch={setSearchTerm}/>
 
-
-      <AddCourse className='w-full'/>
+      <div className='flex justify-evenly pb-8'>
+        <AddCourse />
+        <AddStudent onAddUser={handleAddUser} />
+      </div>
 
       <div id='registeredUsers' className='grid grid-cols-1 place-items-center'>
         <h1 className='underline font-bold py-2'>Registered Students</h1>
