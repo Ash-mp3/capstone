@@ -52,14 +52,7 @@ function CourseForm() {
         Credit Hours:
         <input className='w-full px-3 py-2 border rounded-md' type='number' name='credit_hours' value={course.credit_hours} onChange={handleInputChange} required />
       </label>
-      <button 
-          style={buttonStyle} 
-          onMouseEnter={toggleHover} 
-          onMouseLeave={toggleHover} 
-          type='submit'
-        >
-            Submit
-        </button>
+      <button style={buttonStyle} onMouseEnter={toggleHover} onMouseLeave={toggleHover} type='submit'>Submit</button>
     </form>
     </div>
   );
