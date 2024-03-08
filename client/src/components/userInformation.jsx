@@ -6,11 +6,6 @@ import TuitionComp from './tuitionComponent.jsx';
 import CreditComp from './creditHours.jsx';
 
 
-let user = 'Sergio';
-let username = 'Wackyprogamer';
-let email = 'wackyprogamer@gmail.com';
-let firstName = 'Sergio';
-let lastName = 'Castillo';
 let address = '639 E Bullrush Pkwy';
 let city = 'Lehi';
 let country = 'USA';
@@ -18,7 +13,8 @@ let postal = '84043';
 let phone = '801-123-4567'
 let password = '*****';
 
-export default function SearchAppBar() {
+export default function SearchAppBar(props) {
+    const { courses, email, firstName, lastName, username } = props;
 
     const [isEditable, setIsEditable] = React.useState(false);
     const [value, setValue] = React.useState('');
@@ -30,7 +26,7 @@ export default function SearchAppBar() {
     <div id='userPage' className = 'grid grid-cols-1'>
         <div id='userWelcome'>
             <h1 className = 'p-2'>
-                Welcome {user}!
+                Welcome {firstName}!
             </h1>
             <p className = 'p-2'>
                 This is your profile page. Shows overall user details.
