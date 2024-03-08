@@ -11,6 +11,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { Button } from '@mui/material';
 import { SearchContext } from './SearchContext';
+import AddCourse from './adminAddForm';
 
 function Admin() {
 
@@ -77,6 +78,9 @@ React.useEffect(() => {
   return (
     <div id='AdminPage' className='w-full'>
       <ResponsiveAppBar onSearch={setSearchTerm}/>
+
+
+      <AddCourse className='w-full'/>
 
       <div id='registeredUsers' className='grid grid-cols-1 place-items-center'>
         <h1 className='underline font-bold py-2'>Registered Students</h1>
