@@ -28,7 +28,7 @@ const handlePasswordChange = (e) => {
 
   //Sign the User in 
   function SignIn(){
-    fetch("https://capstone-co5w.onrender.com/api/login", {
+    fetch("http://localhost:3001/api/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -41,9 +41,9 @@ const handlePasswordChange = (e) => {
           setLoggedIn(data.loggedIn);
           localStorage.setItem("token", data.token);
         } else {
-          alert(data.msg);
+          alert(data.msg)
         }
-      });
+      })
   }
   //redirect to courses page when logged in
   if(loggedIn){
