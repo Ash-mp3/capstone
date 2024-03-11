@@ -6,6 +6,9 @@ import Footer from "./Footer";
 import { useEffect, useState } from "react";
 import { SearchContext } from './SearchContext';
 
+import handleStatus from '../controllers/handleStatus';
+import AuthDisplay from './AuthDisplay'
+
 function Courses() {
   const [courses, setCourses] = useState([])
   const [authorizeStatus, setAuthorizeStatus] = useState("loading...")
@@ -30,14 +33,9 @@ function Courses() {
       },
     })
     .then((res) => {
-      //if the status is OK, set the authorizeStatus to authorized.
-      //Otherwise, set the authorizeStatus to unauthorized
-      if(res.status === 200){
-        setAuthorizeStatus('authorized')
+      setAuthorizeStatus(handleStatus(res))
+      if(res.ok){
         return(res.json())
-      } else {
-        setAuthorizeStatus('unauthorized')
-        return
       }
     })
     .then((data) => {
@@ -86,11 +84,7 @@ function Courses() {
       </div>
       :
       //if the user is not authorized, display the authorize status
-      <div>
-        <h1>{authorizeStatus}</h1>
-        {/* if user is unauthorized, give them an option to return to the login page */}
-        {authorizeStatus === 'unauthorized' ? <a href='/login'>Go back to login</a> : ''}
-      </div>
+      <AuthDisplay authorizeStatus={authorizeStatus} />
       }
     </div>
     </SearchContext.Provider>
