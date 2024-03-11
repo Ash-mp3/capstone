@@ -39,6 +39,7 @@ const ColorInput = styled(TextField)(({ theme }) => ({
 }));
 
 function Signup() {
+  
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [firstName, setFirstName] = useState('')
@@ -85,6 +86,8 @@ function Signup() {
           lastName,
           phoneNum,
           address,
+          city,
+          country,
           password,
         }),
       })
@@ -110,6 +113,8 @@ function Signup() {
           lastName,
           phoneNum,
           address,
+          city,
+          country,
           password,
         }),
       })
