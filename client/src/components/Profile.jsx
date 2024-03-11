@@ -3,6 +3,9 @@ import ResponsiveAppBar from "./ResponsiveAppBar";
 import Footer from "./Footer";
 import UserInfo from './userInformation';
 
+import handleStatus from '../controllers/handleStatus';
+import AuthDisplay from './AuthDisplay'
+
 function Profile() {
   const [info, setInfo] = useState({
     courses: [],
@@ -16,11 +19,10 @@ function Profile() {
     country: '',
     status: 'loading...'
   });
-
+  const [authorizeStatus, setAuthorizeStatus] = useState("loading...")
 
   useEffect(() => {
     try {
-      let status = 'loading...'
       fetch("http://localhost:3001/api/profileInfo", {
         method: 'GET',
         headers: {
@@ -29,22 +31,13 @@ function Profile() {
         },
       })
         .then((res) => {
-          console.log(Math.floor(res.status / 100))
-          if (Math.floor(res.status / 100) === 4) {
-            status = 'unauthorized';
-          } else if (res.status === 200) {
-            status = 'ok';
-            return res.json();
-          } else {
-            status = 'internal server error'
+          setAuthorizeStatus(handleStatus(res))
+          if(res.ok){
+            return(res.json())
           }
-          return
         })
         .then((data) => {
-          setInfo({
-            ...data,
-            status: status
-          });
+          setInfo(data);
         });
     } catch (err) {
       console.log(err);
@@ -54,14 +47,14 @@ function Profile() {
   console.log(info)
   return (
     <div className="Courses">
-      {info.status === 'ok' ?
+      {authorizeStatus === 'authorized' ?
         <div>
           <ResponsiveAppBar />
           <UserInfo courses={info.courses} username={info.username} email={info.email} firstName={info.first_name} lastName={info.last_name} phoneNum={info.phone_number} address={info.address} city={info.city} country={info.country} />
           <Footer />
         </div>
         :
-        <div>{info.status}</div>
+        <AuthDisplay authorizestatus={authorizeStatus} />
       }
     </div>
   );

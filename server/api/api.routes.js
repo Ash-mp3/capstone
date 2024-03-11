@@ -8,6 +8,8 @@ const jwt = require('jsonwebtoken')
 const secureLogIn = require("../middleware/secure-login.js");
 const logout = require("../middleware/logout.js");
 const signup = require("../middleware/signup.js");
+const verifyAdmin = require("../middleware/verifyAdmin.js")
+const adminRouter = require("../admin/admin.routes.js")
 
 //database
 const findInfoById = require("../models/findInfoById.js")
@@ -18,6 +20,16 @@ const getCourses = require("../models/courseController.js");
 
 //Environment variables
 const secret = process.env.JWT_SECRET;
+
+
+//admin routes
+apiRouter.use(
+  "/admin",
+  expressjwt({ secret: secret, algorithms: ["HS256"] }),
+  verifyAdmin,
+  adminRouter
+ )
+
 
 //responds with a jwt and a logged in status
 apiRouter.post("/login", async (req, res) => {
