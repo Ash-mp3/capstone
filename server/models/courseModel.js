@@ -13,3 +13,4 @@ async function addClass(user_id, class_id){
 }
 
 module.exports = addClass
+
