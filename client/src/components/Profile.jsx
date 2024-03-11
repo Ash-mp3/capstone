@@ -6,10 +6,14 @@ import UserInfo from './userInformation';
 function Profile() {
   const [info, setInfo] = useState({
     courses: [],
+    username: '',
     email: '',
     first_name: '',
     last_name: '',
-    username: '',
+    phone_number: '',
+    address: '',
+    city: '',
+    country: '',
     status: 'loading...'
   });
 
@@ -53,7 +57,7 @@ function Profile() {
       {info.status === 'ok' ?
         <div>
           <ResponsiveAppBar />
-          <UserInfo courses={info.courses} email={info.email} firstName={info.first_name} lastName={info.last_name} username={info.username} />
+          <UserInfo courses={info.courses} username={info.username} email={info.email} firstName={info.first_name} lastName={info.last_name} phoneNum={info.phone_number} address={info.address} city={info.city} country={info.country} />
           <Footer />
         </div>
         :

@@ -14,7 +14,7 @@ const findInfoById = require("../models/findInfoById.js")
 const addClass = require("../models/courseModel.js")
 
 //controllers
-const getCourses = require("../controllers/courseController.js");
+const getCourses = require("../models/courseController.js");
 
 //Environment variables
 const secret = process.env.JWT_SECRET;
@@ -63,6 +63,15 @@ apiRouter.get("/profileInfo", expressjwt({ secret: secret, algorithms: ["HS256"]
   
   //use userId to find user info in database
   res.status(200).json(userInfo)
+})
+
+apiRouter.get("/updateUser", expressjwt({ secret: secret, algorithms: ["HS256"] }), async (req, res) => {
+  const { key, value } = req.body;
+  const auth = req.headers.authorization
+  const token = auth.slice(7, auth.length)
+  const userId = jwt.decode(token).id
+  const result = await updateUser(userId, key, value )
+
 })
 
 apiRouter.post(

@@ -26,7 +26,8 @@ const signUp = async (info) => {
         for (const key in info) {
             userData.push(info[key]);
         }
-        userData[6] = saltedPassword;
+        userData[8] = saltedPassword;
+        console.log(info);
         const confirmMsg = await insertUser(userData);
         return { status: 200, res: { msg: confirmMsg } };
     } catch (error) {
