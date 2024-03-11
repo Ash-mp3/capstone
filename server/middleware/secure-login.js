@@ -1,28 +1,27 @@
 //imported modules
-const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-//app config
-const app = express();
-
 //Environment variables
 const secret = process.env.JWT_SECRET;
+const findIdByEmail = require("../models/findIdByEmail.js")
 
 //other functions
 const { loginUser } = require("../models/loginUser");
 
 async function secureLogIn(email, password) {
   try {
-    // const hashedPassword = await loginUser(email, password);
-    // if (!hashedPassword) {
-    //   return { status: 401, res: { msg: "Email or password incorrect", loggedIn: false } };
-    // };
-    // const isPasswordCorrect = await bcrypt.compare(password, hashedPassword)
-    const isPasswordCorrect = true;
+    const hashedPassword = await loginUser(email, password);
+    if (!hashedPassword) {
+      return { status: 401, res: { msg: "Email or password incorrect", loggedIn: false } };
+    };
+    const isPasswordCorrect = await bcrypt.compare(password, hashedPassword)
+//    const isPasswordCorrect = true;
     if (isPasswordCorrect) {
       console.log("Password is correct");
-      const token = jwt.sign({ email: email, password: password }, secret, {
+    
+      const id = await findIdByEmail(email)
+      const token = jwt.sign({ id: id }, secret, {
         algorithm: "HS256",
         expiresIn: "10000s",
       });

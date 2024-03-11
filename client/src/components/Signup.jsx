@@ -45,9 +45,7 @@ function Signup() {
   const [lastName, setLastName] = useState('')
   const [phoneNum, setPhoneNum] = useState('')
   const [address, setAddress] = useState('')
-
   const [city, setCity] = useState('')
-
   const [country, setCountry] = useState('')
 
   const [password, setPassword] = useState('')
@@ -56,8 +54,14 @@ function Signup() {
   const forceUpdate = useCallback(() => updateState({}), []);
 
   const [errMessages, setErrMessages] = useState({
+    usernameErr: '',
     emailErr: '',
+    firstNameErr: '',
+    lastNameErr: '',
     phoneNumErr: '',
+    addressErr: '',
+    cityErr: '',
+    countryErr: '',
     passwordErr: '',
     passwordConfirmationErr: '',
   })
@@ -66,8 +70,7 @@ function Signup() {
     let allInfoIsVerified = true
 
     //you can comment this next line out so that you don't have to enter valid information when testing
-/*     allInfoIsVerified = checkValidity(['email', 'phoneNum', 'password', 'passwordConfirmation'])
- */
+    //allInfoIsVerified = checkValidity(true)
 
     if(allInfoIsVerified){
       fetch("http://localhost:3001/api/signup", {
@@ -156,6 +159,7 @@ function Signup() {
                 size="small"
                 label="Username" 
                 value={username}
+                onBlur={() => checkValidity(['username'])}
                 onChange={(e) => setUsername(e.target.value)}
               />
               <ColorInput
@@ -163,6 +167,7 @@ function Signup() {
                 size="small"
                 label="First Name"
                 value={firstName}
+                onBlur={() => checkValidity(['firstName'])}
                 onChange={(e) => setFirstName(e.target.value)}
               />
               <ColorInput
@@ -174,11 +179,12 @@ function Signup() {
                 onChange={(e) => setPhoneNum(e.target.value)}
               />
               <ColorInput
-              variant="outlined"
-              size="small"
-              label="City"
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
+                variant="outlined"
+                size="small"
+                label="City"
+                value={city}
+                onBlur={() => checkValidity(['city'])}
+                onChange={(e) => setCity(e.target.value)}
               />
               <ColorInput
                 variant="outlined"
@@ -204,6 +210,7 @@ function Signup() {
                 size="small"
                 label="Last Name"
                 value={lastName}
+                onBlur={() => checkValidity(['lastName'])}
                 onChange={(e) => setLastName(e.target.value)}
               />
               <ColorInput
@@ -211,6 +218,7 @@ function Signup() {
                 size="small"
                 label="Address"
                 value={address}
+                onBlur={() => checkValidity(['address'])}
                 onChange={(e) => setAddress(e.target.value)}
               />
               <ColorInput
@@ -218,6 +226,7 @@ function Signup() {
                 size="small"
                 label="Country"
                 value={country}
+                onBlur={() => checkValidity(['country'])}
                 onChange={(e) => setCountry(e.target.value)}
               />
               <ColorInput
@@ -246,39 +255,110 @@ function Signup() {
 
 
   function checkValidity(fields){ //fields is passed in as array of strings corresponding to the error that need to be checked
+    if(fields){
+      fields = ['username', 'email', 'firstName', 'lastName', 'phoneNum', 'address', 'city', 'country', 'password', 'passwordConfirmation']
+    }
     let err = false
     let newErrMsgs = errMessages
     fields.forEach(field => {
       switch(field){
+        case 'username':
+          if(username === ''){
+            newErrMsgs.usernameErr = 'Username is required to fill out'
+            err=true
+          } else {
+            newErrMsgs.usernameErr = ''
+          }
+          break;
+
         case 'email':
           //email must contain word characters, ".", or "_" followed by "@" any combination of letters or digits, followed by a ".", then 3 more letters
           //example: "a@a.aaa"
           const emailRegex = /^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$/
           const isValidEmail = emailRegex.test(email)
-          if(isValidEmail){
+          if(email === ''){
+            newErrMsgs.emailErr = 'Email is required to fill out'
+            err=true
+          } else if(isValidEmail){
             newErrMsgs.emailErr = ''
           } else {
             newErrMsgs.emailErr = 'invalid email'
             err=true
           }
           break;
+
+        case 'firstName':
+          if(firstName === ''){
+            newErrMsgs.firstNameErr = 'First name is required to fill out'
+            err=true
+          } else {
+            newErrMsgs.firstNameErr = ''
+          }
+          break;
+
+        case 'lastName':
+          if(lastName === ''){
+            newErrMsgs.lastNameErr = 'Last name is required to fill out'
+            err=true
+          } else {
+            newErrMsgs.lastNameErr = ''
+          }
+          break;
+
+
         case 'phoneNum':
           //phone number must contain 3 digits enclosed in optional parentheses followed by an optional space or hyphen, three more digits, another optional space/hyphen, then four digits
           //example: "(111)1111111", "(123)-123-1234", or "9999999999"
           const phoneNumRegex = /^\(?\d{3}\)?[- ]?\d{3}[- ]?\d{4}$/
           const isValidPhoneNum = phoneNumRegex.test(phoneNum)
-          if(isValidPhoneNum){
+          if(phoneNum === ''){
+            newErrMsgs.phoneNumErr = 'Phone number is required to fill out'
+          } else if(isValidPhoneNum){
             newErrMsgs.phoneNumErr = ''
           } else {
             newErrMsgs.phoneNumErr = 'Invalid phone number'
             err=true
           }
           break;
+
+
+        case 'address':
+          if(address === ''){
+            newErrMsgs.addressErr = 'Adress is required to fill out'
+            err=true
+          } else {
+            newErrMsgs.addressErr = ''
+          }
+          break;
+
+        
+        case 'city':
+          if(city === ''){
+            newErrMsgs.cityErr = 'City is required to fill out'
+            err=true
+          } else {
+            newErrMsgs.cityErr = ''
+          }
+          break;
+
+      
+        case 'country':
+          if(country === ''){
+            newErrMsgs.countryErr = 'Country is required to fill out'
+            err=true
+          } else {
+            newErrMsgs.countryErr = ''
+          }
+          break;
+
+
         case 'password':
           //password must contain more than 8 characters; one uppercase, one lowercase, one number, one special character
           const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
           const isValidPassword = passwordRegex.test(password)
-          if(isValidPassword){
+          if(password === ''){
+            newErrMsgs.passwordErr = 'Password is required to fill out'
+          } else if(isValidPassword){
             newErrMsgs.passwordErr = ''
           } else {
             newErrMsgs.passwordErr = 'Password be at least 8 characters long with at least one uppercase letter, one lowercase letter, one special character, and one number'
@@ -288,7 +368,10 @@ function Signup() {
         case 'passwordConfirmation':
           //password must match password confirmation
           const passwordIsVerified = password === passwordConfirmation
-          if(passwordIsVerified){
+          if(passwordConfirmation === ''){
+            newErrMsgs.passwordConfirmationErr = 'Confirm password is required to fill out'
+            err = true
+          } else if(passwordIsVerified){
             newErrMsgs.passwordConfirmationErr = ''
           } else {
             newErrMsgs.passwordConfirmationErr = 'Password confirmation does not match password'
@@ -296,6 +379,7 @@ function Signup() {
           }
           break;
         default:
+
         return
       }
     })
