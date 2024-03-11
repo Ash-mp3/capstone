@@ -2,7 +2,7 @@ const client = require("../config/database");
 
 async function findInfoById(id){
     const query = `
-    select username, email, first_name, last_name
+    select username, email, first_name, last_name, user_role
     from users
     where user_id='${id}';
     `

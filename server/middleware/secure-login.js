@@ -4,10 +4,11 @@ const jwt = require("jsonwebtoken");
 
 //Environment variables
 const secret = process.env.JWT_SECRET;
-const findIdByEmail = require("../models/findIdByEmail.js")
 
 //other functions
 const { loginUser } = require("../models/loginUser");
+const findInfoById = require("../models/findInfoById.js");
+const findIdByEmail = require("../models/findIdByEmail.js")
 
 async function secureLogIn(email, password) {
   try {
@@ -21,7 +22,11 @@ async function secureLogIn(email, password) {
       console.log("Password is correct");
     
       const id = await findIdByEmail(email)
-      const token = jwt.sign({ id: id }, secret, {
+
+      const info = await findInfoById(id)
+      const user_role = info.user_role
+
+      const token = jwt.sign({ id: id, user_role: user_role }, secret, {
         algorithm: "HS256",
         expiresIn: "10000s",
       });
