@@ -14,9 +14,19 @@ import { SearchContext } from './SearchContext';
 import AddCourse from './adminAddForm';
 import AddStudent from './AddStudent';
 
+import handleStatus from '../controllers/handleStatus';
+import AuthDisplay from './AuthDisplay'
+
 function Admin() {
 
   const [allCourses, setAllCourses] = React.useState([]);
+
+  const [users, setUsers] = React.useState([
+    { name: 'Asher Contreras', courses: ['Math 1010', 'Web Development', 'Science 1020'] },
+    { name: 'Sergio Castillo', courses: ['Machine Learning', 'Computer Networking', 'Systems Programming'] },
+    { name: 'Anderson Bills', courses: ['Data Structures', 'Computer Architecture', 'Computer Vision']}
+  ]);
+  const [authorizeStatus, setAuthorizeStatus] = React.useState("loading...")
 
   // Fetch the list of all courses when the component mounts
 React.useEffect(() => {
@@ -28,11 +38,9 @@ React.useEffect(() => {
     },
   })
   .then((res) => {
-    if(res.status === 200){
+    setAuthorizeStatus(handleStatus(res))
+    if(res.ok){
       return(res.json())
-    } else {
-      console.error('Failed to fetch courses');
-      return;
     }
   })
   .then((data) => {
@@ -40,11 +48,29 @@ React.useEffect(() => {
   });
 }, []);
 
-  const [users, setUsers] = React.useState([
-    { name: 'Asher Contreras', courses: ['Math 1010', 'Web Development', 'Science 1020'] },
-    { name: 'Sergio Castillo', courses: ['Machine Learning', 'Computer Networking', 'Systems Programming'] },
-    { name: 'Anderson Bills', courses: ['Data Structures', 'Computer Architecture', 'Computer Vision']}
-  ]);
+
+React.useEffect(() => {
+  fetch("http://localhost:3001/api/admin/userList", {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      "Authorization": `Bearer ${localStorage.getItem("token")}`
+    },
+  })
+  .then((res) => {
+    if(res.status === 200){
+      return(res.json())
+    } else {
+      console.error('Failed to fetch users');
+      return;
+    }
+  })
+  .then((data) => {
+    console.log(data)
+  });
+}, []);
+
+
 
   const [toastOpen, setToastOpen] = React.useState(false);
   const [toastMessage, setToastMessage] = React.useState('');
@@ -64,6 +90,13 @@ React.useEffect(() => {
   const handleRemoveUser = () => {
     setUsers(users.filter(user => user !== userToRemove));
     setToastMessage(`Removed student: ${userToRemove.name}`);
+    fetch("http://localhost:3001/api/admin/removeUser", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+        "Authorization": `Bearer ${localStorage.getItem("token")}`
+      },
+    })
     setToastOpen(true);
     setDialogOpen(false);
   };
@@ -82,6 +115,10 @@ React.useEffect(() => {
   };
 
   return (
+    <div>
+    {
+    authorizeStatus === 'authorized' ?
+    
     <div id='AdminPage' className='w-full'>
       <ResponsiveAppBar onSearch={setSearchTerm}/>
 
@@ -126,6 +163,10 @@ React.useEffect(() => {
           </Button>
         </DialogActions>
       </Dialog>
+    </div> 
+    :
+    <AuthDisplay authorizeStatus={authorizeStatus} />
+    }
     </div>
   );
 }
