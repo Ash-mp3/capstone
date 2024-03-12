@@ -8,7 +8,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Button from '@mui/material/Button';
 
 //controllers
-import addClass from '../controllers/addClass';
+import addClass from '../../controllers/addClass';
 
 
 export default function AccordionCom(props) {
