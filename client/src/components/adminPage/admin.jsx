@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import 'C:/Users/gollo/OneDrive/Desktop/Capstone and Soft Skills/capstone/client/src/css/courses.css'
+import "../../css/courses.css"
 import ResponsiveAppBar from "../ResponsiveAppBar";
 import Footer from "../Footer";
 import AccordionRegistered from './AccordionRegistered';
