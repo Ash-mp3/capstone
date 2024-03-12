@@ -6,6 +6,8 @@ import UserInfo from './userInformation';
 import handleStatus from '../controllers/handleStatus';
 import AuthDisplay from './AuthDisplay'
 
+const apiUrl = import.meta.env.VITE_SOME_KEY; 
+
 function Profile() {
   const [info, setInfo] = useState({
     courses: [],
@@ -22,7 +24,7 @@ function Profile() {
 
   useEffect(() => {
     try {
-      fetch(`${process.env.REACT_APP_FETCH_URL}/api/profileInfo`, {
+      fetch(`${apiUrl}/api/profileInfo`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

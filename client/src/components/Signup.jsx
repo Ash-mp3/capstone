@@ -6,6 +6,8 @@ import TextField from "@mui/material/TextField";
 import { useState, useCallback } from "react";
 import Footer from './Footer';
 
+const apiUrl = import.meta.env.VITE_SOME_KEY; 
+
 const ColorButton = styled(Button)(({ theme }) => ({
   color: theme.palette.getContrastText("#474787"),
   backgroundColor: "#474787",
@@ -74,7 +76,7 @@ function Signup() {
     //allInfoIsVerified = checkValidity(true)
 
     if(allInfoIsVerified){
-      fetch("http://localhost:3001/api/signup", {
+      fetch(`${apiUrl}/api/signup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

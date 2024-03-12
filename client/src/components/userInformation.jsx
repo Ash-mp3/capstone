@@ -6,12 +6,8 @@ import TimeTable from './timetable.jsx';
 import TuitionComp from './tuitionComponent.jsx';
 import CreditComp from './creditHours.jsx';
 
+const apiUrl = import.meta.env.VITE_SOME_KEY; 
 
-// let address = '639 E Bullrush Pkwy';
-// let city = 'Lehi';
-// let country = 'USA';
-// let postal = '84043';
-// let phone = '801-123-4567'
 let password = '*****';
 
 export default function SearchAppBar(props) {
@@ -30,7 +26,7 @@ export default function SearchAppBar(props) {
     const updateUserInfo = async () => {
       if (isEditable) {
         try {
-          fetch(`${process.env.REACT_APP_FETCH_URL}/api/updateUser`, {
+          fetch(`${apiUrl}/api/updateUser`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
