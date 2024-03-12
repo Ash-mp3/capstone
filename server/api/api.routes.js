@@ -14,6 +14,7 @@ const adminRouter = require("../admin/admin.routes.js")
 //database
 const findInfoById = require("../models/findInfoById.js")
 const addClass = require("../models/courseModel.js")
+const updateUser = require("../models/updateUser.js")
 
 //controllers
 const getCourses = require("../models/courseController.js");
@@ -77,13 +78,13 @@ apiRouter.get("/profileInfo", expressjwt({ secret: secret, algorithms: ["HS256"]
   res.status(200).json(userInfo)
 })
 
-apiRouter.get("/updateUser", expressjwt({ secret: secret, algorithms: ["HS256"] }), async (req, res) => {
-  const { key, value } = req.body;
+apiRouter.post("/updateUser", expressjwt({ secret: secret, algorithms: ["HS256"] }), async (req, res) => {
+  const userInfo = req.body;
   const auth = req.headers.authorization
   const token = auth.slice(7, auth.length)
   const userId = jwt.decode(token).id
-  const result = await updateUser(userId, key, value )
-
+  const result = await updateUser(userId, userInfo)
+  res.status(result.status).send({msg: result.msg});
 })
 
 apiRouter.post(

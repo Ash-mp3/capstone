@@ -17,7 +17,6 @@ function Profile() {
     address: '',
     city: '',
     country: '',
-    status: 'loading...'
   });
   const [authorizeStatus, setAuthorizeStatus] = useState("loading...")
 
@@ -43,8 +42,7 @@ function Profile() {
       console.log(err);
     }
   }, []);
-
-  console.log(info)
+  
   return (
     <div className="Courses">
       {authorizeStatus === 'authorized' ?
