@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import AccordionCom from './AccordionCom';
+import ResponsiveAppBar from "../ResponsiveAppBar"
 import "../../css/courses.css"
 import Footer from "../Footer";
 import { useEffect, useState } from "react";
