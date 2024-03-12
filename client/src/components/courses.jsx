@@ -42,7 +42,9 @@ function Courses() {
     })
     .then((data) => {
       setCourses(data.courses)
-    });
+    }).catch((err) => {
+      console.log(err)
+    }) ;
   },[])
 
 
