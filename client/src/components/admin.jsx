@@ -30,7 +30,7 @@ function Admin() {
 
   // Fetch the list of all courses when the component mounts
 React.useEffect(() => {
-  fetch("http://localhost:3001/api/courses", {
+  fetch(`${process.env.REACT_APP_FETCH_URL}/api/courses`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

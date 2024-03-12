@@ -6,6 +6,7 @@ import { ReactRoutes } from "./components/ReactRoutes";
 import { BrowserRouter } from "react-router-dom";
 import { SearchContext } from "./components/SearchContext";
 
+
 function App() {
   const [data, setData] = useState(null);
 

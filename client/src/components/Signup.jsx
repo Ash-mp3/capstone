@@ -101,7 +101,7 @@ function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      fetch("http://localhost:3001/api/signup", {
+      fetch(`${process.env.REACT_APP_FETCH_URL}/api/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

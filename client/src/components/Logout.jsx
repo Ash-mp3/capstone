@@ -4,7 +4,7 @@ function Logout(){
     const [loggedOut, setLoggedOut] = useState(false)
 
     useEffect(() => {
-        fetch("http://localhost:3001/api/logout", {
+        fetch(`${process.env.REACT_APP_FETCH_URL}/api/logout`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

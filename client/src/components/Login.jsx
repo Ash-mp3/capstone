@@ -4,6 +4,7 @@ import { styled } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import ResponsiveAppBar from "./ResponsiveAppBar";
+const apiUrl = import.meta.env.REACT_APP_FETCH_URL; 
 
 const ColorButton = styled(Button)(({ theme }) => ({
   color: theme.palette.getContrastText("#474787"),
@@ -28,11 +29,10 @@ const handlePasswordChange = (e) => {
 
   //Sign the User in 
   function SignIn(){
-    fetch("http://localhost:3001/api/login", {
+    fetch(`${apiUrl}/api/login`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
-      },
+        "Content-Type": "application/json",      },
       body: JSON.stringify({ email, password }),
     })
       .then((res) => res.json())
