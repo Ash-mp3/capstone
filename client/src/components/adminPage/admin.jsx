@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
-import '../css/courses.css'; 
-import ResponsiveAppBar from "./ResponsiveAppBar";
-import Footer from "./Footer";
+import 'C:/Users/gollo/OneDrive/Desktop/Capstone and Soft Skills/capstone/client/src/css/courses.css'
+import ResponsiveAppBar from "../ResponsiveAppBar";
+import Footer from "../Footer";
 import AccordionRegistered from './AccordionRegistered';
 import Snackbar from '@mui/material/Snackbar';
 import Dialog from '@mui/material/Dialog';
@@ -10,13 +10,13 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { Button } from '@mui/material';
-import { SearchContext } from './SearchContext';
+import { SearchContext } from '../SearchContext';
 import AddCourse from './adminAddForm';
 import AddStudent from './AddStudent';
 import EditCourse from './EditCourse';
 import DeleteCourse from './DeleteCourse';
-import handleStatus from '../controllers/handleStatus';
-import AuthDisplay from './AuthDisplay'
+import handleStatus from '../../controllers/handleStatus';
+import AuthDisplay from '../AuthDisplay'
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 

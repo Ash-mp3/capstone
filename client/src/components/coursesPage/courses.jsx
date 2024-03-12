@@ -1,13 +1,13 @@
 import React, { useContext } from 'react';
 import AccordionCom from './AccordionCom';
-import '../css/courses.css'; 
-import ResponsiveAppBar from "./ResponsiveAppBar";
-import Footer from "./Footer";
+import 'C:/Users/gollo/OneDrive/Desktop/Capstone and Soft Skills/capstone/client/src/css/courses.css'
+import ResponsiveAppBar from "../ResponsiveAppBar";
+import Footer from "../Footer";
 import { useEffect, useState } from "react";
-import { SearchContext } from './SearchContext';
+import { SearchContext } from '../SearchContext';
 
-import handleStatus from '../controllers/handleStatus';
-import AuthDisplay from './AuthDisplay'
+import handleStatus from '../../controllers/handleStatus';
+import AuthDisplay from '../AuthDisplay'
 
 function Courses() {
   const [courses, setCourses] = useState([])

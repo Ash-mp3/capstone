@@ -3,7 +3,7 @@ import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import ResponsiveAppBar from "./ResponsiveAppBar";
+import ResponsiveAppBar from "../ResponsiveAppBar";
 
 const ColorButton = styled(Button)(({ theme }) => ({
   color: theme.palette.getContrastText("#474787"),
