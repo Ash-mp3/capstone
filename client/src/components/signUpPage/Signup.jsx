@@ -4,7 +4,7 @@ import { styled } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import { useState, useCallback } from "react";
-import Footer from './Footer';
+import Footer from '../Footer';
 
 const apiUrl = import.meta.env.VITE_SOME_KEY; 
 

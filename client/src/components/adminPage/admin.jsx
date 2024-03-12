@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
-import '../css/courses.css'; 
-import ResponsiveAppBar from "./ResponsiveAppBar";
-import Footer from "./Footer";
+import "../../css/courses.css"
+import ResponsiveAppBar from "../ResponsiveAppBar";
+import Footer from "../Footer";
 import AccordionRegistered from './AccordionRegistered';
 import Snackbar from '@mui/material/Snackbar';
 import Dialog from '@mui/material/Dialog';
@@ -10,12 +10,15 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { Button } from '@mui/material';
-import { SearchContext } from './SearchContext';
+import { SearchContext } from '../SearchContext';
 import AddCourse from './adminAddForm';
 import AddStudent from './AddStudent';
-
-import handleStatus from '../controllers/handleStatus';
-import AuthDisplay from './AuthDisplay'
+import EditCourse from './EditCourse';
+import DeleteCourse from './DeleteCourse';
+import handleStatus from '../../controllers/handleStatus';
+import AuthDisplay from '../AuthDisplay'
+import Autocomplete from '@mui/material/Autocomplete';
+import TextField from '@mui/material/TextField';
 
 const apiUrl = import.meta.env.VITE_SOME_KEY; 
 
@@ -23,11 +26,7 @@ function Admin() {
 
   const [allCourses, setAllCourses] = React.useState([]);
 
-  const [users, setUsers] = React.useState([
-    { name: 'Asher Contreras', courses: ['Math 1010', 'Web Development', 'Science 1020'] },
-    { name: 'Sergio Castillo', courses: ['Machine Learning', 'Computer Networking', 'Systems Programming'] },
-    { name: 'Anderson Bills', courses: ['Data Structures', 'Computer Architecture', 'Computer Vision']}
-  ]);
+  const [users, setUsers] = React.useState([]);
   const [authorizeStatus, setAuthorizeStatus] = React.useState("loading...")
 
   // Fetch the list of all courses when the component mounts
@@ -68,7 +67,7 @@ React.useEffect(() => {
     }
   })
   .then((data) => {
-    console.log(data)
+    setUsers(data)
   });
 }, []);
 
@@ -82,7 +81,7 @@ React.useEffect(() => {
   const {searchTerm, setSearchTerm} = useContext(SearchContext);
 
   const filteredUsers = users.filter(user => 
-    user.name && user.name.toLowerCase().includes(searchTerm.toLowerCase())
+    user.username && user.username.toLowerCase().includes(searchTerm.toLowerCase())
   );
   
   const handleAddUser = (newUser) => {
@@ -90,17 +89,23 @@ React.useEffect(() => {
   };
 
   const handleRemoveUser = () => {
-    setUsers(users.filter(user => user !== userToRemove));
-    setToastMessage(`Removed student: ${userToRemove.name}`);
     fetch("http://localhost:3001/api/admin/removeUser", {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
         "Authorization": `Bearer ${localStorage.getItem("token")}`
       },
+      body: JSON.stringify({user_id: userToRemove.user_id})
     })
-    setToastOpen(true);
-    setDialogOpen(false);
+    .then(res => {
+      if(res.ok){
+        setToastMessage(`Removed student: ${userToRemove.username}`);
+        setUsers(users.filter(user => user !== userToRemove));
+        setToastOpen(true);
+        setDialogOpen(false);
+      }
+    })
+
   };
 
   const handleOpenDialog = (user) => {
@@ -116,6 +121,23 @@ React.useEffect(() => {
     setToastOpen(false);
   };
 
+  const handleEditUser = (editedUser) => {
+    // Logic to update the user details goes here.
+    // This could involve making a request to your server to update the user details in your database.
+    // Remember to handle the state updates correctly to ensure your UI is consistent with your data.
+  };
+
+  const [selectedCourse, setSelectedCourse] = React.useState(null);
+
+  const handleEditCourse = (editedCourse) => {
+    // Logic to update the course details goes here.
+  };
+
+  const handleDeleteCourse = (deletedCourse) => {
+    // Logic to delete the course goes here.
+  };
+  
+
   return (
     <div>
     {
@@ -127,6 +149,22 @@ React.useEffect(() => {
       <div className='flex justify-evenly pb-8'>
         <AddCourse />
         <AddStudent onAddUser={handleAddUser} />
+        <Autocomplete
+          className='w-1/4 pt-8 mt-44'
+          options={allCourses}
+          getOptionLabel={(option) => option.title}
+          renderInput={(params) => <TextField {...params} label="Select a course" />}
+          onChange={(event, newValue) => {
+            setSelectedCourse(newValue);
+          }}
+        />
+        {selectedCourse && (
+          <div className='mt-44'>
+            
+            <EditCourse course={selectedCourse} onEditCourse={handleEditCourse} />
+            <DeleteCourse course={selectedCourse} onDeleteCourse={handleDeleteCourse} />
+          </div>
+        )}
       </div>
 
       <div id='registeredUsers' className='grid grid-cols-1 place-items-center'>
@@ -134,7 +172,9 @@ React.useEffect(() => {
         <div id='studentSection' className='flex w-full justify-center'>
           <div id='studentAccordion' className='w-4/5 pb-4'>
           {filteredUsers.map((user, index) => (
-            <AccordionRegistered key={user.name} user={user} onRemoveUser={handleOpenDialog} allCourses={allCourses} />
+            <div key={user.name}>
+              <AccordionRegistered key={user.name} user={user} onRemoveUser={handleOpenDialog} allCourses={allCourses} />
+            </div>
           ))}   
           </div>
         </div>

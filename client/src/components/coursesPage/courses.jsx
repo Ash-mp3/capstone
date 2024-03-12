@@ -1,13 +1,13 @@
 import React, { useContext } from 'react';
 import AccordionCom from './AccordionCom';
-import '../css/courses.css'; 
-import ResponsiveAppBar from "./ResponsiveAppBar";
-import Footer from "./Footer";
+import ResponsiveAppBar from "../ResponsiveAppBar"
+import "../../css/courses.css"
+import Footer from "../Footer";
 import { useEffect, useState } from "react";
-import { SearchContext } from './SearchContext';
+import { SearchContext } from '../SearchContext';
 
-import handleStatus from '../controllers/handleStatus';
-import AuthDisplay from './AuthDisplay'
+import handleStatus from '../../controllers/handleStatus';
+import AuthDisplay from '../AuthDisplay'
 
 const apiUrl = import.meta.env.VITE_SOME_KEY; 
 
@@ -72,6 +72,8 @@ function Courses() {
                     tuition_cost = {course.tuition_cost}
                     credit_hours = {course.credit_hours}
                     class_id = {course.class_id}
+                    maximum_capacity = {course.maximum_capacity}
+                    schedule = {course.schedule}
                   />
                 </div>
               )
