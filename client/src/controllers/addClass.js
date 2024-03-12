@@ -1,7 +1,5 @@
-const apiUrl = import.meta.env.VITE_SOME_KEY; 
-
 export default function addClass(class_id) {
-    fetch(`${apiUrl}/api/addClass`, {
+    fetch(`/api/addClass`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
