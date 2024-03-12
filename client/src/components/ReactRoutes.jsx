@@ -1,10 +1,10 @@
 import { Routes, Route } from "react-router-dom";
-import Login from "./Login";
-import Signup from "./Signup";
-import Courses from "./courses";
-import Profile from "./Profile";
-import Logout from "./Logout";
-import Admin from "./admin";
+import Login from "./loginPage/Login";
+import Signup from "./signUpPage/Signup";
+import Courses from "./coursesPage/courses";
+import Profile from "./profilePage/Profile";
+import Logout from "./loginPage/Logout";
+import Admin from "./adminPage/admin";
 
  export const ReactRoutes = () => {
   return (
