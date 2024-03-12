@@ -5,8 +5,8 @@ const adminRouter = express.Router();
 //controllers
 const getUserList = require("./adminControllers/getUserList")
 
-adminRouter.get('/userList', (req, res) => {
-    const result = getUserList()
+adminRouter.get('/userList', async(req, res) => {
+    const result = await getUserList()
     res.status(result.status).json(result.res);
 })
 
