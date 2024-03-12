@@ -1,5 +1,5 @@
 export default function addClass(class_id){
-    fetch("http://localhost:3001/api/addClass", {
+    fetch(`${process.env.REACT_APP_FETCH_URL}/api/addClass`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

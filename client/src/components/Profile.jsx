@@ -22,7 +22,7 @@ function Profile() {
 
   useEffect(() => {
     try {
-      fetch("http://localhost:3001/api/profileInfo", {
+      fetch(`${process.env.REACT_APP_FETCH_URL}/api/profileInfo`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

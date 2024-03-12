@@ -25,7 +25,7 @@ function Courses() {
 
   //fetch courses
   useEffect(() => {
-    fetch("http://localhost:3001/api/courses", {
+    fetch(`${process.env.REACT_APP_FETCH_URL}/api/courses`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

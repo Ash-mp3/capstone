@@ -30,7 +30,7 @@ export default function SearchAppBar(props) {
     const updateUserInfo = async () => {
       if (isEditable) {
         try {
-          fetch("http://localhost:3001/api/updateUser", {
+          fetch(`${process.env.REACT_APP_FETCH_URL}/api/updateUser`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
