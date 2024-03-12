@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react"
 
+const apiUrl = import.meta.env.VITE_SOME_KEY; 
+
 function Logout(){
     const [loggedOut, setLoggedOut] = useState(false)
 
     useEffect(() => {
-        fetch(`${process.env.REACT_APP_FETCH_URL}/api/logout`, {
+        fetch(`${apiUrl}/api/logout`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

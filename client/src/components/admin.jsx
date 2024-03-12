@@ -17,6 +17,8 @@ import AddStudent from './AddStudent';
 import handleStatus from '../controllers/handleStatus';
 import AuthDisplay from './AuthDisplay'
 
+const apiUrl = import.meta.env.VITE_SOME_KEY; 
+
 function Admin() {
 
   const [allCourses, setAllCourses] = React.useState([]);
@@ -30,7 +32,7 @@ function Admin() {
 
   // Fetch the list of all courses when the component mounts
 React.useEffect(() => {
-  fetch(`${process.env.REACT_APP_FETCH_URL}/api/courses`, {
+  fetch(`${apiUrl}/api/courses`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

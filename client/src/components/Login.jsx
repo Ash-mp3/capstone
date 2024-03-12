@@ -4,7 +4,8 @@ import { styled } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import ResponsiveAppBar from "./ResponsiveAppBar";
-const apiUrl = import.meta.env.REACT_APP_FETCH_URL; 
+
+const apiUrl = import.meta.env.VITE_SOME_KEY; 
 
 const ColorButton = styled(Button)(({ theme }) => ({
   color: theme.palette.getContrastText("#474787"),

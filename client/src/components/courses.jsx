@@ -9,6 +9,8 @@ import { SearchContext } from './SearchContext';
 import handleStatus from '../controllers/handleStatus';
 import AuthDisplay from './AuthDisplay'
 
+const apiUrl = import.meta.env.VITE_SOME_KEY; 
+
 function Courses() {
   const [courses, setCourses] = useState([])
   const [authorizeStatus, setAuthorizeStatus] = useState("loading...")
@@ -22,10 +24,10 @@ function Courses() {
   const filteredCourses = courses.filter(course =>
       course.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
-
+  
   //fetch courses
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_FETCH_URL}/api/courses`, {
+    fetch(`${apiUrl}/api/courses`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
