@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import ResponsiveAppBar from "./ResponsiveAppBar";
-import Footer from "./Footer";
+import ResponsiveAppBar from "../ResponsiveAppBar";
+import Footer from "../Footer";
 import UserInfo from './userInformation';
 
-import handleStatus from '../controllers/handleStatus';
-import AuthDisplay from './AuthDisplay'
+import handleStatus from '../../controllers/handleStatus';
+import AuthDisplay from '../AuthDisplay'
 
 function Profile() {
   const [info, setInfo] = useState({
