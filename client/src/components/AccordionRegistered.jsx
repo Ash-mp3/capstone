@@ -41,9 +41,9 @@ export default function AccordionRegistered({ user, onRemoveUser, allCourses, on
     id="panel1-header"
   >
     <Box display="flex" alignItems="center" width="100%">
-      <Avatar>{user.name.charAt(0)}</Avatar>
+      <Avatar>{user.username.charAt(0)}</Avatar>
       <Box flexGrow={1} ml={1}>
-        {user.name}
+        {user.username}
       </Box>
       <Button onClick={handleRemoveUserClick} className='w-1/4 '>Remove Student</Button>
     </Box>
@@ -51,7 +51,7 @@ export default function AccordionRegistered({ user, onRemoveUser, allCourses, on
   {courses.map((course, index) => (
     <AccordionDetails key={index}>
       <Box display="flex" justifyContent="space-between" width="100%">
-        <div>{course}</div>
+        <div>{course.title}</div>
         <Button onClick={() => handleRemoveCourse(course)} className='w-1/5'>Remove Course</Button>
       </Box>
     </AccordionDetails>

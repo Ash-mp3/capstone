@@ -24,11 +24,7 @@ function Admin() {
 
   const [allCourses, setAllCourses] = React.useState([]);
 
-  const [users, setUsers] = React.useState([
-    { name: 'Asher Contreras', courses: ['Math 1010', 'Web Development', 'Science 1020'] },
-    { name: 'Sergio Castillo', courses: ['Machine Learning', 'Computer Networking', 'Systems Programming'] },
-    { name: 'Anderson Bills', courses: ['Data Structures', 'Computer Architecture', 'Computer Vision']}
-  ]);
+  const [users, setUsers] = React.useState([]);
   const [authorizeStatus, setAuthorizeStatus] = React.useState("loading...")
 
   // Fetch the list of all courses when the component mounts
@@ -69,7 +65,7 @@ React.useEffect(() => {
     }
   })
   .then((data) => {
-    console.log(data)
+    setUsers(data)
   });
 }, []);
 
@@ -83,7 +79,7 @@ React.useEffect(() => {
   const {searchTerm, setSearchTerm} = useContext(SearchContext);
 
   const filteredUsers = users.filter(user => 
-    user.name && user.name.toLowerCase().includes(searchTerm.toLowerCase())
+    user.username && user.username.toLowerCase().includes(searchTerm.toLowerCase())
   );
   
   const handleAddUser = (newUser) => {
@@ -92,7 +88,7 @@ React.useEffect(() => {
 
   const handleRemoveUser = () => {
     setUsers(users.filter(user => user !== userToRemove));
-    setToastMessage(`Removed student: ${userToRemove.name}`);
+    setToastMessage(`Removed student: ${userToRemove.username}`);
     fetch("http://localhost:3001/api/admin/removeUser", {
       method: "POST",
       headers: {
