@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { Button } from '@mui/material';
-import LogoTemp from '../assets/Registration_App_Logo.png';
+import LogoTemp from './assets/Registration_App_Logo.png';
 import TimeTable from './timetable.jsx';
 import TuitionComp from './tuitionComponent.jsx';
 import CreditComp from './creditHours.jsx';
