@@ -20,8 +20,6 @@ import AuthDisplay from '../AuthDisplay'
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 
-const apiUrl = import.meta.env.VITE_SOME_KEY; 
-
 function Admin() {
 
   const [allCourses, setAllCourses] = React.useState([]);
@@ -31,7 +29,7 @@ function Admin() {
 
   // Fetch the list of all courses when the component mounts
 React.useEffect(() => {
-  fetch(`${apiUrl}/api/courses`, {
+  fetch(`/api/courses`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -51,7 +49,7 @@ React.useEffect(() => {
 
 
 React.useEffect(() => {
-  fetch("http://localhost:3001/api/admin/userList", {
+  fetch("/api/admin/userList", {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

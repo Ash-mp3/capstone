@@ -9,8 +9,6 @@ import { SearchContext } from '../SearchContext';
 import handleStatus from '../../controllers/handleStatus';
 import AuthDisplay from '../AuthDisplay'
 
-const apiUrl = import.meta.env.VITE_SOME_KEY; 
-
 function Courses() {
   const [courses, setCourses] = useState([])
   const [authorizeStatus, setAuthorizeStatus] = useState("loading...")
@@ -27,7 +25,7 @@ function Courses() {
   
   //fetch courses
   useEffect(() => {
-    fetch(`${apiUrl}/api/courses`, {
+    fetch(`/api/courses`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
