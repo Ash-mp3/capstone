@@ -87,17 +87,23 @@ React.useEffect(() => {
   };
 
   const handleRemoveUser = () => {
-    setUsers(users.filter(user => user !== userToRemove));
-    setToastMessage(`Removed student: ${userToRemove.username}`);
     fetch("http://localhost:3001/api/admin/removeUser", {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
         "Authorization": `Bearer ${localStorage.getItem("token")}`
       },
+      body: JSON.stringify({user_id: userToRemove.user_id})
     })
-    setToastOpen(true);
-    setDialogOpen(false);
+    .then(res => {
+      if(res.ok){
+        setToastMessage(`Removed student: ${userToRemove.username}`);
+        setUsers(users.filter(user => user !== userToRemove));
+        setToastOpen(true);
+        setDialogOpen(false);
+      }
+    })
+
   };
 
   const handleOpenDialog = (user) => {
