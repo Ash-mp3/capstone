@@ -26,6 +26,10 @@ app.use(express.static(path.join(__dirname, "../client/dist")));
 // Handle requests to /api route
 app.use("/api", apiRouter);
 
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, "../client/dist", 'index.html'));
+});
+
 app.listen(3001, () => {
   console.log(`Server listening on ${PORT}`);
 });
