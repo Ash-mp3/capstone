@@ -13,10 +13,12 @@ import { Button } from '@mui/material';
 import { SearchContext } from './SearchContext';
 import AddCourse from './adminAddForm';
 import AddStudent from './AddStudent';
-import EditUser from './EditUser';
-
+import EditCourse from './EditCourse';
+import DeleteCourse from './DeleteCourse';
 import handleStatus from '../controllers/handleStatus';
 import AuthDisplay from './AuthDisplay'
+import Autocomplete from '@mui/material/Autocomplete';
+import TextField from '@mui/material/TextField';
 
 function Admin() {
 
@@ -120,6 +122,16 @@ React.useEffect(() => {
     // This could involve making a request to your server to update the user details in your database.
     // Remember to handle the state updates correctly to ensure your UI is consistent with your data.
   };
+
+  const [selectedCourse, setSelectedCourse] = React.useState(null);
+
+  const handleEditCourse = (editedCourse) => {
+    // Logic to update the course details goes here.
+  };
+
+  const handleDeleteCourse = (deletedCourse) => {
+    // Logic to delete the course goes here.
+  };
   
 
   return (
@@ -133,6 +145,22 @@ React.useEffect(() => {
       <div className='flex justify-evenly pb-8'>
         <AddCourse />
         <AddStudent onAddUser={handleAddUser} />
+        <Autocomplete
+          className='w-1/4 pt-8 mt-44'
+          options={allCourses}
+          getOptionLabel={(option) => option.title}
+          renderInput={(params) => <TextField {...params} label="Select a course" />}
+          onChange={(event, newValue) => {
+            setSelectedCourse(newValue);
+          }}
+        />
+        {selectedCourse && (
+          <div className='mt-44'>
+            
+            <EditCourse course={selectedCourse} onEditCourse={handleEditCourse} />
+            <DeleteCourse course={selectedCourse} onDeleteCourse={handleDeleteCourse} />
+          </div>
+        )}
       </div>
 
       <div id='registeredUsers' className='grid grid-cols-1 place-items-center'>
