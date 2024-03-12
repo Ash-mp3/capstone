@@ -68,6 +68,8 @@ function Courses() {
                     tuition_cost = {course.tuition_cost}
                     credit_hours = {course.credit_hours}
                     class_id = {course.class_id}
+                    maximum_capacity = {course.maximum_capacity}
+                    schedule = {course.schedule}
                   />
                 </div>
               )

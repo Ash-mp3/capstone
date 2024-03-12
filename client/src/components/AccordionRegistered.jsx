@@ -9,8 +9,9 @@ import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
+import EditUser from './EditUser';
 
-export default function AccordionRegistered({ user, onRemoveUser, allCourses }) {
+export default function AccordionRegistered({ user, onRemoveUser, allCourses, onEditUser }) {
 
   const [courses, setCourses] = React.useState(user.courses);
   const [selectedCourse, setSelectedCourse] = React.useState('');
@@ -66,6 +67,7 @@ export default function AccordionRegistered({ user, onRemoveUser, allCourses }) 
             className='w-full'
         />
         <Button onClick={handleAddCourse} className='w-1/5'>Add Course</Button>
+        <EditUser user={user} onEditUser={onEditUser} />
       </AccordionActions>
     </Accordion>
   );
