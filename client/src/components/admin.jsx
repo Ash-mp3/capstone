@@ -13,6 +13,7 @@ import { Button } from '@mui/material';
 import { SearchContext } from './SearchContext';
 import AddCourse from './adminAddForm';
 import AddStudent from './AddStudent';
+import EditUser from './EditUser';
 
 import handleStatus from '../controllers/handleStatus';
 import AuthDisplay from './AuthDisplay'
@@ -114,6 +115,13 @@ React.useEffect(() => {
     setToastOpen(false);
   };
 
+  const handleEditUser = (editedUser) => {
+    // Logic to update the user details goes here.
+    // This could involve making a request to your server to update the user details in your database.
+    // Remember to handle the state updates correctly to ensure your UI is consistent with your data.
+  };
+  
+
   return (
     <div>
     {
@@ -132,7 +140,9 @@ React.useEffect(() => {
         <div id='studentSection' className='flex w-full justify-center'>
           <div id='studentAccordion' className='w-4/5 pb-4'>
           {filteredUsers.map((user, index) => (
-            <AccordionRegistered key={user.name} user={user} onRemoveUser={handleOpenDialog} allCourses={allCourses} />
+            <div key={user.name}>
+              <AccordionRegistered key={user.name} user={user} onRemoveUser={handleOpenDialog} allCourses={allCourses} />
+            </div>
           ))}   
           </div>
         </div>
