@@ -157,7 +157,7 @@ function ResponsiveAppBar({ isLoggedIn, onSearch }) {
             {title}
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {location.pathname !== '/courses' && location.pathname !== '/admin' && (
+            {location.pathname !== '/courses' && location.pathname !== '/admin' && location.pathname !== '/profile' &&(
               <Link to="/courses">
                 <Button
                   onClick={handleCloseNavMenu}
