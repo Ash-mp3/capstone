@@ -48,7 +48,7 @@ function EditCourse({ course, onEditCourse }) {
             name="tuitionCost"
             label="Tuition Cost"
             type="number"
-            value={editedCourse.tuitionCost}
+            value={editedCourse.tuition_Cost}
             onChange={handleChange}
             fullWidth
         />
@@ -57,7 +57,7 @@ function EditCourse({ course, onEditCourse }) {
             name="creditHours"
             label="Credit Hours"
             type="number"
-            value={editedCourse.creditHours}
+            value={editedCourse.credit_Hours}
             onChange={handleChange}
             fullWidth
         />
@@ -66,7 +66,25 @@ function EditCourse({ course, onEditCourse }) {
             name="maximum_capacity"
             label="Maximum Capacity"
             type="number"
-            value={editedCourse.creditHours}
+            value={editedCourse.maximum_capacity}
+            onChange={handleChange}
+            fullWidth
+        />
+        <TextField
+            margin="dense"
+            name="classroom_number"
+            label="Classroom Number"
+            type="number"
+            value={editedCourse.classroom_number}
+            onChange={handleChange}
+            fullWidth
+        />
+        <TextField
+            margin="dense"
+            name="schedule"
+            label="Schedule"
+            type="number"
+            value={editedCourse.schedule}
             onChange={handleChange}
             fullWidth
         />
