@@ -3,12 +3,11 @@ import 'tailwindcss/tailwind.css'
 
 const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
 const times = [];
-for(let i = 7; i <= 16; i++) {
+for(let i = 7; i <= 15; i++) {
   const period = i >= 12 ? 'PM' : 'AM';
   let hour = i > 12 ? i - 12 : i;
   hour = hour === 0 ? 12 : hour; // handle noon and midnight
   times.push(`${hour}:00 ${period}`);
-  if(i !== 16) times.push(`${hour}:30 ${period}`);
 }
 
 
