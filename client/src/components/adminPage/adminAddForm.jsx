@@ -52,6 +52,18 @@ function CourseForm() {
         Credit Hours:
         <input className='w-full px-3 py-2 border rounded-md' type='number' name='credit_hours' value={course.credit_hours} onChange={handleInputChange} required />
       </label>
+      <label className='w-full mb-4'>
+        Maximum Capacity:
+        <input className='w-full px-3 py-2 border rounded-md' type='number' name='maximum_capacity' value={course.maximum_capacity} onChange={handleInputChange} required />
+      </label>
+      <label className='w-full mb-4'>
+        Schedule:
+        <input className='w-full px-3 py-2 border rounded-md' type='number' name='schedule' value={course.schedule} onChange={handleInputChange} required />
+      </label>
+      <label className='w-full mb-4'>
+        Classroom Number:
+        <input className='w-full px-3 py-2 border rounded-md' type='number' name='classroom_number' value={course.classroom_number} onChange={handleInputChange} required />
+      </label>
       <button style={buttonStyle} onMouseEnter={toggleHover} onMouseLeave={toggleHover} type='submit'>Submit</button>
     </form>
     </div>
