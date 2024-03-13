@@ -55,11 +55,11 @@ function ResponsiveAppBar({ isLoggedIn, onSearch }) {
   };
 
   const checkUserRole = async () => {
-    
+    if (localStorage.getItem("token")) {
       try {
       fetch(`/api/profileInfo`, {
         method: 'GET',
-        headers: {
+        headers: { 
           'Content-Type': 'application/json',
           "Authorization": `Bearer ${localStorage.getItem("token")}`
         },
@@ -73,8 +73,9 @@ function ResponsiveAppBar({ isLoggedIn, onSearch }) {
         setUserName(data.username)
       })
       } catch (err) {
-        console.error('err');
+        console.error(err);
       }   
+    }  
   }
   
   checkUserRole()
