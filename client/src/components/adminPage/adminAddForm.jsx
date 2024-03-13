@@ -33,9 +33,9 @@ function CourseForm() {
   };
 
   return (
-    <div className='pt-8'>
+    <div className='pt-8 mb-4'>
     <h1 className='text-center underline text-xl font-bold py-2'>Add Courses</h1>
-    <form className='flex flex-col items-center justify-center w-full max-w-md mx-auto p-5 shadow-md rounded-md' onSubmit={handleSubmit}>
+    <form className='flex flex-col items-center justify-center w-full max-w-md mx-auto p-5 shadow-md rounded-md h-full' onSubmit={handleSubmit}>
       <label className='w-full mb-4'>
         Title:
         <input className='w-full px-3 py-2 border rounded-md' type='text' name='title' value={course.title} onChange={handleInputChange} required />
@@ -51,6 +51,18 @@ function CourseForm() {
       <label className='w-full mb-4'>
         Credit Hours:
         <input className='w-full px-3 py-2 border rounded-md' type='number' name='credit_hours' value={course.credit_hours} onChange={handleInputChange} required />
+      </label>
+      <label className='w-full mb-4'>
+        Maximum Capacity:
+        <input className='w-full px-3 py-2 border rounded-md' type='number' name='maximum_capacity' value={course.maximum_capacity} onChange={handleInputChange} required />
+      </label>
+      <label className='w-full mb-4'>
+        Schedule:
+        <input className='w-full px-3 py-2 border rounded-md' type='number' name='schedule' value={course.schedule} onChange={handleInputChange} required />
+      </label>
+      <label className='w-full mb-4'>
+        Classroom Number:
+        <input className='w-full px-3 py-2 border rounded-md' type='number' name='classroom_number' value={course.classroom_number} onChange={handleInputChange} required />
       </label>
       <button style={buttonStyle} onMouseEnter={toggleHover} onMouseLeave={toggleHover} type='submit'>Submit</button>
     </form>
