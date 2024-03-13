@@ -11,6 +11,7 @@ import AuthDisplay from '../AuthDisplay'
 
 function Courses() {
   const [courses, setCourses] = useState([])
+  const [enrolledCourses, setEnrolledCourses] = useState([])
   const [authorizeStatus, setAuthorizeStatus] = useState("loading...")
   const {searchTerm, setSearchTerm} = useContext(SearchContext);
 
@@ -40,6 +41,7 @@ function Courses() {
     })
     .then((data) => {
       setCourses(data.courses)
+      setEnrolledCourses(data.enrolledCourses)
     }).catch((err) => {
       console.log(err)
     }) ;
@@ -72,6 +74,7 @@ function Courses() {
                     class_id = {course.class_id}
                     maximum_capacity = {course.maximum_capacity}
                     schedule = {course.schedule}
+                    spots_left = {course.spots_left}
                   />
                 </div>
               )
