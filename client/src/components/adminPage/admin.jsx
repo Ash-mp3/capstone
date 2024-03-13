@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import "../../css/courses.css"
+import '../../css/courses.css'
 import ResponsiveAppBar from "../ResponsiveAppBar";
 import Footer from "../Footer";
 import AccordionRegistered from './AccordionRegistered';
@@ -87,23 +87,17 @@ React.useEffect(() => {
   };
 
   const handleRemoveUser = () => {
+    setUsers(users.filter(user => user !== userToRemove));
+    setToastMessage(`Removed student: ${userToRemove.username}`);
     fetch("http://localhost:3001/api/admin/removeUser", {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
         "Authorization": `Bearer ${localStorage.getItem("token")}`
       },
-      body: JSON.stringify({user_id: userToRemove.user_id})
     })
-    .then(res => {
-      if(res.ok){
-        setToastMessage(`Removed student: ${userToRemove.username}`);
-        setUsers(users.filter(user => user !== userToRemove));
-        setToastOpen(true);
-        setDialogOpen(false);
-      }
-    })
-
+    setToastOpen(true);
+    setDialogOpen(false);
   };
 
   const handleOpenDialog = (user) => {
@@ -158,7 +152,6 @@ React.useEffect(() => {
         />
         {selectedCourse && (
           <div className='mt-44'>
-            
             <EditCourse course={selectedCourse} onEditCourse={handleEditCourse} />
             <DeleteCourse course={selectedCourse} onDeleteCourse={handleDeleteCourse} />
           </div>

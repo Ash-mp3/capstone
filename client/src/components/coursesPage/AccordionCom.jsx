@@ -9,6 +9,7 @@ import Button from '@mui/material/Button';
 
 //controllers
 import addClass from '../../controllers/addClass';
+import removeClass from '../../controllers/removeClass';
 
 
 export default function AccordionCom(props) {
@@ -30,7 +31,7 @@ export default function AccordionCom(props) {
         </AccordionDetails>
         <AccordionActions>
           <Button id='addCourse' onClick={() => addClass(class_id)}>Add Course</Button>
-          <Button id='removeCourse'>Remove Course</Button>
+          <Button id='removeCourse' onClick={() => removeClass(class_id)}>Remove Course</Button>
         </AccordionActions>
       </Accordion>
   );
