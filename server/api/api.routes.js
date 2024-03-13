@@ -14,6 +14,7 @@ const adminRouter = require("../admin/admin.routes.js")
 //database
 const findInfoById = require("../models/findInfoById.js")
 const addClass = require("../models/courseModel.js")
+const removeClass = require("../models/removeClass.js")
 const updateUser = require("../models/updateUser.js")
 
 //controllers
@@ -77,7 +78,6 @@ apiRouter.get(
         enrolledCourses:enrolledResult.res.enrolledCourses
       }
     }
-    console.log(result)
     res.status(result.status).json(result.res);
   }
 );
@@ -114,5 +114,18 @@ apiRouter.post(
     res.status(result.status).send({msg: result.msg});
   }
 );
+
+apiRouter.delete(
+  "/removeClass", expressjwt({ secret: secret, algorithms: ["HS256"] }), async (req, res) => {
+    const classId = req.body.class_id
+
+    const auth = req.headers.authorization
+    const token = auth.slice(7, auth.length)
+    const userId = jwt.decode(token).id
+
+    const result = await removeClass(userId, classId);
+    res.status(result.status).send({msg: result.res.msg});
+  }
+)
 
 module.exports = apiRouter
