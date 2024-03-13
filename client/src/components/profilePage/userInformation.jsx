@@ -119,13 +119,13 @@ export default function SearchAppBar(props) {
 
         <div id='userSchedule' className = 'mb-10'>
             <h2 className = 'display flex place-content-center my-10 underline'>Your Schedule</h2>
-            <TimeTable>
+            <TimeTable courses={courses}>
             </TimeTable>
         </div>
 
         <div id='userTuition&Credits' className='flex w-full justify-center mb-8'>
-            <CreditComp />
-            <TuitionComp />
+            <CreditComp courses={courses} />
+            <TuitionComp courses={courses} />
         </div>
 
     </div>

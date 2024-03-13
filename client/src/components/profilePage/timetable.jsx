@@ -12,7 +12,9 @@ for(let i = 7; i <= 16; i++) {
 }
 
 
-function TimeTable() {
+function TimeTable({ courses }) {
+  
+  console.log(courses)
   return (
     <table className="table-fixed border-2 border-black w-full">
       <thead>
