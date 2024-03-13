@@ -22,7 +22,6 @@ const getCourses = require("../models/courseController.js");
 //Environment variables
 const secret = process.env.JWT_SECRET;
 
-
 //admin routes
 apiRouter.use(
   "/admin",
@@ -30,7 +29,6 @@ apiRouter.use(
   verifyAdmin,
   adminRouter
  )
-
 
 //responds with a jwt and a logged in status
 apiRouter.post("/login", async (req, res) => {
@@ -73,7 +71,6 @@ apiRouter.get("/profileInfo", expressjwt({ secret: secret, algorithms: ["HS256"]
   const token = auth.slice(7, auth.length)
   const userId = jwt.decode(token).id
   const userInfo = await findInfoById(userId)
-  
   //use userId to find user info in database
   res.status(200).json(userInfo)
 })
@@ -84,17 +81,16 @@ apiRouter.post("/updateUser", expressjwt({ secret: secret, algorithms: ["HS256"]
   const token = auth.slice(7, auth.length)
   const userId = jwt.decode(token).id
   const result = await updateUser(userId, userInfo)
+  console.log(result)
   res.status(result.status).send({msg: result.msg});
 })
 
 apiRouter.post(
   "/addClass", expressjwt({ secret: secret, algorithms: ["HS256"] }), async (req, res) => {
     const classId = req.body.class_id
-
     const auth = req.headers.authorization
     const token = auth.slice(7, auth.length)
     const userId = jwt.decode(token).id
-
     const result = await addClass(userId, classId);
     res.status(result.status).send({msg: result.msg});
   }

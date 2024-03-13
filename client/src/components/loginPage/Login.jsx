@@ -57,7 +57,7 @@ const handlePasswordChange = (e) => {
 
     
       <header id="LoginHeader" className="w-full flex justify-center absolute top-0">
-        <ResponsiveAppBar/>
+        <ResponsiveAppBar />
       </header>
       <div id="LoginInfo">
         <h1 className="text-[60px]">Welcome back!</h1>

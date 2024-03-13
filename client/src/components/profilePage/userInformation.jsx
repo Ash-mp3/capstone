@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { Button } from '@mui/material';
-import LogoTemp from './assets/Registration_App_Logo.png';
 import TimeTable from './timetable.jsx';
 import TuitionComp from './tuitionComponent.jsx';
 import CreditComp from './creditHours.jsx';
+import Avatar from '@mui/material/Avatar';
 
 const apiUrl = import.meta.env.VITE_SOME_KEY; 
 
@@ -25,8 +25,9 @@ export default function SearchAppBar(props) {
     
     const updateUserInfo = async () => {
       if (isEditable) {
+        console.log(userInfo)
         try {
-          fetch(`${apiUrl}/api/updateUser`, {
+          fetch(`/api/updateUser`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -57,7 +58,7 @@ export default function SearchAppBar(props) {
         </div>
 
         <div id='userPicture' className='place-self-center m-4'>
-            <img src={LogoTemp} className = 'rounded-full border-2 border-black border-solid w-80'/>
+        <Avatar className='rounded-full border-2 border-black border-solid w-80' sx={{ borderRadius: '100%', border: '2px', borderColor: 'black', borderStyle: 'solid', width: '320px', height: '320px', fontSize: '200px',  }}>{username.charAt(0).toUpperCase()}</Avatar>
         </div>
 
         <div id='userInfoBanner' className = 'display flex place-content-center m-2'>

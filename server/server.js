@@ -13,12 +13,6 @@ const PORT = process.env.SERVER_PORT;
 
 //app config
 app.use(express.json());
-// app.use(
-//   cors({
-//     origin: process.env.VITE_SOME_KEY,
-//     credentials: true,
-//   })
-// );
 app.use(cors())
 
 app.use(express.static(path.join(__dirname, "../client/dist")));
