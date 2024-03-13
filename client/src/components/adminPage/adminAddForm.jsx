@@ -33,9 +33,9 @@ function CourseForm() {
   };
 
   return (
-    <div className='pt-8'>
+    <div className='pt-8 mb-4'>
     <h1 className='text-center underline text-xl font-bold py-2'>Add Courses</h1>
-    <form className='flex flex-col items-center justify-center w-full max-w-md mx-auto p-5 shadow-md rounded-md' onSubmit={handleSubmit}>
+    <form className='flex flex-col items-center justify-center w-full max-w-md mx-auto p-5 shadow-md rounded-md h-full' onSubmit={handleSubmit}>
       <label className='w-full mb-4'>
         Title:
         <input className='w-full px-3 py-2 border rounded-md' type='text' name='title' value={course.title} onChange={handleInputChange} required />

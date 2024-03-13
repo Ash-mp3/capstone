@@ -44,6 +44,16 @@ function EditUser({ user, onEditUser }) {
             fullWidth
           />
           <TextField
+            autoFocus
+            margin="dense"
+            name="username"
+            label="Username"
+            type="text"
+            value={editedUser.username}
+            onChange={handleChange}
+            fullWidth
+          />
+          <TextField
             margin="dense"
             name="email"
             label="Email"
