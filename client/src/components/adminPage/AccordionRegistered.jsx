@@ -19,10 +19,6 @@ export default function AccordionRegistered({ user, onRemoveUser, allCourses, on
   const [courses, setCourses] = React.useState(user.courses);
   const [selectedCourse, setSelectedCourse] = React.useState('');
 
-  if(`${user.user_id}` === `19`){
-    console.log(courses)
-  }
-
   const handleAddCourse = () => {
     let selectedCourseId
     allCourses.forEach(course => {
@@ -41,7 +37,7 @@ export default function AccordionRegistered({ user, onRemoveUser, allCourses, on
       })
       .then(res => {
         if(res.ok){
-          setCourses([...courses, {title: selectedCourse}]);
+          setCourses([...courses, {title: selectedCourse, id: selectedCourseId}]);
         }
         return(res.json())
       })
@@ -54,9 +50,25 @@ export default function AccordionRegistered({ user, onRemoveUser, allCourses, on
   };
 
   const handleRemoveCourse = (courseToRemove) => {
-    setCourses(courses.filter(course => course !== courseToRemove));
-    removeClass(courseToRemove, )
-    // Add a toast notification here
+    fetch("/api/admin/removeEnrollment", {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        "Authorization": `Bearer ${localStorage.getItem("token")}`
+      },
+      body: JSON.stringify({user_id: user.user_id, class_id: courseToRemove.class_id})
+    })
+    .then(res => {
+      if(res.ok){
+        setCourses(courses.filter(course => course !== courseToRemove));
+        // Add a toast notification here
+      }
+      return(res.json())
+    })
+    .then(data => {
+      console.log(data)
+    })
+
   };
 
   const handleRemoveUserClick = (event) => {

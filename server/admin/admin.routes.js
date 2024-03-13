@@ -28,10 +28,10 @@ adminRouter.put('/addEnrollment', async(req, res) => {
     res.status(result.status).json(result.msg)
 })
 
-adminRouter.delete('/removeEnrollment', (req, res) => {
+adminRouter.delete('/removeEnrollment', async(req, res) => {
     const user_id = req.body.user_id
     const class_id = req.body.class_id
-    const result = addEnrollment(user_id, class_id)
+    const result = await removeEnrollment(user_id, class_id)
     res.status(200).json(result.msg)
 })
 
