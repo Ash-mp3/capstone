@@ -15,15 +15,31 @@ import Logo from './assets/Registration_App_Logo.png';
 import SearchBar from './SearchBarCom';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import handleStatus from '../controllers/handleStatus';
 
 const pages = ['Courses'];
-const settings = ['Profile', 'Courses', 'Logout', 'admin'];
+// let settings = ['Profile', 'Courses', 'Logout', 'admin'];
+
 
 function ResponsiveAppBar({ isLoggedIn, onSearch }) {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
+  const [authorizeStatus, setAuthorizeStatus] = useState("loading...")
+  const [userRole, setUserRole] = useState('student')
+  const [userName, setUserName] = useState()
+  const [settings, setSettings] = useState(['Profile', 'Courses', 'Logout'])
+
+  useEffect(() => {
+    if (userRole === 'admin') {
+      setSettings(['admin', 'Courses', 'Logout'])
+    } else if (userRole === 'student') {
+      setSettings(['Profile', 'Courses', 'Logout'])
+    }
+  }, [userRole])
 
   const handleOpenNavMenu = (event) => {
+    
     setAnchorElNav(event.currentTarget);
   };
   const handleOpenUserMenu = (event) => {
@@ -38,6 +54,30 @@ function ResponsiveAppBar({ isLoggedIn, onSearch }) {
     setAnchorElUser(null);
   };
 
+  const checkUserRole = async () => {
+    
+      try {
+      fetch(`/api/profileInfo`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          "Authorization": `Bearer ${localStorage.getItem("token")}`
+        },
+      }).then((res) => {
+        setAuthorizeStatus(handleStatus(res))
+        if(res.ok){
+          return(res.json())
+        }
+      }).then((data) => {
+        setUserRole(data.user_role)
+        setUserName(data.username)
+      })
+      } catch (err) {
+        console.error('err');
+      }   
+  }
+  
+  checkUserRole()
   const location = useLocation();
 
   let title;
@@ -93,7 +133,6 @@ function ResponsiveAppBar({ isLoggedIn, onSearch }) {
       </AppBar>
     );
   }
-
 
   return (
     <AppBar position="static">
@@ -187,7 +226,7 @@ function ResponsiveAppBar({ isLoggedIn, onSearch }) {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="User Profile Pic" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="User Profile Pic" >{userName ? userName.charAt(0).toUpperCase() : ''}</Avatar>
               </IconButton>
             </Tooltip>
             <Menu
@@ -206,7 +245,7 @@ function ResponsiveAppBar({ isLoggedIn, onSearch }) {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-            {settings.map((setting) => (
+              {settings.map((setting) => (
               <Link to={`/${setting.toLowerCase()}`} key={setting}>
                 <MenuItem onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">{setting}</Typography>
