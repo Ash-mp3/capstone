@@ -12,7 +12,7 @@ import addClass from '../../controllers/addClass';
 
 
 export default function AccordionCom(props) {
-  const { title, description, tuition_cost, credit_hours, class_id } = props
+  const { title, description, tuition_cost, credit_hours, class_id, spots_left } = props
   return (
       <Accordion>
         <AccordionSummary
@@ -26,6 +26,7 @@ export default function AccordionCom(props) {
           <Typography>{description}</Typography>
           <Typography>Tuition Cost: ${tuition_cost}</Typography>
           <Typography>Credit Hours: {credit_hours}</Typography>
+          <Typography>Spots Left: {spots_left}</Typography>
         </AccordionDetails>
         <AccordionActions>
           <Button id='addCourse' onClick={() => addClass(class_id)}>Add Course</Button>

@@ -18,6 +18,7 @@ const updateUser = require("../models/updateUser.js")
 
 //controllers
 const getCourses = require("../models/courseController.js");
+const getEnrolledCourses = require("../models/getEnrolledCourses.js")
 
 //Environment variables
 const secret = process.env.JWT_SECRET;
@@ -62,8 +63,22 @@ apiRouter.get(
   "/courses",
   expressjwt({ secret: secret, algorithms: ["HS256"] }),
   async (req, res) => {
-    const result = await getCourses();
-    res.status(result.status).json(JSON.parse(result.res));
+    const auth = req.headers.authorization
+    const token = auth.slice(7, auth.length)
+    const userId = jwt.decode(token).id
+
+    const coursesResult = await getCourses();
+    const enrolledResult = await getEnrolledCourses(userId)
+
+    const result = {
+      status: 200,
+       res: {
+        courses: coursesResult.res.courses,
+        enrolledCourses:enrolledResult.res.enrolledCourses
+      }
+    }
+    console.log(result)
+    res.status(result.status).json(result.res);
   }
 );
 

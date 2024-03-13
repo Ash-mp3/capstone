@@ -172,8 +172,8 @@ React.useEffect(() => {
         <div id='studentSection' className='flex w-full justify-center'>
           <div id='studentAccordion' className='w-4/5 pb-4'>
           {filteredUsers.map((user, index) => (
-            <div key={user.name}>
-              <AccordionRegistered key={user.name} user={user} onRemoveUser={handleOpenDialog} allCourses={allCourses} />
+            <div key={user.username}>
+              <AccordionRegistered key={user.username} user={user} onRemoveUser={handleOpenDialog} allCourses={allCourses} />
             </div>
           ))}   
           </div>
