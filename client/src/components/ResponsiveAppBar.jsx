@@ -153,7 +153,8 @@ function ResponsiveAppBar({ isLoggedIn, onSearch }) {
               ))}
             </Menu>
           </Box>
-          <SearchBar onSearch={onSearch}></SearchBar>
+          {location.pathname !== '/profile' &&
+          <SearchBar onSearch={onSearch}></SearchBar>}
           <Avatar id="logoImage" src={Logo} sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
             variant="h5"
