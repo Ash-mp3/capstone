@@ -65,7 +65,7 @@ function ResponsiveAppBar({ isLoggedIn, onSearch }) {
       title = 'Capstone Project'; 
   }
 
-  if (!isLoggedIn && (location.pathname === '/login' || location.pathname === '/signup')) {
+  if (!isLoggedIn && (location.pathname === '/login' || location.pathname === '/signup' || location.pathname === '/Login' || location.pathname === '/')) {
     return (
       <AppBar position="static">
         <Container maxWidth="xl" class="bg-[#474787]">
@@ -94,7 +94,6 @@ function ResponsiveAppBar({ isLoggedIn, onSearch }) {
     );
   }
 
-
   return (
     <AppBar position="static">
       <Container maxWidth="xl" class="bg-[#474787]">
@@ -117,75 +116,22 @@ function ResponsiveAppBar({ isLoggedIn, onSearch }) {
           >
             {title}
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="Black"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: 'block', md: 'none' },
-              }}
-            >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+            {location.pathname !== '/courses' && location.pathname !== '/admin' && (
+              <Link to="/courses">
+                <Button
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: 'black', display: 'block' }}
+                >
+                  Courses
+                </Button>
+              </Link>
+            )}
           </Box>
           {location.pathname !== '/profile' &&
-          <SearchBar onSearch={onSearch}></SearchBar>}
-          <Avatar id="logoImage" src={Logo} sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'Black',
-              textDecoration: 'none',
-            }}
-          >
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-          {location.pathname !== '/courses' && (
-            <Link to="/courses">
-              <Button
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'black', display: 'block' }}
-              >
-                Courses
-              </Button>
-            </Link>
-          )}
-          </Box>
-          <Box sx={{ flexGrow: 0 }}>
+            <SearchBar onSearch={onSearch}></SearchBar>
+          }
+          <Box className ='ml-14' sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="User Profile Pic" src="/static/images/avatar/2.jpg" />
@@ -207,13 +153,13 @@ function ResponsiveAppBar({ isLoggedIn, onSearch }) {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-            {settings.map((setting) => (
-              <Link to={`/${setting.toLowerCase()}`} key={setting}>
-                <MenuItem onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              </Link>
-            ))}
+              {settings.map((setting) => (
+                <Link to={`/${setting.toLowerCase()}`} key={setting}>
+                  <MenuItem onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center">{setting}</Typography>
+                  </MenuItem>
+                </Link>
+              ))}
             </Menu>
           </Box>
         </Toolbar>
