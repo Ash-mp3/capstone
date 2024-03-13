@@ -46,17 +46,8 @@ export default function SearchAppBar(props) {
     };
 
   return (
-    <div id='userPage' className = 'grid grid-cols-1'>
-        <div id='userWelcome'>
-              <h1 className='p-2'>
-                 
-                Welcome {firstName}!
-            </h1>
-            <p className = 'p-2'>
-                This is your profile page. Shows overall user details.
-            </p>
-        </div>
-
+    <div id='userPage' className = 'grid grid-cols-1 mt-2'>
+        
         <div id='userPicture' className='place-self-center m-4'>
         <Avatar className='rounded-full border-2 border-black border-solid w-80' sx={{ borderRadius: '100%', border: '2px', borderColor: 'black', borderStyle: 'solid', width: '320px', height: '320px', fontSize: '200px',  }}>{username.charAt(0).toUpperCase()}</Avatar>
         </div>
