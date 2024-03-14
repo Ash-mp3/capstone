@@ -48,6 +48,7 @@ function Courses() {
   },[])
 
 
+
   return (
     <SearchContext.Provider value={{ searchTerm, setSearchTerm} }>
     <div className="Courses">
@@ -64,6 +65,12 @@ function Courses() {
             ?
             //map courses
             filteredCourses.map((course, index) => {
+              let enrolledIn = false
+              enrolledCourses.forEach(enrolledCourse => {
+                if(`${enrolledCourse.class_id}` === `${course.class_id}`){
+                  enrolledIn = true
+                }
+              })
               return(
                 <div key={index}>
                   <AccordionCom
@@ -75,6 +82,7 @@ function Courses() {
                     maximum_capacity = {course.maximum_capacity}
                     schedule = {course.schedule}
                     spots_left = {course.spots_left}
+                    enrolledIn = {enrolledIn}
                   />
                 </div>
               )

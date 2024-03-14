@@ -105,7 +105,7 @@ export default function AccordionRegistered({ user, onRemoveUser, allCourses, on
             getOptionLabel={(option) => option.title}
             renderInput={(params) => <TextField {...params} label="Courses" />}
             onChange={(event, newValue) => {
-              setSelectedCourse(newValue.title);
+              setSelectedCourse(newValue?.title || '');
             }}
             className='w-full'
         />
