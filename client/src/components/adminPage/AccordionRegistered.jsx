@@ -11,9 +11,6 @@ import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import EditUser from './EditUser';
 
-import addClass from '../../controllers/addClass';
-import removeClass from '../../controllers/removeClass';
-
 export default function AccordionRegistered({ user, onRemoveUser, allCourses, onEditUser }) {
 
   const [courses, setCourses] = React.useState(user.courses);
@@ -37,12 +34,13 @@ export default function AccordionRegistered({ user, onRemoveUser, allCourses, on
       })
       .then(res => {
         if(res.ok){
-          setCourses([...courses, {title: selectedCourse, id: selectedCourseId}]);
+          setCourses([...courses, {title: selectedCourse, class_id: selectedCourseId}]);
         }
         return(res.json())
       })
       .then(data => {
         console.log(data)
+
       })
     } else {
       console.log("not a valid class")

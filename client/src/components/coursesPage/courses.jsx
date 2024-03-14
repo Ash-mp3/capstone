@@ -15,6 +15,10 @@ function Courses() {
   const [authorizeStatus, setAuthorizeStatus] = useState("loading...")
   const {searchTerm, setSearchTerm} = useContext(SearchContext);
 
+  const updateEnrolledCourses = (newCourses) => {
+    setEnrolledCourses(newCourses)
+  }
+
   const handleSearch = (event) => {
     console.log(event.target.value);
     setSearchTerm(event.target.value);
@@ -83,6 +87,8 @@ function Courses() {
                     schedule = {course.schedule}
                     spots_left = {course.spots_left}
                     enrolledIn = {enrolledIn}
+                    enrolledCourses= {enrolledCourses}
+                    updateEnrolledCourses={updateEnrolledCourses}
                   />
                 </div>
               )

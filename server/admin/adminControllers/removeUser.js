@@ -5,7 +5,7 @@ async function removeUser(user_id){
 
     const removeEnrollmentsQuery = `delete from enrollments where user_id = ${user_id}`
     client.query(removeEnrollmentsQuery)
-    return({msg: "success"})
+    return({msg: "successfully removed user"})
 }
 
 module.exports=removeUser
