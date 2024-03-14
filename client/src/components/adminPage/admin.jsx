@@ -72,7 +72,7 @@ React.useEffect(() => {
 
 
   const [toastOpen, setToastOpen] = React.useState(false);
-  const [toastMessage, setToastMessage] = React.useState('');
+  const toastMessage = React.useRef('');
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [userToRemove, setUserToRemove] = React.useState(null);
 
@@ -88,7 +88,6 @@ React.useEffect(() => {
 
   const handleRemoveUser = () => {
     setUsers(users.filter(user => user !== userToRemove));
-    setToastMessage(`Removed student: ${userToRemove.username}`);
     fetch("http://localhost:3001/api/admin/removeUser", {
       method: "POST",
       headers: {
@@ -97,7 +96,8 @@ React.useEffect(() => {
       },
       body: JSON.stringify({user_id: userToRemove.user_id})
     })
-    setToastOpen(true);
+    const msg = (`Removed student: ${userToRemove.username}`);
+    openSnackBar(msg);
     setDialogOpen(false);
   };
 
@@ -130,6 +130,11 @@ React.useEffect(() => {
     // Logic to delete the course goes here.
   };
   
+//this function will handle snackbar messages
+const openSnackBar = ((msg, type) => {
+  toastMessage.current = msg || toastMessage
+  setToastOpen(true)
+})
 
   return (
     <div>
@@ -165,7 +170,13 @@ React.useEffect(() => {
           <div id='studentAccordion' className='w-4/5 pb-4'>
           {filteredUsers.map((user, index) => (
             <div key={user.username}>
-              <AccordionRegistered key={user.username} user={user} onRemoveUser={handleOpenDialog} allCourses={allCourses} />
+              <AccordionRegistered 
+              key={user.username} 
+              user={user} 
+              onRemoveUser={handleOpenDialog} 
+              allCourses={allCourses} 
+              openSnackBar={openSnackBar}
+              />
             </div>
           ))}   
           </div>
@@ -176,7 +187,7 @@ React.useEffect(() => {
         open={toastOpen}
         autoHideDuration={6000}
         onClose={handleCloseToast}
-        message={toastMessage}
+        message={toastMessage.current}
       />
       <Dialog
         open={dialogOpen}
