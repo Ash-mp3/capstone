@@ -11,7 +11,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import EditUser from './EditUser';
 
-export default function AccordionRegistered({ user, onRemoveUser, allCourses, onEditUser }) {
+export default function AccordionRegistered({ user, onRemoveUser, allCourses, onEditUser, openSnackBar }) {
 
   const [courses, setCourses] = React.useState(user.courses);
   const [selectedCourse, setSelectedCourse] = React.useState('');
@@ -39,8 +39,7 @@ export default function AccordionRegistered({ user, onRemoveUser, allCourses, on
         return(res.json())
       })
       .then(data => {
-        console.log(data)
-
+        openSnackBar(data)
       })
     } else {
       console.log("not a valid class")
@@ -64,7 +63,7 @@ export default function AccordionRegistered({ user, onRemoveUser, allCourses, on
       return(res.json())
     })
     .then(data => {
-      console.log(data)
+      openSnackBar(data)
     })
 
   };

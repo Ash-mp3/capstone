@@ -22,14 +22,14 @@ async function addEnrollment(user_id, class_id){
             }
         })
         if(classDuplicates){
-            return({status: 409, msg: 'already enrolled in that class'})
+            return({status: 409, msg: 'That user is already enrolled in that class'})
         } else {
             const addEnrollmentQuery = `INSERT INTO enrollments (user_id, class_id) VALUES (${user_id}, ${class_id})`
             client.query(addEnrollmentQuery)
-            return({status: 201, msg: 'operation success'})
+            return({status: 201, msg: 'successfully enrolled student'})
         }
     } else {
-        return({status: 409, msg: 'class full'})
+        return({status: 409, msg: 'that class is full'})
     }
 
 
