@@ -32,7 +32,7 @@ adminRouter.delete('/removeEnrollment', async(req, res) => {
     const user_id = req.body.user_id
     const class_id = req.body.class_id
     const result = await removeEnrollment(user_id, class_id)
-    res.status(200).json(result.msg)
+    res.status(result.status).json(result.msg)
 })
 
 module.exports = adminRouter
