@@ -66,12 +66,11 @@ function Signup() {
     passwordErr: '',
     passwordConfirmationErr: '',
   })
-
   function createAccount(){
     let allInfoIsVerified = true
 
     //you can comment this next line out so that you don't have to enter valid information when testing
-    //allInfoIsVerified = checkValidity(true)
+    allInfoIsVerified = checkValidity(true)
 
     if(allInfoIsVerified){
       fetch(`/api/signup`, {
@@ -160,6 +159,8 @@ function Signup() {
           <div className="flex gap-5 mt-6 ">
             <div className="flex flex-col gap-3">
               <ColorInput
+                {...(errMessages.usernameErr ? { error: true, helperText: errMessages.usernameErr } : { error: false })}
+                isRequired="true"
                 variant="outlined"
                 size="small"
                 label="Username" 
@@ -168,6 +169,7 @@ function Signup() {
                 onChange={(e) => setUsername(e.target.value)}
               />
               <ColorInput
+                {...(errMessages.firstNameErr ? { error: true, helperText: errMessages.firstNameErr } : { error: false })}
                 variant="outlined"
                 size="small"
                 label="First Name"
@@ -176,6 +178,7 @@ function Signup() {
                 onChange={(e) => setFirstName(e.target.value)}
               />
               <ColorInput
+                {...(errMessages.phoneNumErr ? { error: true, helperText: errMessages.phoneNumErr } : { error: false })}
                 variant="outlined"
                 size="small"
                 label="Phone"
@@ -184,6 +187,7 @@ function Signup() {
                 onChange={(e) => setPhoneNum(e.target.value)}
               />
               <ColorInput
+                {...(errMessages.cityErr ? { error: true, helperText: errMessages.cityErr } : { error: false })}
                 variant="outlined"
                 size="small"
                 label="City"
@@ -192,6 +196,7 @@ function Signup() {
                 onChange={(e) => setCity(e.target.value)}
               />
               <ColorInput
+                {...(errMessages.passwordErr ? { error: true, helperText: errMessages.passwordErr } : { error: false })}
                 variant="outlined"
                 size="small"
                 label="Password"
@@ -203,6 +208,7 @@ function Signup() {
             </div>
             <div className="flex flex-col gap-3">
               <ColorInput
+                {...(errMessages.emailErr ? { error: true, helperText: errMessages.emailErr } : { error: false })}
                 variant="outlined"
                 size="small"
                 label="Email"
@@ -211,6 +217,7 @@ function Signup() {
                 onChange={(e) => setEmail(e.target.value)}
               />
               <ColorInput
+                {...(errMessages.lastNameErr ? { error: true, helperText: errMessages.lastNameErr } : { error: false })}
                 variant="outlined"
                 size="small"
                 label="Last Name"
@@ -219,6 +226,7 @@ function Signup() {
                 onChange={(e) => setLastName(e.target.value)}
               />
               <ColorInput
+                {...(errMessages.addressErr ? { error: true, helperText: errMessages.addressErr } : { error: false })}
                 variant="outlined"
                 size="small"
                 label="Address"
@@ -227,6 +235,7 @@ function Signup() {
                 onChange={(e) => setAddress(e.target.value)}
               />
               <ColorInput
+                {...(errMessages.countryErr ? { error: true, helperText: errMessages.countryErr } : { error: false })}
                 variant="outlined"
                 size="small"
                 label="Country"
@@ -235,6 +244,8 @@ function Signup() {
                 onChange={(e) => setCountry(e.target.value)}
               />
               <ColorInput
+                {...(errMessages.passwordConfirmationErr ? { error: true, helperText: errMessages.passwordConfirmationErr } : { error: false })}
+                type="password"
                 variant="outlined"
                 size="small"
                 label="Confirm Password"    
@@ -242,7 +253,6 @@ function Signup() {
                 onBlur={() => checkValidity(['passwordConfirmation'])}
                 onChange={(e) => setPasswordConfirmation(e.target.value)}
               />
-              <div>{errMessages.passwordConfirmationErr}</div>
             </div>
           </div>
           <ColorButton className="self-start" onClick={createAccount}>
@@ -260,7 +270,7 @@ function Signup() {
 
 
   function checkValidity(fields){ //fields is passed in as array of strings corresponding to the error that need to be checked
-    if(fields){
+    if(fields === true){
       fields = ['username', 'email', 'firstName', 'lastName', 'phoneNum', 'address', 'city', 'country', 'password', 'passwordConfirmation']
     }
     let err = false
@@ -269,7 +279,7 @@ function Signup() {
       switch(field){
         case 'username':
           if(username === ''){
-            newErrMsgs.usernameErr = 'Username is required to fill out'
+            newErrMsgs.usernameErr = 'Required'
             err=true
           } else {
             newErrMsgs.usernameErr = ''
@@ -282,7 +292,7 @@ function Signup() {
           const emailRegex = /^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$/
           const isValidEmail = emailRegex.test(email)
           if(email === ''){
-            newErrMsgs.emailErr = 'Email is required to fill out'
+            newErrMsgs.emailErr = 'Required'
             err=true
           } else if(isValidEmail){
             newErrMsgs.emailErr = ''
@@ -294,7 +304,7 @@ function Signup() {
 
         case 'firstName':
           if(firstName === ''){
-            newErrMsgs.firstNameErr = 'First name is required to fill out'
+            newErrMsgs.firstNameErr = 'Required'
             err=true
           } else {
             newErrMsgs.firstNameErr = ''
@@ -303,7 +313,7 @@ function Signup() {
 
         case 'lastName':
           if(lastName === ''){
-            newErrMsgs.lastNameErr = 'Last name is required to fill out'
+            newErrMsgs.lastNameErr = 'Required'
             err=true
           } else {
             newErrMsgs.lastNameErr = ''
@@ -317,7 +327,7 @@ function Signup() {
           const phoneNumRegex = /^\(?\d{3}\)?[- ]?\d{3}[- ]?\d{4}$/
           const isValidPhoneNum = phoneNumRegex.test(phoneNum)
           if(phoneNum === ''){
-            newErrMsgs.phoneNumErr = 'Phone number is required to fill out'
+            newErrMsgs.phoneNumErr = 'Required'
           } else if(isValidPhoneNum){
             newErrMsgs.phoneNumErr = ''
           } else {
@@ -329,7 +339,7 @@ function Signup() {
 
         case 'address':
           if(address === ''){
-            newErrMsgs.addressErr = 'Adress is required to fill out'
+            newErrMsgs.addressErr = 'Required'
             err=true
           } else {
             newErrMsgs.addressErr = ''
@@ -339,7 +349,7 @@ function Signup() {
         
         case 'city':
           if(city === ''){
-            newErrMsgs.cityErr = 'City is required to fill out'
+            newErrMsgs.cityErr = 'Required'
             err=true
           } else {
             newErrMsgs.cityErr = ''
@@ -349,7 +359,7 @@ function Signup() {
       
         case 'country':
           if(country === ''){
-            newErrMsgs.countryErr = 'Country is required to fill out'
+            newErrMsgs.countryErr = 'Required'
             err=true
           } else {
             newErrMsgs.countryErr = ''
@@ -359,14 +369,14 @@ function Signup() {
 
         case 'password':
           //password must contain more than 8 characters; one uppercase, one lowercase, one number, one special character
-          const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+          const passwordRegex = /.{8,}/
           const isValidPassword = passwordRegex.test(password)
           if(password === ''){
-            newErrMsgs.passwordErr = 'Password is required to fill out'
+            newErrMsgs.passwordErr = 'Required'
           } else if(isValidPassword){
             newErrMsgs.passwordErr = ''
           } else {
-            newErrMsgs.passwordErr = 'Password be at least 8 characters long with at least one uppercase letter, one lowercase letter, one special character, and one number'
+            newErrMsgs.passwordErr = 'Must have at least 8 characters'
             err=true
           }
           break;
@@ -374,12 +384,12 @@ function Signup() {
           //password must match password confirmation
           const passwordIsVerified = password === passwordConfirmation
           if(passwordConfirmation === ''){
-            newErrMsgs.passwordConfirmationErr = 'Confirm password is required to fill out'
+            newErrMsgs.passwordConfirmationErr = 'Required'
             err = true
           } else if(passwordIsVerified){
             newErrMsgs.passwordConfirmationErr = ''
           } else {
-            newErrMsgs.passwordConfirmationErr = 'Password confirmation does not match password'
+            newErrMsgs.passwordConfirmationErr = 'Does not match'
             err=true
           }
           break;

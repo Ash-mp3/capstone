@@ -16,6 +16,7 @@ const findInfoById = require("../models/findInfoById.js")
 const addClass = require("../models/courseModel.js")
 const removeClass = require("../models/removeClass.js")
 const updateUser = require("../models/updateUser.js")
+const createCourse = require("../models/createCourse.js")
 
 //controllers
 const getCourses = require("../models/courseController.js");
@@ -123,5 +124,11 @@ apiRouter.delete(
     res.status(result.status).send({msg: result.res.msg});
   }
 )
+
+apiRouter.post("/createCourse", expressjwt({ secret: secret, algorithms: ["HS256"] }), async (req, res) => {
+  const CourseInfo = Object.values(req.body);
+  const result = await createCourse(CourseInfo)
+  res.status(result.status).send({msg: result.msg, success: result.success});
+})
 
 module.exports = apiRouter

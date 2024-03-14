@@ -16,6 +16,7 @@ const ColorButton = styled(Button)(({ theme }) => ({
 function Login() {
 const [token, setToken] = useState('')
 const [loggedIn, setLoggedIn] = useState(false)
+const [user_role, setUser_role] = useState()
 const [email, setEmail] = useState('')
 const [password, setPassword] = useState('')
 
@@ -37,8 +38,11 @@ const handlePasswordChange = (e) => {
       .then((res) => res.json())
       .then((data) => {
         if (data.loggedIn) {
+          console.log(data.user_role)
           setLoggedIn(data.loggedIn);
+          setUser_role(data.user_role)
           localStorage.setItem("token", data.token);
+          localStorage.setItem("user_role", data.user_role)
         } else {
           alert(data.msg)
         }
@@ -57,7 +61,7 @@ const handlePasswordChange = (e) => {
 
     
       <header id="LoginHeader" className="w-full flex justify-center absolute top-0">
-        <ResponsiveAppBar />
+        <ResponsiveAppBar user_role={user_role} />
       </header>
       <div id="LoginInfo">
         <h1 className="text-[60px]">Welcome back!</h1>

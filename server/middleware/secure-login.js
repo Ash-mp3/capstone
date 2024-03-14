@@ -30,7 +30,7 @@ async function secureLogIn(email, password) {
         algorithm: "HS256",
         expiresIn: "10000s",
       });
-      return { status: 200, res: { token: token, loggedIn: true } };
+      return { status: 200, res: { token: token, loggedIn: true, user_role: user_role } };
     } else {
       return {
         status: 401,
