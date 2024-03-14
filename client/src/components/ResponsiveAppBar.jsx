@@ -26,17 +26,18 @@ function ResponsiveAppBar({ isLoggedIn, onSearch }) {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [authorizeStatus, setAuthorizeStatus] = useState("loading...")
-  const [userRole, setUserRole] = useState('student')
+  const [userRole, setUserRole] = useState(localStorage.getItem("user_role"))
   const [userName, setUserName] = useState()
   const [settings, setSettings] = useState(['Profile', 'Courses', 'Logout'])
 
+
   useEffect(() => {
     if (userRole === 'admin') {
-      setSettings(['admin', 'Courses', 'Logout'])
+      setSettings(['Admin', 'Courses', 'Logout'])
     } else if (userRole === 'student') {
       setSettings(['Profile', 'Courses', 'Logout'])
     }
-  }, [userRole])
+  }, [])
 
   const handleOpenNavMenu = (event) => {
     
@@ -54,31 +55,31 @@ function ResponsiveAppBar({ isLoggedIn, onSearch }) {
     setAnchorElUser(null);
   };
 
-  const checkUserRole = async () => {
-    if (localStorage.getItem("token")) {
-      try {
-      fetch(`/api/profileInfo`, {
-        method: 'GET',
-        headers: { 
-          'Content-Type': 'application/json',
-          "Authorization": `Bearer ${localStorage.getItem("token")}`
-        },
-      }).then((res) => {
-        setAuthorizeStatus(handleStatus(res))
-        if(res.ok){
-          return(res.json())
-        }
-      }).then((data) => {
-        setUserRole(data.user_role)
-        setUserName(data.username)
-      })
-      } catch (err) {
-        console.error(err);
-      }   
-    }  
-  }
+  // const checkUserRole = async () => {
+  //   if (localStorage.getItem("token")) {
+  //     try {
+  //     fetch(`/api/profileInfo`, {
+  //       method: 'GET',
+  //       headers: { 
+  //         'Content-Type': 'application/json',
+  //         "Authorization": `Bearer ${localStorage.getItem("token")}`
+  //       },
+  //     }).then((res) => {
+  //       setAuthorizeStatus(handleStatus(res))
+  //       if(res.ok){
+  //         return(res.json())
+  //       }
+  //     }).then((data) => {
+  //       setUserRole(data.user_role)
+  //       setUserName(data.username)
+  //     })
+  //     } catch (err) {
+  //       console.error(err);
+  //     }   
+  //   }  
+  // }
   
-  checkUserRole()
+  // checkUserRole()
   const location = useLocation();
 
   let title;

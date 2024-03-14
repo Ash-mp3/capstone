@@ -1,11 +1,22 @@
 import React, { useState } from 'react';
+import Button from '@mui/material/Button';
+import Snackbar from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+import { Alert } from '@mui/material';
 
 function CourseForm() {
+  const [openSnack, setOpenSnack] = useState(false)
+  const [addCourseMsg, setAddCourseMsg] = useState()
+  const [addCourseStatus, setAddCourseStatus] = useState()
   const [course, setCourse] = useState({
     title: '',
     description: '',
     tuition_cost: '',
     credit_hours: '',
+    maximum_capacity: '',
+    schedule: '',
+    classroom_number: '',
   });
 
   const handleInputChange = (event) => {
@@ -15,10 +26,39 @@ function CourseForm() {
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // Here you would typically send the course data to the server
-    console.log(course);
+    try {
+      fetch(`/api/createCourse`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          "Authorization": `Bearer ${localStorage.getItem("token")}`
+        },
+        body: JSON.stringify(course),
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data.msg);
+        setCourse({
+          title: '',
+          description: '',
+          tuition_cost: '',
+          credit_hours: '',
+          maximum_capacity: '',
+          schedule: '',
+          classroom_number: '',
+        });
+        setAddCourseMsg(data.msg)
+        setAddCourseStatus(data.success)
+        handleSnackClick();
+      });
+    } catch (err) {
+        console.log(err)
+        setAddCourseMsg('failed to create course')
+        setAddCourseStatus(false)
+        handleSnackClick();
+    }
   };
 
   const [hover, setHover] = useState(false);
@@ -31,6 +71,30 @@ function CourseForm() {
     backgroundColor: hover ? '#2C2F33' : '#474787',
     color: 'white',
   };
+
+  const handleSnackClick = () => {
+    setOpenSnack(true);
+  };
+
+  const handleSnackClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpenSnack(false);
+  };
+
+  const action = (
+    <React.Fragment>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleSnackClose}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </React.Fragment>
+  );
 
   return (
     <div className='pt-8 mb-4'>
@@ -58,13 +122,28 @@ function CourseForm() {
       </label>
       <label className='w-full mb-4'>
         Schedule:
-        <input className='w-full px-3 py-2 border rounded-md' type='number' name='schedule' value={course.schedule} onChange={handleInputChange} required />
+        <input className='w-full px-3 py-2 border rounded-md' name='schedule' value={course.schedule} onChange={handleInputChange} required />
       </label>
       <label className='w-full mb-4'>
         Classroom Number:
-        <input className='w-full px-3 py-2 border rounded-md' type='number' name='classroom_number' value={course.classroom_number} onChange={handleInputChange} required />
+        <input className='w-full px-3 py-2 border rounded-md' name='classroom_number' value={course.classroom_number} onChange={handleInputChange} required />
       </label>
       <button style={buttonStyle} onMouseEnter={toggleHover} onMouseLeave={toggleHover} type='submit'>Submit</button>
+        <Snackbar
+          open={openSnack}
+          autoHideDuration={6000}
+          onClose={handleSnackClose}
+          action={action}
+        >
+          <Alert
+            onClose={handleSnackClose}
+            severity={addCourseStatus ? "success" : "error"}
+            ariant="filled"
+            x={{ width: '100%' }}
+          >
+            {addCourseMsg}
+          </Alert>
+        </Snackbar>
     </form>
     </div>
   );

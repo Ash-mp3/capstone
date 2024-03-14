@@ -1,7 +1,6 @@
-const apiUrl = import.meta.env.VITE_SOME_KEY; 
 
 export default function addClass(class_id) {
-    fetch(`${apiUrl}/api/removeClass`, {
+    fetch(`/api/removeClass`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',

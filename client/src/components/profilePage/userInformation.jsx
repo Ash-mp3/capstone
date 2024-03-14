@@ -47,7 +47,7 @@ export default function SearchAppBar(props) {
 
   return (
     <div id='userPage' className = 'grid grid-cols-1'>
-        <div id='userWelcome'>
+        {/* <div id='userWelcome'>
               <h1 className='p-2'>
                  
                 Welcome {firstName}!
@@ -55,15 +55,15 @@ export default function SearchAppBar(props) {
             <p className = 'p-2'>
                 This is your profile page. Shows overall user details.
             </p>
-        </div>
+        </div> */}
 
-        <div id='userPicture' className='place-self-center m-4'>
+        <div id='userPicture' className='place-self-center my-16'>
         <Avatar className='rounded-full border-2 border-black border-solid w-80' sx={{ borderRadius: '100%', border: '2px', borderColor: 'black', borderStyle: 'solid', width: '320px', height: '320px', fontSize: '200px',  }}>{username.charAt(0).toUpperCase()}</Avatar>
         </div>
 
-        <div id='userInfoBanner' className = 'display flex place-content-center m-2'>
-                <h2 className='py-2 mx-2'>My Account</h2>
-              <Button variant='outlined' onClick={() => { setIsEditable(!isEditable); updateUserInfo()}} style={{width: 200}}>{!isEditable ? 'Edit' : 'Save'}</Button>
+        <div id='userInfoBanner' className = 'display flex place-content-center m-4'>
+                <h2 className='py-2 mx-2 underline'>Account Info</h2>
+              
         </div>
 
         <div id='userInfo&Contact' className='flex w-full justify-center'>
@@ -115,9 +115,11 @@ export default function SearchAppBar(props) {
                 <input id='phone_number' className='m-1' placeholder={phoneNum} readOnly={!isEditable} style={{ outline: isEditable ? "solid" : "none", color: isEditable ? "black" : "grey" }} onChange={handleInputChange}></input>
             </div>
     </div>
-</div>
-
-        <div id='userSchedule' className = 'mb-10'>
+      </div>
+      <div id='submitForm' className='w-full h-14 mt-4 flex justify-center items-center'>
+        <Button variant='outlined' className=' ' onClick={() => { setIsEditable(!isEditable); updateUserInfo()}} style={{width: 200}}>{!isEditable ? 'Edit' : 'Save'}</Button>
+      </div>
+        <div id='userSchedule' className = 'mb-10 mx-10'>
             <h2 className = 'display flex place-content-center my-10 underline'>Your Schedule</h2>
             <TimeTable courses={courses}>
             </TimeTable>
