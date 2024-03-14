@@ -16,7 +16,6 @@ export default async function addClass(class_id) {
       ok = false;
     }
     const data = await response.json();
-    console.log(data);
     return { msg: data.msg, ok: ok };
   } catch (error) {
     console.error("Error adding class:", error);
