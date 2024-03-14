@@ -6,7 +6,7 @@ async function removeEnrollment(user_id, class_id){
     where user_id = ${user_id} and 
     class_id = ${class_id}`
     client.query(removeEnrollmentQuery)
-    return({status: 201, msg: "Successfully removed user"})
+    return({status: 201, msg: "Successfully removed enrollment"})
 }
 
 module.exports = removeEnrollment

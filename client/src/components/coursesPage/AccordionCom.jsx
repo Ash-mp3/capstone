@@ -10,10 +10,26 @@ import Button from '@mui/material/Button';
 //controllers
 import addClass from '../../controllers/addClass';
 import removeClass from '../../controllers/removeClass';
+import Courses from './courses';
 
 
 export default function AccordionCom(props) {
-  const { title, description, tuition_cost, credit_hours, class_id, spots_left, enrolledIn } = props
+  const { title, description, tuition_cost, credit_hours, class_id, spots_left, enrolledIn, enrolledCourses, updateEnrolledCourses } = props
+
+  async function handleAddCourse(class_id){
+    class_id = `${class_id}`
+    const data = await addClass(class_id)
+    if(data.ok){
+      updateEnrolledCourses([...enrolledCourses, {class_id: class_id}])
+    }
+  }
+  async function handleRemoveCourse(class_id){
+    class_id = `${class_id}`
+    const data = await removeClass(class_id)
+    if(data.ok){
+      updateEnrolledCourses(enrolledCourses.filter(enrolledCourse => enrolledCourse.class_id !== class_id))
+    }
+  }
   return (
     <Accordion>
       <AccordionSummary
@@ -37,9 +53,9 @@ export default function AccordionCom(props) {
       <AccordionActions>
         {
         !enrolledIn ?
-          <Button id='addCourse' onClick={() => addClass(class_id)}>Add Course</Button>
+          <Button id='addCourse' onClick={() => handleAddCourse(class_id)}>Add Course</Button>
         :
-          <Button id='removeCourse' onClick={() => removeClass(class_id)}>Remove Course</Button>
+          <Button id='removeCourse' onClick={() => handleRemoveCourse(class_id)}>Remove Course</Button>
         }
       </AccordionActions>
     </Accordion>
