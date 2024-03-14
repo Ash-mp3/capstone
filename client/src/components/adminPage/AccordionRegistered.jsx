@@ -17,15 +17,56 @@ export default function AccordionRegistered({ user, onRemoveUser, allCourses, on
   const [selectedCourse, setSelectedCourse] = React.useState('');
 
   const handleAddCourse = () => {
-    if (selectedCourse && !courses.includes(selectedCourse))
-    {
-      setCourses([...courses, selectedCourse]);
+    let selectedCourseId
+    allCourses.forEach(course => {
+      if(course.title.toUpperCase() === selectedCourse.toUpperCase()){
+        selectedCourseId = course.class_id
+      }
+    });
+    if(selectedCourseId !== undefined){
+      fetch("/api/admin/addEnrollment", {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          "Authorization": `Bearer ${localStorage.getItem("token")}`
+        },
+        body: JSON.stringify({user_id: user.user_id, class_id: selectedCourseId})
+      })
+      .then(res => {
+        if(res.ok){
+          setCourses([...courses, {title: selectedCourse, class_id: selectedCourseId}]);
+        }
+        return(res.json())
+      })
+      .then(data => {
+        console.log(data)
+
+      })
+    } else {
+      console.log("not a valid class")
     }
   };
 
   const handleRemoveCourse = (courseToRemove) => {
-    setCourses(courses.filter(course => course !== courseToRemove));
-    // Add a toast notification here
+    fetch("/api/admin/removeEnrollment", {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        "Authorization": `Bearer ${localStorage.getItem("token")}`
+      },
+      body: JSON.stringify({user_id: user.user_id, class_id: courseToRemove.class_id})
+    })
+    .then(res => {
+      if(res.ok){
+        setCourses(courses.filter(course => course !== courseToRemove));
+        // Add a toast notification here
+      }
+      return(res.json())
+    })
+    .then(data => {
+      console.log(data)
+    })
+
   };
 
   const handleRemoveUserClick = (event) => {
@@ -62,7 +103,7 @@ export default function AccordionRegistered({ user, onRemoveUser, allCourses, on
             getOptionLabel={(option) => option.title}
             renderInput={(params) => <TextField {...params} label="Courses" />}
             onChange={(event, newValue) => {
-              setSelectedCourse(newValue.title);
+              setSelectedCourse(newValue?.title || '');
             }}
             className='w-full'
         />
