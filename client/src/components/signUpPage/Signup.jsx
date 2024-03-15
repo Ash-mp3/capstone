@@ -97,7 +97,6 @@ function Signup() {
       .then((data) => {
         console.log(data.msg)
         window.location.href="/LogIn"
-        setAccountCreated(true)
       });
     }
   }
@@ -201,7 +200,7 @@ function Signup() {
                 label="Password"
                 type="password"
                 value={password}
-                // onBlur={() => checkValidity(['password'])}
+                onBlur={() => checkValidity(['password'])}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
@@ -212,7 +211,7 @@ function Signup() {
                 size="small"
                 label="Email"
                 value={email}
-                // onBlur={() => checkValidity(['email'])}
+                onBlur={() => checkValidity(['email'])}
                 onChange={(e) => setEmail(e.target.value)}
               />
               <ColorInput
@@ -249,7 +248,7 @@ function Signup() {
                 size="small"
                 label="Confirm Password"    
                 value={passwordConfirmation}
-                // onBlur={() => checkValidity(['passwordConfirmation'])}
+                onBlur={() => checkValidity(['passwordConfirmation'])}
                 onChange={(e) => setPasswordConfirmation(e.target.value)}
               />
             </div>

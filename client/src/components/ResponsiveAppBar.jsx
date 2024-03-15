@@ -80,7 +80,7 @@ function ResponsiveAppBar({ isLoggedIn, onSearch, loading }) {
       title = 'Capstone Project'; 
   }
 
-  if (loading || (!isLoggedIn && (location.pathname === '/LogIn' || location.pathname === '/SignUp' || location.pathname === '/Login' || location.pathname === '/'))) {
+  if (loading || (!isLoggedIn && (location.pathname === '/LogIn' || location.pathname === '/SignUp' || location.pathname === '/login' || location.pathname === '/'))) {
     return (
       <>
       <AppBar position="fixed">

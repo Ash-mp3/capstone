@@ -38,7 +38,6 @@ const handlePasswordChange = (e) => {
       .then((res) => res.json())
       .then((data) => {
         if (data.loggedIn) {
-          console.log(data.user_role)
           setLoggedIn(data.loggedIn);
           setUser_role(data.user_role)
           localStorage.setItem("token", data.token);
