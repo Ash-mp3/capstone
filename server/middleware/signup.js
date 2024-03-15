@@ -8,6 +8,10 @@ const logger = require("../config/logger.js")
 const { insertUser } = require("../models/userModel.js");
 
 
+//middleware
+const checkLoginInfo = require("./checkLoginInfo.js");
+
+
 async function createSaltedPassword(plaintextPassword) {
     const saltRounds = 10;
     try {
@@ -21,21 +25,25 @@ async function createSaltedPassword(plaintextPassword) {
 
 
 const signUp = async (info) => {
-    try {
-        const password = info.password;
-        const saltedPassword = await createSaltedPassword(password);
-      
-        const userData = [];
-        for (const key in info) {
-            userData.push(info[key]);
+    const isValidInfo = checkLoginInfo(info)
+    if(isValidInfo){
+        try {
+            const password = info.password;
+            const saltedPassword = await createSaltedPassword(password);
+          
+            const userData = [];
+            for (const key in info) {
+                userData.push(info[key]);
+            }
+            userData[8] = saltedPassword;
+            const confirmMsg = await insertUser(userData);
+            return { status: 200, res: { msg: confirmMsg } };
+        } catch (error) {
+            logger.error(error);
+            return { status: 500, res: { msg: "Error creating user" } };
         }
-        userData[8] = saltedPassword;
-        logger.log(info);
-        const confirmMsg = await insertUser(userData);
-        return { status: 200, res: { msg: confirmMsg } };
-    } catch (error) {
-        logger.error(error);
-        return { status: 500, res: { message: "Error creating user" } };
+    } else {
+        return { status: 400, res: { msg: "Fields are not valid" } };
     }
 }
 
