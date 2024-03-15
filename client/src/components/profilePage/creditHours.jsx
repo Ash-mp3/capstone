@@ -1,16 +1,7 @@
 import React from 'react';
 
-// Example data
-const classes = [
-  { title: 'Math 101', credit_hours: 3 },
-  { title: 'English 101', credit_hours: 3 },
-  { title: 'Science 101', credit_hours: 4 },
-  // Add more classes as needed
-];
-
 function CreditHours({courses}) {
   // Calculate total credit hours
-  console.log(courses)
   // const classes = courses
   const totalCreditHours = courses.reduce((total, cls) => total + cls.credit_hours, 0);
   return (

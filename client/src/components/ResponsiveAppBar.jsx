@@ -15,19 +15,19 @@ import Logo from './assets/Registration_App_Logo.png';
 import SearchBar from './SearchBarCom';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import handleStatus from '../controllers/handleStatus';
 
 const pages = ['Courses'];
-// let settings = ['Profile', 'Courses', 'Logout', 'admin'];
 
-
-function ResponsiveAppBar({ isLoggedIn, onSearch }) {
+function ResponsiveAppBar({ isLoggedIn, onSearch, loading }) {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [authorizeStatus, setAuthorizeStatus] = useState("loading...")
   const [userName, setUserName] = useState()
   const [settings, setSettings] = useState(['Profile', 'Courses', 'Logout'])
+
+  const userListRef = 
 
   useEffect(() => {
     if (localStorage.getItem("user_role") === 'admin') {
@@ -80,7 +80,7 @@ function ResponsiveAppBar({ isLoggedIn, onSearch }) {
       title = 'Capstone Project'; 
   }
 
-  if (!isLoggedIn && (location.pathname === '/login' || location.pathname === '/signup' || location.pathname === '/Login' || location.pathname === '/')) {
+  if (loading || (!isLoggedIn && (location.pathname === '/LogIn' || location.pathname === '/SignUp' || location.pathname === '/Login' || location.pathname === '/'))) {
     return (
       <>
       <AppBar position="fixed">
@@ -147,9 +147,10 @@ function ResponsiveAppBar({ isLoggedIn, onSearch }) {
               </Link>
             )}
           </Box>
-          {location.pathname !== '/profile' &&
-            <SearchBar onSearch={onSearch}></SearchBar>
+          {location.pathname !== '/profile' && location.pathname !== '/admin' &&
+            (<SearchBar onSearch={onSearch}></SearchBar>)
           }
+          {location.pathname === '/admin' && <SearchBar onSearch={onSearch}></SearchBar>}
           <Box className ='ml-14' sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>

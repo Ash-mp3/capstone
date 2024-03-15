@@ -68,42 +68,42 @@ export default function SearchAppBar(props) {
             <div id='userFields' className='grid grid-col-1 place-content-center m-2'>
                 <div id='userInfoSubSection' className='w-1/2'>
                 <h4 className='m-1'>Username</h4>
-                <input id='username' className='m-1' placeholder={username} readOnly={!isEditable} style={{ outline: isEditable ? "solid" : "none", color: isEditable ? "black" : "grey" }} onChange={handleInputChange}></input>
+                <input id='username' className='m-1 p-[2px]' placeholder={username} readOnly={!isEditable} style={{ backgroundColor: isEditable ? "#D8D8D8" : "white", color: isEditable ? "black" : "grey", borderRadius: "5px" }} onChange={handleInputChange}></input>
 
                 <h4 className='m-1'>Email</h4>
-                <input id='email' className='m-1' placeholder={email} readOnly={!isEditable} style={{ outline: isEditable ? "solid" : "none", color: isEditable ? "black" : "grey" }} onChange={handleInputChange}></input>
+                <input id='email' className='m-1 p-[2px]' placeholder={email} readOnly={!isEditable} style={{ backgroundColor: isEditable ? "#D8D8D8" : "white", color: isEditable ? "black" : "grey", borderRadius: "5px" }} onChange={handleInputChange}></input>
 
                 <h4 className='m-1'>Password</h4>
-                <input id='password' className='m-1' placeholder={password} readOnly={true} style={{ outline: isEditable ? "solid" : "none", color: isEditable ? "black" : "grey" }} onChange={handleInputChange}></input>
+                <input id='password' className='m-1 p-[2px]' placeholder={password} readOnly={true} style={{ backgroundColor: isEditable ? "#D8D8D8" : "white", color: isEditable ? "black" : "grey", borderRadius: "5px" }} onChange={handleInputChange}></input>
 
                 <h4 className='m-1'>First Name</h4>
-                <input id='first_name' className='m-1' placeholder={firstName} readOnly={!isEditable} style={{ outline: isEditable ? "solid" : "none", color: isEditable ? "black" : "grey" }} onChange={handleInputChange}></input>
+                <input id='first_name' className='m-1 p-[2px]' placeholder={firstName} readOnly={!isEditable} style={{ backgroundColor: isEditable ? "#D8D8D8" : "white", color: isEditable ? "black" : "grey", borderRadius: "5px" }} onChange={handleInputChange}></input>
 
                 <h4 className='m-1'>Last Name</h4>
-                <input id='last_name' className='m-1' placeholder={lastName} readOnly={!isEditable} style={{ outline: isEditable ? "solid" : "none", color: isEditable ? "black" : "grey" }} onChange={handleInputChange}></input>
+                <input id='last_name' className='m-1 p-[2px]' placeholder={lastName} readOnly={!isEditable} style={{ backgroundColor: isEditable ? "#D8D8D8" : "white", color: isEditable ? "black" : "grey", borderRadius: "5px" }} onChange={handleInputChange}></input>
             </div>
         </div>
     </div>
 
     <div id='userContact' className='w-1/3 border-2 border-solid border-black place-self-center rounded-md grid grid-col-2 place-content-center my-2 mx-2 py-2 overflow-auto h-full'>
         {/* Contact Information */}
-        <div id='userContactBanner' className = 'display flex place-content-center m-2'>
+        <div id='userContactBanner' className = 'flex place-content-center m-2'>
                 <h2>Contact Information</h2>
         </div>
         <hr className = 'w-full'/>
 
             <div id='contactFields' className = 'grid grid-col-1 place-content-center m-2'>
                 <h4 className='m-1'>Address</h4>
-                <input id='address' className='m-1' placeholder={address} readOnly={!isEditable} style={{ outline: isEditable ? "solid" : "none", color: isEditable ? "black" : "grey" }} onChange={handleInputChange}></input>
+                <input id='address' className='m-1 p-[2px]' placeholder={address} readOnly={!isEditable} style={{ backgroundColor: isEditable ? "#D8D8D8" : "white", color: isEditable ? "black" : "grey", borderRadius: "5px" }} onChange={handleInputChange}></input>
 
                 <h4 className='m-1'>City</h4>
-                <input id='city' className='m-1' placeholder={city} readOnly={!isEditable} style={{ outline: isEditable ? "solid" : "none", color: isEditable ? "black" : "grey" }} onChange={handleInputChange}></input>
+                <input id='city' className='m-1 p-[2px]' placeholder={city} readOnly={!isEditable} style={{ backgroundColor: isEditable ? "#D8D8D8" : "white", color: isEditable ? "black" : "grey", borderRadius: "5px" }} onChange={handleInputChange}></input>
 
                 <h4 className='m-1'>Country</h4>
-                <input id='country' className='m-1' placeholder={country} readOnly={!isEditable} style={{ outline: isEditable ? "solid" : "none", color: isEditable ? "black" : "grey" }} onChange={handleInputChange}></input>   
+                <input id='country' className='m-1 p-[2px]' placeholder={country} readOnly={!isEditable} style={{ backgroundColor: isEditable ? "#D8D8D8" : "white", color: isEditable ? "black" : "grey", borderRadius: "5px" }} onChange={handleInputChange}></input>   
 
                 <h4 className='m-1'>Phone #</h4>
-                <input id='phone_number' className='m-1' placeholder={phoneNum} readOnly={!isEditable} style={{ outline: isEditable ? "solid" : "none", color: isEditable ? "black" : "grey" }} onChange={handleInputChange}></input>
+                <input id='phone_number' className='m-1 p-[2px]' placeholder={phoneNum} readOnly={!isEditable} style={{ backgroundColor: isEditable ? "#D8D8D8" : "white", color: isEditable ? "black" : "grey", borderRadius: "5px" }} onChange={handleInputChange}></input>
             </div>
     </div>
       </div>

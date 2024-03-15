@@ -10,10 +10,7 @@ for(let i = 7; i <= 15; i++) {
   times.push(`${hour}:00 ${period}`);
 }
 
-
 function TimeTable({ courses }) {
-  
-  console.log(courses)
   return (
     <table className="table-fixed border-black border-red w-full ">
       <thead>

@@ -1,6 +1,5 @@
 const client = require("../../config/database")
 async function getUserList(){
-    const status = 200
     const userListQuery = `
     select username, email, first_name, last_name, phone_number, address, city, country, user_role, user_id
     from users
@@ -20,7 +19,7 @@ async function getUserList(){
     }));
 
 
-    return({status: status, res: users})
+    return({status: 200, res: users})
 }
 
 module.exports = getUserList

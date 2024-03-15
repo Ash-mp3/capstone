@@ -6,6 +6,7 @@ import UserInfo from './userInformation';
 import handleStatus from '../../controllers/handleStatus';
 import AuthDisplay from '../AuthDisplay'
 
+
 function Profile() {
   const [info, setInfo] = useState({
     courses: [],

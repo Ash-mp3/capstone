@@ -4,7 +4,6 @@ import { Button, TextField, Dialog, DialogActions, DialogContent, DialogContentT
 function EditCourse({ course, onEditCourse }) {
   const [open, setOpen] = useState(false);
   const [editedCourse, setEditedCourse] = useState({ ...course });
-
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -13,8 +12,25 @@ function EditCourse({ course, onEditCourse }) {
     setOpen(false);
   };
 
-  const handleSave = () => {
-    onEditCourse(editedCourse);
+  const handleSave = async () => {
+    try {
+      fetch(`/api/admin/editCourse`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          "Authorization": `Bearer ${localStorage.getItem("token")}`
+        },
+        body: JSON.stringify(editedCourse),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          onEditCourse(editedCourse);
+        });
+    } catch (err) {
+      console.error(err)
+    }
+    
     handleClose();
   };
 
@@ -24,7 +40,7 @@ function EditCourse({ course, onEditCourse }) {
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+      <Button className='w-full' variant="outlined" color="primary" onClick={handleClickOpen}>
         Edit Course
       </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
@@ -45,19 +61,19 @@ function EditCourse({ course, onEditCourse }) {
           />
         <TextField
             margin="dense"
-            name="tuitionCost"
+            name="tuition_cost"
             label="Tuition Cost"
             type="number"
-            value={editedCourse.tuition_Cost}
+            value={editedCourse.tuition_cost}
             onChange={handleChange}
             fullWidth
         />
         <TextField
             margin="dense"
-            name="creditHours"
+            name="credit_hours"
             label="Credit Hours"
             type="number"
-            value={editedCourse.credit_Hours}
+            value={editedCourse.credit_hours}
             onChange={handleChange}
             fullWidth
         />
@@ -74,7 +90,7 @@ function EditCourse({ course, onEditCourse }) {
             margin="dense"
             name="classroom_number"
             label="Classroom Number"
-            type="number"
+            type="text"
             value={editedCourse.classroom_number}
             onChange={handleChange}
             fullWidth
@@ -83,7 +99,7 @@ function EditCourse({ course, onEditCourse }) {
             margin="dense"
             name="schedule"
             label="Schedule"
-            type="number"
+            type="text"
             value={editedCourse.schedule}
             onChange={handleChange}
             fullWidth
