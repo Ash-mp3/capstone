@@ -5,7 +5,7 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { Alert } from '@mui/material';
 
-function CourseForm() {
+function CourseForm({ onAddCourse }) {
   const [openSnack, setOpenSnack] = useState(false)
   const [addCourseMsg, setAddCourseMsg] = useState()
   const [addCourseStatus, setAddCourseStatus] = useState()
@@ -29,7 +29,7 @@ function CourseForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      fetch(`/api/createCourse`, {
+      fetch(`/api/admin/createCourse`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -39,19 +39,10 @@ function CourseForm() {
       })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data.msg);
-        setCourse({
-          title: '',
-          description: '',
-          tuition_cost: '',
-          credit_hours: '',
-          maximum_capacity: '',
-          schedule: '',
-          classroom_number: '',
-        });
         setAddCourseMsg(data.msg)
         setAddCourseStatus(data.success)
         handleSnackClick();
+        onAddCourse(course); 
       });
     } catch (err) {
         console.log(err)
@@ -59,6 +50,15 @@ function CourseForm() {
         setAddCourseStatus(false)
         handleSnackClick();
     }
+    setCourse({
+      title: '',
+      description: '',
+      tuition_cost: '',
+      credit_hours: '',
+      maximum_capacity: '',
+      schedule: '',
+      classroom_number: '',
+     });
   };
 
   const [hover, setHover] = useState(false);
@@ -102,31 +102,31 @@ function CourseForm() {
     <form className='flex flex-col items-center justify-center w-full max-w-md mx-auto p-5 shadow-md rounded-md h-full' onSubmit={handleSubmit}>
       <label className='w-full mb-4'>
         Title:
-        <input className='w-full px-3 py-2 border rounded-md' type='text' name='title' value={course.title} onChange={handleInputChange} required />
+        <input className='w-full px-3 py-2 rounded-md bg-[#D8D8D8]' type='text' name='title' value={course.title} onChange={handleInputChange} required />
       </label>
       <label className='w-full mb-4'>
         Description:
-        <textarea className='w-full px-3 py-2 border rounded-md' name='description' value={course.description} onChange={handleInputChange} required />
+        <textarea className='w-full px-3 py-2 rounded-md bg-[#D8D8D8]' name='description' value={course.description} onChange={handleInputChange} required />
       </label>
       <label className='w-full mb-4'>
         Tuition Cost:
-        <input className='w-full px-3 py-2 border rounded-md' type='number' name='tuition_cost' value={course.tuition_cost} onChange={handleInputChange} required />
+        <input className='w-full px-3 py-2 rounded-md bg-[#D8D8D8]' type='number' name='tuition_cost' value={course.tuition_cost} onChange={handleInputChange} required />
       </label>
       <label className='w-full mb-4'>
         Credit Hours:
-        <input className='w-full px-3 py-2 border rounded-md' type='number' name='credit_hours' value={course.credit_hours} onChange={handleInputChange} required />
+        <input className='w-full px-3 py-2 rounded-md bg-[#D8D8D8]' type='number' name='credit_hours' value={course.credit_hours} onChange={handleInputChange} required />
       </label>
       <label className='w-full mb-4'>
         Maximum Capacity:
-        <input className='w-full px-3 py-2 border rounded-md' type='number' name='maximum_capacity' value={course.maximum_capacity} onChange={handleInputChange} required />
+        <input className='w-full px-3 py-2 rounded-md bg-[#D8D8D8]' type='number' name='maximum_capacity' value={course.maximum_capacity} onChange={handleInputChange} required />
       </label>
       <label className='w-full mb-4'>
         Schedule:
-        <input className='w-full px-3 py-2 border rounded-md' name='schedule' value={course.schedule} onChange={handleInputChange} required />
+        <input className='w-full px-3 py-2 rounded-md bg-[#D8D8D8]' name='schedule' value={course.schedule} onChange={handleInputChange} required />
       </label>
       <label className='w-full mb-4'>
         Classroom Number:
-        <input className='w-full px-3 py-2 border rounded-md' name='classroom_number' value={course.classroom_number} onChange={handleInputChange} required />
+        <input className='w-full px-3 py-2 rounded-md bg-[#D8D8D8]' name='classroom_number' value={course.classroom_number} onChange={handleInputChange} required />
       </label>
       <button style={buttonStyle} onMouseEnter={toggleHover} onMouseLeave={toggleHover} type='submit'>Submit</button>
         <Snackbar

@@ -2,25 +2,26 @@
 const express = require("express");
 const apiRouter = express.Router();
 const { expressjwt } = require("express-jwt");
-const jwt = require('jsonwebtoken')
+const jwt = require("jsonwebtoken");
 
 //middleware
 const secureLogIn = require("../middleware/secure-login.js");
 const logout = require("../middleware/logout.js");
 const signup = require("../middleware/signup.js");
-const verifyAdmin = require("../middleware/verifyAdmin.js")
-const adminRouter = require("../admin/admin.routes.js")
+const verifyAdmin = require("../middleware/verifyAdmin.js");
+const adminRouter = require("../admin/admin.routes.js");
 
 //database
-const findInfoById = require("../models/findInfoById.js")
-const addClass = require("../models/courseModel.js")
-const removeClass = require("../models/removeClass.js")
-const updateUser = require("../models/updateUser.js")
-const createCourse = require("../models/createCourse.js")
+const findInfoById = require("../models/findInfoById.js");
+const addClass = require("../models/courseModel.js");
+const removeClass = require("../models/removeClass.js");
+const updateUser = require("../models/updateUser.js");
+const createCourse = require("../admin/adminControllers/createCourse.js");
+const createUser = require("../admin/adminControllers/createUser.js");
 
 //controllers
 const getCourses = require("../models/courseController.js");
-const getEnrolledCourses = require("../models/getEnrolledCourses.js")
+const getEnrolledCourses = require("../models/getEnrolledCourses.js");
 
 //Environment variables
 const secret = process.env.JWT_SECRET;
@@ -31,7 +32,7 @@ apiRouter.use(
   expressjwt({ secret: secret, algorithms: ["HS256"] }),
   verifyAdmin,
   adminRouter
- )
+);
 
 //responds with a jwt and a logged in status
 apiRouter.post("/login", async (req, res) => {
@@ -63,72 +64,78 @@ apiRouter.get(
   "/courses",
   expressjwt({ secret: secret, algorithms: ["HS256"] }),
   async (req, res) => {
-    const auth = req.headers.authorization
-    const token = auth.slice(7, auth.length)
-    const userId = jwt.decode(token).id
+    const auth = req.headers.authorization;
+    const token = auth.slice(7, auth.length);
+    const userId = jwt.decode(token).id;
 
     const coursesResult = await getCourses();
-    const enrolledResult = await getEnrolledCourses(userId)
+    const enrolledResult = await getEnrolledCourses(userId);
 
     const result = {
       status: 200,
-       res: {
+      res: {
         courses: coursesResult.res.courses,
-        enrolledCourses:enrolledResult.res.enrolledCourses
-      }
-    }
+        enrolledCourses: enrolledResult.res.enrolledCourses,
+      },
+    };
     res.status(result.status).json(result.res);
   }
 );
 
-//get user's enrolled 
-apiRouter.get("/profileInfo", expressjwt({ secret: secret, algorithms: ["HS256"] }), async (req, res) => {
-  const auth = req.headers.authorization
-  const token = auth.slice(7, auth.length)
-  const userId = jwt.decode(token).id
-  const userInfo = await findInfoById(userId)
-  //use userId to find user info in database
-  res.status(200).json(userInfo)
-})
-
-apiRouter.post("/updateUser", expressjwt({ secret: secret, algorithms: ["HS256"] }), async (req, res) => {
-  const userInfo = req.body;
-  const auth = req.headers.authorization
-  const token = auth.slice(7, auth.length)
-  const userId = jwt.decode(token).id
-  const result = await updateUser(userId, userInfo)
-  console.log(result)
-  res.status(result.status).send({msg: result.msg});
-})
+//get user's enrolled
+apiRouter.get(
+  "/profileInfo",
+  expressjwt({ secret: secret, algorithms: ["HS256"] }),
+  async (req, res) => {
+    const auth = req.headers.authorization;
+    const token = auth.slice(7, auth.length);
+    const userId = jwt.decode(token).id;
+    const userInfo = await findInfoById(userId);
+    //use userId to find user info in database
+    res.status(200).json(userInfo);
+  }
+);
 
 apiRouter.post(
-  "/addClass", expressjwt({ secret: secret, algorithms: ["HS256"] }), async (req, res) => {
-    const classId = req.body.class_id
-    const auth = req.headers.authorization
-    const token = auth.slice(7, auth.length)
-    const userId = jwt.decode(token).id
+  "/updateUser",
+  expressjwt({ secret: secret, algorithms: ["HS256"] }),
+  async (req, res) => {
+    const userInfo = req.body;
+    const auth = req.headers.authorization;
+    const token = auth.slice(7, auth.length);
+    const userId = jwt.decode(token).id;
+    const result = await updateUser(userId, userInfo);
+    console.log(result);
+    res.status(result.status).send({ msg: result.msg });
+  }
+);
+
+apiRouter.post(
+  "/addClass",
+  expressjwt({ secret: secret, algorithms: ["HS256"] }),
+  async (req, res) => {
+    const classId = req.body.class_id;
+    const auth = req.headers.authorization;
+    const token = auth.slice(7, auth.length);
+    const userId = jwt.decode(token).id;
     const result = await addClass(userId, classId);
-    res.status(result.status).send({msg: result.msg});
+    res.status(result.status).send({ msg: result.msg });
   }
 );
 
 apiRouter.delete(
-  "/removeClass", expressjwt({ secret: secret, algorithms: ["HS256"] }), async (req, res) => {
-    const classId = req.body.class_id
+  "/removeClass",
+  expressjwt({ secret: secret, algorithms: ["HS256"] }),
+  async (req, res) => {
+    const classId = req.body.class_id;
 
-    const auth = req.headers.authorization
-    const token = auth.slice(7, auth.length)
-    const userId = jwt.decode(token).id
+    const auth = req.headers.authorization;
+    const token = auth.slice(7, auth.length);
+    const userId = jwt.decode(token).id;
 
     const result = await removeClass(userId, classId);
-    res.status(result.status).send({msg: result.res.msg});
+    res.status(result.status).send({ msg: result.res.msg });
   }
-)
+);
 
-apiRouter.post("/createCourse", expressjwt({ secret: secret, algorithms: ["HS256"] }), async (req, res) => {
-  const CourseInfo = Object.values(req.body);
-  const result = await createCourse(CourseInfo)
-  res.status(result.status).send({msg: result.msg, success: result.success});
-})
-
-module.exports = apiRouter
+module.exports = apiRouter;

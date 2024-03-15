@@ -7,9 +7,10 @@ const updateUser = async (userId, userInfo) => {
     const dbResult = result.rows[0]
     for (const key in dbResult) {
         if (dbResult[key] !== userInfo[key]) {
-            console.log(key, userInfo[key])
             const updateResult = await client.query(`UPDATE users SET ${key} = '${userInfo[key]}' WHERE user_id = ${userId}`);
-            updateStatus = true;
+            if (updateResult) {
+                updateStatus = true;
+            }
         } 
     }
     if (updateStatus) {

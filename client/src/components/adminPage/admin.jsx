@@ -23,10 +23,10 @@ import TextField from '@mui/material/TextField';
 function Admin() {
 
   const [allCourses, setAllCourses] = React.useState([]);
-
   const [users, setUsers] = React.useState([]);
   const [authorizeStatus, setAuthorizeStatus] = React.useState("loading...")
 
+  
   // Fetch the list of all courses when the component mounts
 React.useEffect(() => {
   fetch(`/api/courses`, {
@@ -45,7 +45,7 @@ React.useEffect(() => {
   .then((data) => {
     setAllCourses(data.courses)
   });
-}, []);
+}, [allCourses]);
 
 
 React.useEffect(() => {
@@ -67,7 +67,7 @@ React.useEffect(() => {
   .then((data) => {
     setUsers(data)
   });
-}, []);
+}, [users]);
 
 
 
@@ -81,14 +81,19 @@ React.useEffect(() => {
   const filteredUsers = users.filter(user => 
     user.username && user.username.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const handleAddCourse = (newCourse) => {
+    setAllCourses([...allCourses, newCourse])
+  }
   
   const handleAddUser = (newUser) => {
-    setUsers((prevUsers) => [...prevUsers, newUser]);
+    setUsers([...users, newUser]);
   };
 
   const handleRemoveUser = () => {
     setUsers(users.filter(user => user !== userToRemove));
-    fetch("http://localhost:3001/api/admin/removeUser", {
+    setToastMessage(`Removed student: ${userToRemove.username}`);
+    fetch("/api/admin/removeUser", {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
@@ -123,11 +128,25 @@ React.useEffect(() => {
   const [selectedCourse, setSelectedCourse] = React.useState(null);
 
   const handleEditCourse = (editedCourse) => {
-    // Logic to update the course details goes here.
+    let updatedCourses = []
+    for (const course of allCourses) {
+      if (course.class_id === editedCourse.class_id) {
+        updatedCourses.push(editedCourse)
+      } else {
+        updatedCourses.push(course)
+      }
+    }
+    setAllCourses(updatedCourses)
   };
 
   const handleDeleteCourse = (deletedCourse) => {
-    // Logic to delete the course goes here.
+    let updatedCourses = []; 
+    for (const course of allCourses) {
+      if (course.class_id !== deletedCourse.class_id) {
+        updatedCourses.push(course)
+      }
+    }
+    setAllCourses(updatedCourses)
   };
   
 //this function will handle snackbar messages
@@ -145,23 +164,27 @@ const openSnackBar = ((msg, type) => {
       <ResponsiveAppBar onSearch={setSearchTerm}/>
 
       <div className='flex justify-evenly pb-8'>
-        <AddCourse />
+        <AddCourse onAddCourse={handleAddCourse} />
         <AddStudent onAddUser={handleAddUser} />
-        <Autocomplete
-          className='w-1/4 pt-8 mt-44'
+        <div className='w-1/4 pt-8 mt-10'>
+          <Autocomplete
+          className=''
           options={allCourses}
           getOptionLabel={(option) => option.title}
           renderInput={(params) => <TextField {...params} label="Select a course" />}
           onChange={(event, newValue) => {
+            
             setSelectedCourse(newValue);
           }}
         />
         {selectedCourse && (
-          <div className='mt-44'>
+          <div className='mt-20'>
             <EditCourse course={selectedCourse} onEditCourse={handleEditCourse} />
             <DeleteCourse course={selectedCourse} onDeleteCourse={handleDeleteCourse} />
           </div>
         )}
+        </div>
+        
       </div>
 
       <div id='registeredUsers' className='grid grid-cols-1 place-items-center'>

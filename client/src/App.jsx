@@ -8,15 +8,7 @@ import { SearchContext } from "./components/SearchContext";
 
 
 function App() {
-  const [data, setData] = useState(null);
-
   const [searchTerm, setSearchTerm] = useState('');
-
-/*   useEffect(() => {
-    fetch("/api")
-      .then((res) => res.json())
-      .then((data) => setData(data.message));
-  }, []); */
 
   return (
     <SearchContext.Provider value={{ searchTerm, setSearchTerm }}>

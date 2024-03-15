@@ -15,26 +15,24 @@ import Logo from './assets/Registration_App_Logo.png';
 import SearchBar from './SearchBarCom';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import handleStatus from '../controllers/handleStatus';
 
 const pages = ['Courses'];
-// let settings = ['Profile', 'Courses', 'Logout', 'admin'];
 
-
-function ResponsiveAppBar({ isLoggedIn, onSearch }) {
+function ResponsiveAppBar({ isLoggedIn, onSearch, loading }) {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [authorizeStatus, setAuthorizeStatus] = useState("loading...")
-  const [userRole, setUserRole] = useState(localStorage.getItem("user_role"))
   const [userName, setUserName] = useState()
   const [settings, setSettings] = useState(['Profile', 'Courses', 'Logout'])
 
+  const userListRef = 
 
   useEffect(() => {
-    if (userRole === 'admin') {
+    if (localStorage.getItem("user_role") === 'admin') {
       setSettings(['Admin', 'Courses', 'Logout'])
-    } else if (userRole === 'student') {
+    } else if (localStorage.getItem("user_role") === 'student') {
       setSettings(['Profile', 'Courses', 'Logout'])
     }
   }, [])
@@ -55,31 +53,6 @@ function ResponsiveAppBar({ isLoggedIn, onSearch }) {
     setAnchorElUser(null);
   };
 
-  // const checkUserRole = async () => {
-  //   if (localStorage.getItem("token")) {
-  //     try {
-  //     fetch(`/api/profileInfo`, {
-  //       method: 'GET',
-  //       headers: { 
-  //         'Content-Type': 'application/json',
-  //         "Authorization": `Bearer ${localStorage.getItem("token")}`
-  //       },
-  //     }).then((res) => {
-  //       setAuthorizeStatus(handleStatus(res))
-  //       if(res.ok){
-  //         return(res.json())
-  //       }
-  //     }).then((data) => {
-  //       setUserRole(data.user_role)
-  //       setUserName(data.username)
-  //     })
-  //     } catch (err) {
-  //       console.error(err);
-  //     }   
-  //   }  
-  // }
-  
-  // checkUserRole()
   const location = useLocation();
 
   let title;
@@ -107,9 +80,10 @@ function ResponsiveAppBar({ isLoggedIn, onSearch }) {
       title = 'Capstone Project'; 
   }
 
-  if (!isLoggedIn && (location.pathname === '/login' || location.pathname === '/signup' || location.pathname === '/Login' || location.pathname === '/')) {
+  if (loading || (!isLoggedIn && (location.pathname === '/LogIn' || location.pathname === '/SignUp' || location.pathname === '/Login' || location.pathname === '/'))) {
     return (
-      <AppBar position="static">
+      <>
+      <AppBar position="fixed">
         <Container maxWidth="xl" class="bg-[#474787]">
           <Toolbar disableGutters>
             <Avatar id='logoImage' src={Logo} sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
@@ -133,11 +107,14 @@ function ResponsiveAppBar({ isLoggedIn, onSearch }) {
           </Toolbar>
         </Container>
       </AppBar>
+      <Toolbar />
+      </>
     );
   }
 
   return (
-    <AppBar position="static">
+    <>
+    <AppBar position="fixed">
       <Container maxWidth="xl" class="bg-[#474787]">
         <Toolbar disableGutters>
           <Avatar id='logoImage' src={Logo} sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
@@ -170,13 +147,14 @@ function ResponsiveAppBar({ isLoggedIn, onSearch }) {
               </Link>
             )}
           </Box>
-          {location.pathname !== '/profile' &&
-            <SearchBar onSearch={onSearch}></SearchBar>
+          {location.pathname !== '/profile' && location.pathname !== '/admin' &&
+            (<SearchBar onSearch={onSearch}></SearchBar>)
           }
+          {location.pathname === '/admin' && <SearchBar onSearch={onSearch}></SearchBar>}
           <Box className ='ml-14' sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="User Profile Pic" >{userName ? userName.charAt(0).toUpperCase() : ''}</Avatar>
+                <Avatar alt="User Profile Pic" ></Avatar>
               </IconButton>
             </Tooltip>
             <Menu
@@ -206,7 +184,9 @@ function ResponsiveAppBar({ isLoggedIn, onSearch }) {
           </Box>
         </Toolbar>
       </Container>
-    </AppBar>
+      </AppBar>
+      <Toolbar />
+    </>
   );
 }
 

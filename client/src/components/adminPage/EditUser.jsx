@@ -4,7 +4,6 @@ import { Button, TextField, Dialog, DialogActions, DialogContent, DialogContentT
 function EditUser({ user, onEditUser }) {
   const [open, setOpen] = useState(false);
   const [editedUser, setEditedUser] = useState({ ...user });
-
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -36,10 +35,10 @@ function EditUser({ user, onEditUser }) {
           <TextField
             autoFocus
             margin="dense"
-            name="name"
+            name="first_name"
             label="Name"
             type="text"
-            value={editedUser.name}
+            value={editedUser.first_name}
             onChange={handleChange}
             fullWidth
           />
@@ -67,16 +66,16 @@ function EditUser({ user, onEditUser }) {
             name="password"
             label="Password"
             type="password"
-            value={editedUser.password}
+            value={'*****'}
             onChange={handleChange}
             fullWidth
           />
           <TextField
             margin="dense"
-            name="phone"
+            name="phone_number"
             label="Phone Number"
             type="tel"
-            value={editedUser.phone}
+            value={editedUser.phone_number}
             onChange={handleChange}
             fullWidth
           />

@@ -61,7 +61,7 @@ export default function SearchAppBar() {
         <SearchIcon />
       </SearchIconWrapper>
       <StyledInputBase
-        placeholder="Search…"
+        placeholder={location.pathname === '/courses' ? 'Courses...' : 'Students...'}
         inputProps={{ 'aria-label': 'search' }}
         onChange={(event) => handleSearch(event)}
       />

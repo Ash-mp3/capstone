@@ -4,7 +4,7 @@ const client = require("../config/database");
 async function getCourses(){
     try {
 
-        const coursesQuery = `SELECT title, description, class_id, tuition_cost, credit_hours, maximum_capacity FROM classes`
+        const coursesQuery = `SELECT title, description, tuition_cost, credit_hours, maximum_capacity, schedule, classroom_number, class_id FROM classes`
         const coursesQueryResult = await client.query(coursesQuery)
         let courses = coursesQueryResult.rows
 

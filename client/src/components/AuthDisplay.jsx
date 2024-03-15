@@ -1,10 +1,24 @@
-export default function AuthDisplay(props){
-    const {authorizeStatus}= props
-    return(    
-    <div>
-    <h1>{authorizeStatus}</h1>
-    {/* if user is unauthorized, give them an option to return to the login page */}
-    {authorizeStatus === 'unauthorized' ? <a href='/login'>Go back to login</a> : ''}
-    </div>
-    )
+import loadingIcon from "./assets/loadingIcon.svg";
+import ResponsiveAppBar from "./ResponsiveAppBar";
+import Footer from "./Footer";
+
+export default function AuthDisplay(props) {
+  const { authorizeStatus } = props;
+    location.pathname === '/'
+  if (authorizeStatus === "loading...") {
+    return (
+      <>
+        <div className="relative h-screen flex flex-col justify-center items-center">
+            <ResponsiveAppBar loading={true}/>      
+                <img className="m-auto" src={loadingIcon} alt="Loading icon" />
+            <Footer className='absolute bottom-0' />
+        </div>
+      </>
+    );
+  } else {
+    {
+      authorizeStatus;
+    }
+    <a href="/login">Go back to login</a>;
+  }
 }

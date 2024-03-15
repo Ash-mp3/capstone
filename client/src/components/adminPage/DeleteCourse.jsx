@@ -12,14 +12,30 @@ function DeleteCourse({ course, onDeleteCourse }) {
     setOpen(false);
   };
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
+    try {
+      fetch(`/api/admin/deleteCourse`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          "Authorization": `Bearer ${localStorage.getItem("token")}`
+        },
+        body: JSON.stringify(course),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data)
+        });
+    } catch (err) {
+        console.error(err)
+    }
     onDeleteCourse(course);
     handleClose();
   };
 
   return (
     <div className='pt-2'>
-      <Button variant="outlined" color="secondary" onClick={handleClickOpen}>
+      <Button className='w-full' variant="outlined" color="secondary" onClick={handleClickOpen}>
         Delete Course
       </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="alert-dialog-title">

@@ -3,8 +3,9 @@ import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 import TextField from "@mui/material/TextField";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import Footer from '../Footer';
+import ResponsiveAppBar from "../ResponsiveAppBar";
 
 const ColorButton = styled(Button)(({ theme }) => ({
   color: theme.palette.getContrastText("#474787"),
@@ -66,11 +67,13 @@ function Signup() {
     passwordErr: '',
     passwordConfirmationErr: '',
   })
+
+
   function createAccount(){
     let allInfoIsVerified = true
 
     //you can comment this next line out so that you don't have to enter valid information when testing
-    allInfoIsVerified = checkValidity(true)
+    // allInfoIsVerified = checkValidity(true)
 
     if(allInfoIsVerified){
       fetch(`/api/signup`, {
@@ -93,6 +96,8 @@ function Signup() {
       .then((res) => res.json())
       .then((data) => {
         console.log(data.msg)
+        window.location.href="/LogIn"
+        setAccountCreated(true)
       });
     }
   }
@@ -131,13 +136,7 @@ function Signup() {
       id="SignupPage"
       className="w-full h-full relative flex justify-center items-center "
     >
-      <header
-        id="SignupHeader"
-        className="w-full h-[75px] flex justify-center absolute top-0"
-      >
-        <img src={Logo} alt="logo" />
-      </header>
-
+      <ResponsiveAppBar />
       <div id="SignupInfo">
         <div className="flex flex-col text-center items-center w-1/2 gap-4">
           <h1 className="w-min text-left text-[60px]">
@@ -202,7 +201,7 @@ function Signup() {
                 label="Password"
                 type="password"
                 value={password}
-                onBlur={() => checkValidity(['password'])}
+                // onBlur={() => checkValidity(['password'])}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
@@ -213,7 +212,7 @@ function Signup() {
                 size="small"
                 label="Email"
                 value={email}
-                onBlur={() => checkValidity(['email'])}
+                // onBlur={() => checkValidity(['email'])}
                 onChange={(e) => setEmail(e.target.value)}
               />
               <ColorInput
@@ -250,7 +249,7 @@ function Signup() {
                 size="small"
                 label="Confirm Password"    
                 value={passwordConfirmation}
-                onBlur={() => checkValidity(['passwordConfirmation'])}
+                // onBlur={() => checkValidity(['passwordConfirmation'])}
                 onChange={(e) => setPasswordConfirmation(e.target.value)}
               />
             </div>

@@ -8,6 +8,7 @@ import { SearchContext } from '../SearchContext';
 
 import handleStatus from '../../controllers/handleStatus';
 import AuthDisplay from '../AuthDisplay'
+import loadingIcon from '../assets/loadingIcon.svg'
 
 function Courses() {
   const [courses, setCourses] = useState([])
@@ -95,7 +96,7 @@ function Courses() {
             })    
             : 
             <div>
-              loading...
+              <img src={loadingIcon} alt="loadingIcon" />
             </div>
           }
         </div>
