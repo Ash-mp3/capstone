@@ -26,15 +26,13 @@ function ResponsiveAppBar({ isLoggedIn, onSearch }) {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [authorizeStatus, setAuthorizeStatus] = useState("loading...")
-  const [userRole, setUserRole] = useState(localStorage.getItem("user_role"))
   const [userName, setUserName] = useState()
   const [settings, setSettings] = useState(['Profile', 'Courses', 'Logout'])
 
-
   useEffect(() => {
-    if (userRole === 'admin') {
+    if (localStorage.getItem("user_role") === 'admin') {
       setSettings(['Admin', 'Courses', 'Logout'])
-    } else if (userRole === 'student') {
+    } else if (localStorage.getItem("user_role") === 'student') {
       setSettings(['Profile', 'Courses', 'Logout'])
     }
   }, [])
@@ -55,31 +53,6 @@ function ResponsiveAppBar({ isLoggedIn, onSearch }) {
     setAnchorElUser(null);
   };
 
-  // const checkUserRole = async () => {
-  //   if (localStorage.getItem("token")) {
-  //     try {
-  //     fetch(`/api/profileInfo`, {
-  //       method: 'GET',
-  //       headers: { 
-  //         'Content-Type': 'application/json',
-  //         "Authorization": `Bearer ${localStorage.getItem("token")}`
-  //       },
-  //     }).then((res) => {
-  //       setAuthorizeStatus(handleStatus(res))
-  //       if(res.ok){
-  //         return(res.json())
-  //       }
-  //     }).then((data) => {
-  //       setUserRole(data.user_role)
-  //       setUserName(data.username)
-  //     })
-  //     } catch (err) {
-  //       console.error(err);
-  //     }   
-  //   }  
-  // }
-  
-  // checkUserRole()
   const location = useLocation();
 
   let title;
@@ -109,7 +82,8 @@ function ResponsiveAppBar({ isLoggedIn, onSearch }) {
 
   if (!isLoggedIn && (location.pathname === '/login' || location.pathname === '/signup' || location.pathname === '/Login' || location.pathname === '/')) {
     return (
-      <AppBar position="static">
+      <>
+      <AppBar position="fixed">
         <Container maxWidth="xl" class="bg-[#474787]">
           <Toolbar disableGutters>
             <Avatar id='logoImage' src={Logo} sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
@@ -133,11 +107,14 @@ function ResponsiveAppBar({ isLoggedIn, onSearch }) {
           </Toolbar>
         </Container>
       </AppBar>
+      <Toolbar />
+      </>
     );
   }
 
   return (
-    <AppBar position="static">
+    <>
+    <AppBar position="fixed">
       <Container maxWidth="xl" class="bg-[#474787]">
         <Toolbar disableGutters>
           <Avatar id='logoImage' src={Logo} sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
@@ -176,7 +153,7 @@ function ResponsiveAppBar({ isLoggedIn, onSearch }) {
           <Box className ='ml-14' sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="User Profile Pic" >{userName ? userName.charAt(0).toUpperCase() : ''}</Avatar>
+                <Avatar alt="User Profile Pic" ></Avatar>
               </IconButton>
             </Tooltip>
             <Menu
@@ -206,7 +183,9 @@ function ResponsiveAppBar({ isLoggedIn, onSearch }) {
           </Box>
         </Toolbar>
       </Container>
-    </AppBar>
+      </AppBar>
+      <Toolbar />
+    </>
   );
 }
 

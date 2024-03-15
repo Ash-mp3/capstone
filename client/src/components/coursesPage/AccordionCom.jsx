@@ -53,9 +53,9 @@ export default function AccordionCom(props) {
       <AccordionActions>
         {
         !enrolledIn ?
-          <Button id='addCourse' onClick={() => handleAddCourse(class_id)}>Add Course</Button>
+          <Button id='addCourse' className='w-full' onClick={() => handleAddCourse(class_id)}>Add Course</Button>
         :
-          <Button id='removeCourse' onClick={() => handleRemoveCourse(class_id)}>Remove Course</Button>
+          <Button id='removeCourse' className='w-full' onClick={() => handleRemoveCourse(class_id)}>Remove Course</Button>
         }
       </AccordionActions>
     </Accordion>
