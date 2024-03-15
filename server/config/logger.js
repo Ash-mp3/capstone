@@ -1,18 +1,17 @@
-const { models } = require('mongoose');
 const winston = require('winston');
 const { combine, timestamp, json } = winston.format;
 
 const logger = winston.createLogger({
-    level: process.env.LOG.LEVEL || 'debug',
+    level: process.env.LOG_LEVEL || 'debug',
     format: combine(timestamp({
-        // format: 'YYYY-MM-DD hh:mm::ss.SSS A',
+        format: 'YYYY-MM-DD hh:mm::ss.SSS A',
         // hh (12 hr) HH (24 hr) A (AM/PM)
     }), json()),
     transports: [
-        new winston.transport.File({
+        new winston.transports.File({
             filename: `${__dirname}/../logs/server.log`
         }),
-        new winston.transport.Console()
+        new winston.transports.Console()
     ],
 })
-module.exports = logger
+module.exports = logger;

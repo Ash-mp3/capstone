@@ -1,6 +1,10 @@
 //database
 const client = require("../config/database");
 
+//logger 
+const logger = require("../config/logger")
+
+
 async function getCourses(){
     try {
 
@@ -22,7 +26,7 @@ async function getCourses(){
         //send formatted object
         return({status: 200, res: { courses: courses }})
       } catch (error) {
-        console.error(error);
+        logger.error(error);
         return({status: 500, res: "Error retrieving classes from database"})
       }
 }

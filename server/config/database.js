@@ -1,4 +1,5 @@
 const pg = require("pg");
+const logger = require("./logger")
 
 const client = new pg.Client({
   user: process.env.DB_USER,
@@ -11,9 +12,9 @@ const client = new pg.Client({
 
 client.connect((err) => {
   if (err) {
-    console.error("connection error", err.stack);
+    logger.error("connection error", err.stack);
   } else {
-    console.log("connected to database");
+    logger.info("connected to database");
   }
 });
 

@@ -2,6 +2,9 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
+//logger
+const logger = require("../config/logger.js")
+
 //Environment variables
 const secret = process.env.JWT_SECRET;
 
@@ -19,7 +22,6 @@ async function secureLogIn(email, password) {
     const isPasswordCorrect = await bcrypt.compare(password, hashedPassword)
 //    const isPasswordCorrect = true;
     if (isPasswordCorrect) {
-      console.log("Password is correct");
     
       const id = await findIdByEmail(email)
 
@@ -38,7 +40,7 @@ async function secureLogIn(email, password) {
       };
     }
   } catch (error) {
-    console.error(error);
+    logger.error(error);
     return { status: 500, res: { message: "login error" } };
   }
   //middleware configuration
