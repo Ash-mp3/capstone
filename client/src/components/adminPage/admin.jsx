@@ -91,8 +91,8 @@ React.useEffect(() => {
   };
 
   const handleRemoveUser = () => {
-    setUsers(users.filter(user => user !== userToRemove));
-    setToastMessage(`Removed student: ${userToRemove.username}`);
+
+    toastMessage.current = (`Removed student: ${userToRemove.username}`);
     fetch("/api/admin/removeUser", {
       method: "POST",
       headers: {
@@ -101,6 +101,12 @@ React.useEffect(() => {
       },
       body: JSON.stringify({user_id: userToRemove.user_id})
     })
+    .then(res => {
+      if(res.ok){
+        setUsers(users.filter(user => user !== userToRemove));
+      }
+    })
+
     const msg = (`Removed student: ${userToRemove.username}`);
     openSnackBar(msg);
     setDialogOpen(false);
