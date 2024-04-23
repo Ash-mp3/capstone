@@ -73,9 +73,10 @@ function Signup() {
     let allInfoIsVerified = true
 
     //you can comment this next line out so that you don't have to enter valid information when testing
-    // allInfoIsVerified = checkValidity(true)
+    allInfoIsVerified = checkValidity(true)
 
     if(allInfoIsVerified){
+      let ok = false
       fetch(`/api/signup`, {
         method: 'POST',
         headers: {
@@ -93,10 +94,16 @@ function Signup() {
           password,
         }),
       })
-      .then((res) => res.json())
+      .then((res) => {
+        ok = res.ok
+        return(res.json())
+      })
       .then((data) => {
         console.log(data.msg)
-        window.location.href="/LogIn"
+        if(ok){
+          window.location.href="/LogIn"
+          setAccountCreated(true)
+        }
       });
     }
   }

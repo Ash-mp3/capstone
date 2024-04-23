@@ -98,7 +98,7 @@ function ResponsiveAppBar({ isLoggedIn, onSearch, loading }) {
                 fontFamily: 'monospace',
                 fontWeight: 700,
                 letterSpacing: '.3rem',
-                color: 'black',
+                color: 'lightgray',
                 textDecoration: 'none',
               }}
             >
@@ -129,7 +129,7 @@ function ResponsiveAppBar({ isLoggedIn, onSearch, loading }) {
               fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.3rem',
-              color: 'black',
+              color: 'lightgray',
               textDecoration: 'none',
             }}
           >
@@ -140,7 +140,7 @@ function ResponsiveAppBar({ isLoggedIn, onSearch, loading }) {
               <Link to="/courses">
                 <Button
                   onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'black', display: 'block' }}
+                  sx={{ my: 2, color: 'lightgray', display: 'block' }}
                 >
                   Courses
                 </Button>

@@ -1,4 +1,9 @@
+//db
 const client = require("../config/database");
+
+//logger
+const logger = require("../config/logger")
+
 
 async function removeClass(user_id, class_id){
     try{
@@ -12,7 +17,7 @@ async function removeClass(user_id, class_id){
             return({status: 200, res: { msg: "class already removed" }})
         }
     } catch (error) {
-        console.error(error);
+        logger.error(error);
         return({status: 500, res: "Error retrieving classes from database"})
     }
 }

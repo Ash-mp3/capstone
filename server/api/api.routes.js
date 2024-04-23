@@ -96,19 +96,15 @@ apiRouter.get(
   }
 );
 
-apiRouter.post(
-  "/updateUser",
-  expressjwt({ secret: secret, algorithms: ["HS256"] }),
-  async (req, res) => {
-    const userInfo = req.body;
-    const auth = req.headers.authorization;
-    const token = auth.slice(7, auth.length);
-    const userId = jwt.decode(token).id;
-    const result = await updateUser(userId, userInfo);
-    console.log(result);
-    res.status(result.status).send({ msg: result.msg });
-  }
-);
+apiRouter.post("/updateUser", expressjwt({ secret: secret, algorithms: ["HS256"] }), async (req, res) => {
+  const userInfo = req.body;
+  const auth = req.headers.authorization
+  const token = auth.slice(7, auth.length)
+  const userId = jwt.decode(token).id
+  const result = await updateUser(userId, userInfo)
+  
+  res.status(result.status).send({msg: result.msg});
+})
 
 apiRouter.post(
   "/addClass",

@@ -1,4 +1,8 @@
+//db
 const client = require("../config/database");
+
+//logger
+const logger = require("../config/logger")
 
 async function getEnrolledCourses(user_id){
     try{
@@ -7,7 +11,7 @@ async function getEnrolledCourses(user_id){
         const enrolledCourses = enrolledCoursesResult.rows
         return({status: 200, res: { enrolledCourses: enrolledCourses }})
     } catch (error) {
-    console.error(error);
+    logger.error(error);
     return({status: 500, res: "Error retrieving classes from database"})
     }
 }

@@ -1,4 +1,9 @@
+//db
 const client = require("../config/database");
+
+//logger
+const logger = require("../config/logger")
+
 
 const insertUser = async (userData) => {
     try {
@@ -17,7 +22,7 @@ const insertUser = async (userData) => {
       return "Email already in use.";
     }
   } catch (err) {
-    console.log(err);
+    logger.error(err);
     return "could not create user";
   }
 };
