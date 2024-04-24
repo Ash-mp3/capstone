@@ -10,6 +10,16 @@ import Box from '@mui/material/Box';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import EditUser from './EditUser';
+import { styled } from "@mui/material/styles";
+
+
+const ColorButton = styled(Button)(({ theme }) => ({
+    color: theme.palette.getContrastText("#474787"),
+    backgroundColor: "#474787",
+    "&:hover": {
+      backgroundColor: "#989898",
+    },
+  }));
 
 export default function AccordionRegistered({ user, onRemoveUser, allCourses, onEditUser, openSnackBar }) {
 
@@ -74,25 +84,26 @@ export default function AccordionRegistered({ user, onRemoveUser, allCourses, on
   };
 
   return (
-    <Accordion>
+    <Accordion sx={{border: "1px solid gray", marginBottom: "10px"}}>
     <AccordionSummary
     expandIcon={<ExpandMoreIcon />}
     aria-controls="panel1-content"
-    id="panel1-header"
+              id="panel1-header"
+              sx={{borderBottom: "1px solid gray",}}
   >
     <Box display="flex" alignItems="center" width="100%">
       <Avatar>{user.username.charAt(0)}</Avatar>
       <Box flexGrow={1} ml={1}>
         {user.username}
       </Box>
-      <Button onClick={handleRemoveUserClick} className='w-1/4 '>Remove Student</Button>
+      <ColorButton onClick={handleRemoveUserClick} className='w-auto'>Remove Student</ColorButton>
     </Box>
   </AccordionSummary>
   {courses.map((course, index) => (
-    <AccordionDetails key={index}>
+    <AccordionDetails key={index} >
       <Box display="flex" justifyContent="space-between" width="100%">
         <div>{course.title}</div>
-        <Button onClick={() => handleRemoveCourse(course)} className='w-1/5'>Remove Course</Button>
+        <ColorButton onClick={() => handleRemoveCourse(course)} className='w-1/5'>Remove Course</ColorButton>
       </Box>
     </AccordionDetails>
   ))}
@@ -106,7 +117,7 @@ export default function AccordionRegistered({ user, onRemoveUser, allCourses, on
             }}
             className='w-full'
         />
-        <Button onClick={handleAddCourse} className='w-1/5'>Add Course</Button>
+        <ColorButton onClick={handleAddCourse} className='w-1/5'>Add Course</ColorButton>
         <EditUser user={user} onEditUser={onEditUser} />
       </AccordionActions>
     </Accordion>

@@ -11,7 +11,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { Button } from '@mui/material';
 import { SearchContext } from '../SearchContext';
-import AddCourse from './adminAddForm';
+import AddCourse from './AddCourse';
 import AddStudent from './AddStudent';
 import EditCourse from './EditCourse';
 import DeleteCourse from './DeleteCourse';
@@ -166,7 +166,7 @@ const openSnackBar = ((msg, type) => {
     {
     authorizeStatus === 'authorized' ?
     
-    <div id='AdminPage' className='w-full'>
+    <div id='AdminPage' className='w-full bg-[#ECECEC]'>
       <ResponsiveAppBar onSearch={setSearchTerm}/>
 
       <div className='flex justify-evenly pb-8'>
@@ -174,7 +174,7 @@ const openSnackBar = ((msg, type) => {
         <AddStudent onAddUser={handleAddUser} />
         <div className='w-1/4 pt-8 mt-10'>
           <Autocomplete
-          className=''
+          className='bg-white'
           options={allCourses}
           getOptionLabel={(option) => option.title}
           renderInput={(params) => <TextField {...params} label="Select a course" />}

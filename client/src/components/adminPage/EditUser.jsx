@@ -1,5 +1,14 @@
 import React, { useState } from 'react';
+import { styled } from "@mui/material/styles";
 import { Button, TextField, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+
+const ColorButton = styled(Button)(({ theme }) => ({
+    color: theme.palette.getContrastText("#474787"),
+    backgroundColor: "#474787",
+    "&:hover": {
+      backgroundColor: "#989898",
+    },
+  }));
 
 function EditUser({ user, onEditUser }) {
   const [open, setOpen] = useState(false);
@@ -23,9 +32,9 @@ function EditUser({ user, onEditUser }) {
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+      <ColorButton variant="outlined" color="primary" onClick={handleClickOpen}>
         Edit
-      </Button>
+      </ColorButton>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Edit User</DialogTitle>
         <DialogContent>

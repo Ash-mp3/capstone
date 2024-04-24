@@ -98,7 +98,7 @@ function AddStudent({ onAddUser }) {
   return (
     <div className='pt-8 mb-4'>
       <h2 className='text-center underline text-xl font-bold py-2'>Add Student</h2>
-      <form className='flex flex-col items-center justify-around w-full max-w-md mx-auto p-5  shadow-md rounded-md h-full' onSubmit={handleSubmit}>
+      <form className='flex flex-col items-center justify-around w-full max-w-md mx-auto p-5 shadow-md rounded-md h-full bg-white' onSubmit={handleSubmit}>
         <label className='w-full mb-14 mt-4'>
           First Name:
           <input className='w-full px-3 py-2 rounded-md bg-[#D8D8D8]' type='text' name='firstName' value={student.firstName} onChange={handleInputChange} required />
