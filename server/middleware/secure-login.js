@@ -20,7 +20,6 @@ async function secureLogIn(email, password) {
       return { status: 401, res: { msg: "Email or password incorrect", loggedIn: false } };
     };
     const isPasswordCorrect = await bcrypt.compare(password, hashedPassword)
-//    const isPasswordCorrect = true;
     if (isPasswordCorrect) {
     
       const id = await findIdByEmail(email)

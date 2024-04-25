@@ -1,13 +1,5 @@
 import React from 'react';
 
-// Example data
-const classes = [
-  { title: 'Math 101', tuition_cost: 500 },
-  { title: 'English 101', tuition_cost: 500 },
-  { title: 'Science 101', tuition_cost: 500 },
-  // Add more classes as needed
-];
-
 function TuitionFees({courses}) {
   // Calculate total tuition
   const totalTuition = courses.reduce((total, cls) => total + Math.trunc(cls.tuition_cost), 0);

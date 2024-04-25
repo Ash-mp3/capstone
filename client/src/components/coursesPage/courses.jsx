@@ -55,12 +55,12 @@ function Courses() {
 
 	return (
 		<SearchContext.Provider value={{ searchTerm, setSearchTerm }}>
-			<div className="Courses bg-[#ECECEC]">
+			<div className="Courses bg-[#ECECEC] h-screen">
 				{authorizeStatus === "authorized" ? (
-					<div>
+					<div className="h-full">
 						<ResponsiveAppBar onSearch={handleSearch} />
 
-						<div id="listOfAvailable" className="mx-8 my-6">
+						<div id="listOfAvailable" className="mx-8 my-6 h-full">
 							{
 								//if there are courses to render, render them. Otherwise, display "loading..."
 								courses !== "" ? (
