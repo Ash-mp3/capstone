@@ -60,7 +60,7 @@ function Courses() {
 					<div className="h-full">
 						<ResponsiveAppBar onSearch={handleSearch} />
 
-						<div id="listOfAvailable" className="mx-8 my-6 h-full">
+						<div id="listOfAvailable" className="mx-8 my-6 min-h-screen">
 							{
 								//if there are courses to render, render them. Otherwise, display "loading..."
 								courses !== "" ? (
