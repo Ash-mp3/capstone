@@ -16,8 +16,6 @@ const findInfoById = require("../models/findInfoById.js");
 const addClass = require("../models/courseModel.js");
 const removeClass = require("../models/removeClass.js");
 const updateUser = require("../models/updateUser.js");
-const createCourse = require("../admin/adminControllers/createCourse.js");
-const createUser = require("../admin/adminControllers/createUser.js");
 
 //controllers
 const getCourses = require("../models/courseController.js");

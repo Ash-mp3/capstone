@@ -32,7 +32,7 @@ function EditUser({ user, onEditUser }) {
 
   return (
     <div>
-      <ColorButton variant="outlined" color="primary" onClick={handleClickOpen}>
+      <ColorButton variant="contained" onClick={handleClickOpen}>
         Edit
       </ColorButton>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">

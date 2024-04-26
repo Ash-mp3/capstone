@@ -40,7 +40,7 @@ function EditCourse({ course, onEditCourse }) {
 
   return (
     <div>
-      <Button className='w-full' variant="outlined" color="primary" onClick={handleClickOpen}>
+      <Button className='w-full' variant="contained" color='secondary' onClick={handleClickOpen}>
         Edit Course
       </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">

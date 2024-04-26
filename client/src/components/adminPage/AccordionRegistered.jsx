@@ -9,7 +9,7 @@ import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
-import EditUser from './EditUser';
+import EditUser from './EditStudent';
 import { styled } from "@mui/material/styles";
 
 

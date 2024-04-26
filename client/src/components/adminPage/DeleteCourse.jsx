@@ -35,7 +35,7 @@ function DeleteCourse({ course, onDeleteCourse }) {
 
   return (
     <div className='pt-2'>
-      <Button className='w-full' variant="outlined" color="secondary" onClick={handleClickOpen}>
+      <Button className='w-full' variant="contained" color='error'  onClick={handleClickOpen}>
         Delete Course
       </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="alert-dialog-title">

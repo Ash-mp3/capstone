@@ -128,7 +128,7 @@ function CourseForm({ onAddCourse }) {
         Classroom Number:
         <input className='w-full px-3 py-2 rounded-md bg-[#D8D8D8]' name='classroom_number' value={course.classroom_number} onChange={handleInputChange} required />
       </label>
-      <button style={buttonStyle} onMouseEnter={toggleHover} onMouseLeave={toggleHover} type='submit'>Submit</button>
+      <Button style={buttonStyle} onMouseEnter={toggleHover} onMouseLeave={toggleHover} type='submit'>Submit</Button>
         <Snackbar
           open={openSnack}
           autoHideDuration={6000}

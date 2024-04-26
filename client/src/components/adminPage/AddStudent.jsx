@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+import Button from '@mui/material/Button';
 import { Alert } from '@mui/material';
 
 function AddStudent({ onAddUser }) {
@@ -120,7 +121,7 @@ function AddStudent({ onAddUser }) {
           <input className='w-full px-3 py-2 rounded-md bg-[#D8D8D8]' type='text' name='temporaryUsername' value={student.temporaryUsername} onChange={handleInputChange} required />
         </label>
         <div className='w-full flex justify-center '>
-          <button className='mb-4' style={buttonStyle} onMouseEnter={toggleHover} onMouseLeave={toggleHover} type='submit'>Submit</button>
+          <Button className='mb-4' style={buttonStyle} onMouseEnter={toggleHover} onMouseLeave={toggleHover} type='submit'>Submit</Button>
         <Snackbar
           open={openSnack}
           autoHideDuration={6000}

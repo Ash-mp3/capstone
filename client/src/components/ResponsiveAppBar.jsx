@@ -38,7 +38,6 @@ function ResponsiveAppBar({ isLoggedIn, onSearch, loading }) {
   }, [])
 
   const handleOpenNavMenu = (event) => {
-    
     setAnchorElNav(event.currentTarget);
   };
   const handleOpenUserMenu = (event) => {
@@ -107,7 +106,6 @@ function ResponsiveAppBar({ isLoggedIn, onSearch, loading }) {
           </Toolbar>
         </Container>
       </AppBar>
-      <Toolbar />
       </>
     );
   }
