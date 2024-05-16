@@ -1,11 +1,10 @@
-import React, { useContext } from "react";
+import { useEffect, useState, useContext } from "react";
+import "../../css/courses.css";
 import AccordionCom from "./AccordionCom";
 import ResponsiveAppBar from "../ResponsiveAppBar";
-import "../../css/courses.css";
 import Footer from "../Footer";
-import { useEffect, useState } from "react";
-import { SearchContext } from "../SearchContext";
 
+import { SearchContext } from "../SearchContext";
 import handleStatus from "../../controllers/handleStatus";
 import AuthDisplay from "../AuthDisplay";
 import loadingIcon from "../assets/loadingIcon.svg";
@@ -25,9 +24,7 @@ function Courses() {
 		setSearchTerm(event.target.value);
 	};
 
-	const filteredCourses = courses.filter((course) =>
-		course.title.toLowerCase().includes(searchTerm.toLowerCase())
-	);
+	const filteredCourses = courses.filter((course) => course.title.toLowerCase().includes(searchTerm.toLowerCase()));
 
 	//fetch courses
 	useEffect(() => {
@@ -68,9 +65,7 @@ function Courses() {
 									filteredCourses.map((course, index) => {
 										let enrolledIn = false;
 										enrolledCourses.forEach((enrolledCourse) => {
-											if (
-												`${enrolledCourse.class_id}` === `${course.class_id}`
-											) {
+											if (`${enrolledCourse.class_id}` === `${course.class_id}`) {
 												enrolledIn = true;
 											}
 										});

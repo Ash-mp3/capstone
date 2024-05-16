@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import "../../css/courses.css";
 import ResponsiveAppBar from "../ResponsiveAppBar";
 import Footer from "../Footer";
@@ -22,12 +22,12 @@ import TextField from "@mui/material/TextField";
 import logoImg from "../assets/Registration_App_Logo.png";
 
 function Admin() {
-	const [allCourses, setAllCourses] = React.useState([]);
-	const [users, setUsers] = React.useState([]);
-	const [authorizeStatus, setAuthorizeStatus] = React.useState("loading...");
+	const [allCourses, setAllCourses] = useState([]);
+	const [users, setUsers] = useState([]);
+	const [authorizeStatus, setAuthorizeStatus] = useState("loading...");
 
 	// Fetch the list of all courses when the component mounts
-	React.useEffect(() => {
+	useEffect(() => {
 		fetch(`/api/courses`, {
 			method: "GET",
 			headers: {
@@ -46,7 +46,7 @@ function Admin() {
 			});
 	}, [allCourses]);
 
-	React.useEffect(() => {
+	useEffect(() => {
 		fetch("/api/admin/userList", {
 			method: "GET",
 			headers: {
@@ -67,18 +67,14 @@ function Admin() {
 			});
 	}, [users]);
 
-	const [toastOpen, setToastOpen] = React.useState(false);
-	const toastMessage = React.useRef("");
-	const [dialogOpen, setDialogOpen] = React.useState(false);
-	const [userToRemove, setUserToRemove] = React.useState(null);
+	const [toastOpen, setToastOpen] = useState(false);
+	const toastMessage = useRef("");
+	const [dialogOpen, setDialogOpen] = useState(false);
+	const [userToRemove, setUserToRemove] = useState(null);
 
 	const { searchTerm, setSearchTerm } = useContext(SearchContext);
 
-	const filteredUsers = users.filter(
-		(user) =>
-			user.username &&
-			user.username.toLowerCase().includes(searchTerm.toLowerCase())
-	);
+	const filteredUsers = users.filter((user) => user.username && user.username.toLowerCase().includes(searchTerm.toLowerCase()));
 
 	const handleAddCourse = (newCourse) => {
 		setAllCourses([...allCourses, newCourse]);
@@ -127,7 +123,7 @@ function Admin() {
 		// Remember to handle the state updates correctly to ensure your UI is consistent with your data.
 	};
 
-	const [selectedCourse, setSelectedCourse] = React.useState(null);
+	const [selectedCourse, setSelectedCourse] = useState(null);
 
 	const handleEditCourse = (editedCourse) => {
 		let updatedCourses = [];
@@ -163,87 +159,64 @@ function Admin() {
 				<div id="AdminPage" className="w-full bg-[#ECECEC]">
 					<ResponsiveAppBar onSearch={setSearchTerm} />
 
-                    <div className="flex justify-evenly pb-8 relative">
-                        <div className="w-1/4 absolute top-[25%] opacity-50 blur-sm">
-                            <img src={logoImg} alt="Registration App Logo" className="w-full" />
-                        </div>
+					<div className="flex justify-evenly pb-8 relative">
+						<div className="w-1/4 absolute top-[25%] opacity-50 blur-sm">
+							<img src={logoImg} alt="Registration App Logo" className="w-full" />
+						</div>
 						<AddCourse onAddCourse={handleAddCourse} />
-                        <div className="w-1/4 pt-8 relative">
-                            <h1 className='text-center underline text-xl font-bold py-2'>Edit course</h1>
-                            <div className=" w-full max-w-md mx-auto p-5 shadow-md rounded-md h-auto bg-white">
-                                <Autocomplete
-								
-								options={allCourses}
-								getOptionLabel={(option) => option.title}
-								renderInput={(params) => (
-									<TextField {...params} label="Select a course" />
+						<div className="w-1/4 pt-8 relative">
+							<h1 className="text-center underline text-xl font-bold py-2">Edit course</h1>
+							<div className=" w-full max-w-md mx-auto p-5 shadow-md rounded-md h-auto bg-white">
+								<Autocomplete
+									options={allCourses}
+									getOptionLabel={(option) => option.title}
+									renderInput={(params) => <TextField {...params} label="Select a course" />}
+									onChange={(event, newValue) => {
+										setSelectedCourse(newValue);
+									}}
+								/>
+								{selectedCourse && (
+									<div className="mt-10">
+										<EditCourse course={selectedCourse} onEditCourse={handleEditCourse} variant="contained" />
+										<DeleteCourse course={selectedCourse} onDeleteCourse={handleDeleteCourse} />
+									</div>
 								)}
-								onChange={(event, newValue) => {
-									setSelectedCourse(newValue);
-								}}
-							/>
-							{selectedCourse && (
-								<div className="mt-10">
-									<EditCourse
-										course={selectedCourse}
-                                            onEditCourse={handleEditCourse}
-                                            variant="contained"
-									/>
-									<DeleteCourse
-										course={selectedCourse}
-										onDeleteCourse={handleDeleteCourse}
-									/>
+							</div>
+							<div className="absolute w-full bottom-[-28px]">
+								<h1 className="text-center underline text-xl font-bold py-2">Stats</h1>
+								<div className="w-full max-w-md mx-auto p-5 shadow-md rounded-md h-1/4 bg-white">
+									<p className="flex justify-between border-b-[1px] border-black border-solid ">
+										<span>Total number of students</span>
+										<span>{users.length}</span>
+									</p>
+									<p className="flex justify-between">
+										<span>Total number of courses</span>
+										<span>{allCourses.length}</span>
+									</p>
 								</div>
-							)}
-                            </div>
-                            <div className="absolute w-full bottom-[-28px]" >
-                                <h1 className='text-center underline text-xl font-bold py-2'>Stats</h1>
-                                <div className="w-full max-w-md mx-auto p-5 shadow-md rounded-md h-1/4 bg-white">
-                                    <p className="flex justify-between border-b-[1px] border-black border-solid "><span>Total number of students</span><span>{users.length}</span></p>
-                                    <p className="flex justify-between"><span>Total number of courses</span><span>{allCourses.length}</span></p>
-                                </div>
-                            </div>
-							
-                        </div>
-                        <AddStudent onAddUser={handleAddUser} />
+							</div>
+						</div>
+						<AddStudent onAddUser={handleAddUser} />
 					</div>
 
-					<div
-						id="registeredUsers"
-						className="grid grid-cols-1 place-items-center"
-					>
-						<h1 className="underline text-xl font-bold py-2 mt-20 mb-10">
-							Registered Students
-						</h1>
+					<div id="registeredUsers" className="grid grid-cols-1 place-items-center">
+						<h1 className="underline text-xl font-bold py-2 mt-20 mb-10">Registered Students</h1>
 						<div id="studentSection" className="flex w-full justify-center">
 							<div id="studentAccordion" className="w-4/5 pb-4">
 								{filteredUsers.map((user, index) => (
 									<div key={user.username}>
-										<AccordionRegistered
-											key={user.username}
-											user={user}
-											onRemoveUser={handleOpenDialog}
-											allCourses={allCourses}
-											openSnackBar={openSnackBar}
-										/>
+										<AccordionRegistered key={user.username} user={user} onRemoveUser={handleOpenDialog} allCourses={allCourses} openSnackBar={openSnackBar} />
 									</div>
 								))}
 							</div>
 						</div>
 					</div>
 					<Footer />
-					<Snackbar
-						open={toastOpen}
-						autoHideDuration={6000}
-						onClose={handleCloseToast}
-						message={toastMessage.current}
-					/>
+					<Snackbar open={toastOpen} autoHideDuration={6000} onClose={handleCloseToast} message={toastMessage.current} />
 					<Dialog open={dialogOpen} onClose={handleCloseDialog}>
 						<DialogTitle>{"Confirm Delete"}</DialogTitle>
 						<DialogContent>
-							<DialogContentText>
-								Are you sure you want to remove this student?
-							</DialogContentText>
+							<DialogContentText>Are you sure you want to remove this student?</DialogContentText>
 						</DialogContent>
 						<DialogActions>
 							<Button onClick={handleCloseDialog}>Cancel</Button>

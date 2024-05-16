@@ -1,5 +1,4 @@
-import * as React from "react";
-import { useState } from "react";
+import { useContext } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
@@ -49,19 +48,18 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function SearchAppBar() {
-	const { setSearchTerm } = React.useContext(SearchContext);
+	const { setSearchTerm } = useContext(SearchContext);
 
 	const handleSearch = (event) => {
 		setSearchTerm(event.target.value);
 	};
 
 	return (
-		
-			<Search>
-				<SearchIconWrapper>
-					<SearchIcon />
-				</SearchIconWrapper>
-				<AnchorLink href="#registeredUsers">
+		<Search>
+			<SearchIconWrapper>
+				<SearchIcon />
+			</SearchIconWrapper>
+			<AnchorLink href="#registeredUsers">
 				<StyledInputBase
 					placeholder={
 						location.pathname === "/courses" ? "Courses..." : "Students..."
@@ -69,8 +67,7 @@ export default function SearchAppBar() {
 					inputProps={{ "aria-label": "search" }}
 					onChange={(event) => handleSearch(event)}
 				/>
-				</AnchorLink>
-			</Search>
-		
+			</AnchorLink>
+		</Search>
 	);
 }
