@@ -58,9 +58,7 @@ export default function AccordionRegistered({ user, onRemoveUser, allCourses, on
 				.then((data) => {
 					openSnackBar(data);
 				});
-		} else {
-			console.log("not a valid class");
-		}
+		} 
 	};
 
 	const handleRemoveCourse = (courseToRemove) => {
@@ -78,7 +76,6 @@ export default function AccordionRegistered({ user, onRemoveUser, allCourses, on
 			.then((res) => {
 				if (res.ok) {
 					setCourses(courses.filter((course) => course !== courseToRemove));
-					// Add a toast notification here
 				}
 				return res.json();
 			})

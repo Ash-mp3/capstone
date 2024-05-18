@@ -1,15 +1,18 @@
 import * as React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@mui/material";
 import TimeTable from "./timetable.jsx";
 import TuitionComp from "./tuitionComponent.jsx";
 import CreditComp from "./creditHours.jsx";
 import Avatar from "@mui/material/Avatar";
+import Snackbar from "@mui/material/Snackbar";
 
 export default function userInformation(props) {
 	const { courses, username, email, firstName, lastName, phoneNum, address, city, country } = props;
 	const [userInfo, setUserInfo] = useState();
-	const [isEditable, setIsEditable] = useState();
+    const [isEditable, setIsEditable] = useState();
+    const [toastOpen, setToastOpen] = useState(false);
+    const toastMessage = useRef("");
 
 	useEffect(() => {
 		setUserInfo({ username: username, email: email, first_name: firstName, last_name: lastName, phone_number: phoneNum, address: address, city: city, country: country, password: "" });
@@ -17,11 +20,19 @@ export default function userInformation(props) {
 
 	const handleInputChange = (event) => {
 		setUserInfo({ ...userInfo, [event.currentTarget.id]: event.target.value });
+    };
+    
+    const handleCloseToast = () => {
+		setToastOpen(false);
+	};
+
+    const openSnackBar = (msg, type) => {
+		toastMessage.current = msg || toastMessage;
+		setToastOpen(true);
 	};
 
 	const updateUserInfo = async () => {
 		if (isEditable) {
-			console.log(userInfo);
 			try {
 				fetch(`/api/updateUser`, {
 					method: "POST",
@@ -32,11 +43,11 @@ export default function userInformation(props) {
 					body: JSON.stringify(userInfo),
 				})
 					.then((res) => res.json())
-					.then((data) => {
-						console.log(data);
+                    .then((data) => {
+                        openSnackBar(data.msg)
 					});
 			} catch (err) {
-				console.log(err);
+				console.error(err);
 			}
 		}
 	};
@@ -188,7 +199,9 @@ export default function userInformation(props) {
 			<div id="userTuition&Credits" className="flex w-full justify-center mb-8">
 				<CreditComp courses={courses} />
 				<TuitionComp courses={courses} />
-			</div>
-		</div>
+            </div>
+            <Snackbar open={toastOpen} autoHideDuration={6000} onClose={handleCloseToast} message={toastMessage.current} />
+        </div>
+        
 	);
 }

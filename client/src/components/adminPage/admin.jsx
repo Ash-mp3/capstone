@@ -117,15 +117,13 @@ function Admin() {
 		setToastOpen(false);
 	};
 
-	const handleEditUser = (editedUser) => {
-		// Logic to update the user details goes here.
-		// This could involve making a request to your server to update the user details in your database.
-		// Remember to handle the state updates correctly to ensure your UI is consistent with your data.
+	const handleEditUser = (msg) => {
+		openSnackBar(msg);
 	};
 
 	const [selectedCourse, setSelectedCourse] = useState(null);
 
-	const handleEditCourse = (editedCourse) => {
+	const handleEditCourse = (editedCourse, msg) => {
 		let updatedCourses = [];
 		for (const course of allCourses) {
 			if (course.class_id === editedCourse.class_id) {
@@ -133,18 +131,22 @@ function Admin() {
 			} else {
 				updatedCourses.push(course);
 			}
-		}
-		setAllCourses(updatedCourses);
+        }
+        setSelectedCourse(null);
+        setAllCourses(updatedCourses);
+        openSnackBar(msg);
 	};
 
-	const handleDeleteCourse = (deletedCourse) => {
+	const handleDeleteCourse = (deletedCourse, msg) => {
 		let updatedCourses = [];
 		for (const course of allCourses) {
 			if (course.class_id !== deletedCourse.class_id) {
 				updatedCourses.push(course);
 			}
-		}
-		setAllCourses(updatedCourses);
+        }
+        setSelectedCourse(null);
+        setAllCourses(updatedCourses);
+        openSnackBar(msg);
 	};
 
 	//this function will handle snackbar messages
@@ -204,8 +206,8 @@ function Admin() {
 						<div id="studentSection" className="flex w-full justify-center">
 							<div id="studentAccordion" className="w-4/5 pb-4">
 								{filteredUsers.map((user, index) => (
-									<div key={user.username}>
-										<AccordionRegistered key={user.username} user={user} onRemoveUser={handleOpenDialog} allCourses={allCourses} openSnackBar={openSnackBar} />
+									<div key={user.user_id}>
+										<AccordionRegistered key={user.user_id} user={user} onRemoveUser={handleOpenDialog} allCourses={allCourses} onEditUser={handleEditUser} openSnackBar={openSnackBar} />
 									</div>
 								))}
 							</div>

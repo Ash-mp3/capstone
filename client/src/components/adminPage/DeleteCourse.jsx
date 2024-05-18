@@ -23,13 +23,12 @@ function DeleteCourse({ course, onDeleteCourse }) {
 				body: JSON.stringify(course),
 			})
 				.then((res) => res.json())
-				.then((data) => {
-					console.log(data);
+                .then((data) => {
+                    onDeleteCourse(course, data.msg);
 				});
 		} catch (err) {
 			console.error(err);
 		}
-		onDeleteCourse(course);
 		handleClose();
 	};
 

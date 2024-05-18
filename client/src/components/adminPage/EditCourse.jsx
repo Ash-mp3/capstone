@@ -1,9 +1,18 @@
 import { useState } from "react";
+import { styled } from "@mui/material/styles";
 import { Button, TextField, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
+
+const ColorButton = styled(Button)(({ theme }) => ({
+    color: theme.palette.getContrastText("#474787"),
+    backgroundColor: "#474787",
+    "&:hover": {
+        backgroundColor: "#989898",
+    },
+}));
 
 function EditCourse({ course, onEditCourse }) {
 	const [open, setOpen] = useState(false);
-	const [editedCourse, setEditedCourse] = useState({ ...course });
+    const [editedCourse, setEditedCourse] = useState({ ...course });
 	const handleClickOpen = () => {
 		setOpen(true);
 	};
@@ -24,8 +33,7 @@ function EditCourse({ course, onEditCourse }) {
 			})
 				.then((res) => res.json())
 				.then((data) => {
-					console.log(data);
-					onEditCourse(editedCourse);
+					onEditCourse(editedCourse, data.msg);
 				});
 		} catch (err) {
 			console.error(err);
@@ -43,9 +51,9 @@ function EditCourse({ course, onEditCourse }) {
 
 	return (
 		<div>
-			<Button className="w-full" variant="contained" color="secondary" onClick={handleClickOpen}>
+			<ColorButton className="w-full" variant="contained"  onClick={handleClickOpen}>
 				Edit Course
-			</Button>
+			</ColorButton>
 			<Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
 				<DialogTitle id="form-dialog-title">Edit Course</DialogTitle>
 				<DialogContent>
@@ -56,7 +64,6 @@ function EditCourse({ course, onEditCourse }) {
 					<TextField margin="dense" name="maximum_capacity" label="Maximum Capacity" type="number" value={editedCourse.maximum_capacity} onChange={handleChange} fullWidth />
 					<TextField margin="dense" name="classroom_number" label="Classroom Number" type="text" value={editedCourse.classroom_number} onChange={handleChange} fullWidth />
 					<TextField margin="dense" name="schedule" label="Schedule" type="text" value={editedCourse.schedule} onChange={handleChange} fullWidth />
-					{/* Add more fields as necessary */}
 				</DialogContent>
 				<DialogActions>
 					<Button onClick={handleClose} color="primary">
