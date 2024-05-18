@@ -68,12 +68,10 @@ function Signup() {
 
 	function createAccount() {
 		let allInfoIsVerified = true;
-
 		//you can comment this next line out so that you don't have to enter valid information when testing
 		allInfoIsVerified = checkValidity(true);
 
 		if (allInfoIsVerified) {
-			let ok = false;
 			fetch(`/api/signup`, {
 				method: "POST",
 				headers: {
@@ -90,49 +88,14 @@ function Signup() {
 					country,
 					password,
 				}),
-			})
-				.then((res) => {
-					ok = res.ok;
-					return res.json();
-				})
-				.then((data) => {
-					console.log(data.msg);
-					if (ok) {
-						window.location.href = "/LogIn";
-						setAccountCreated(true);
-					}
-				});
+			}).then((res) => {
+				if (res.ok) {
+					window.location.href = "/LogIn";
+				}
+				return res.json();
+			});
 		}
 	}
-
-	const handleSubmit = async (e) => {
-		e.preventDefault();
-		try {
-			fetch(`/api/signup`, {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					username,
-					email,
-					firstName,
-					lastName,
-					phoneNum,
-					address,
-					city,
-					country,
-					password,
-				}),
-			})
-				.then((res) => res.json())
-				.then((data) => {
-					console.log(data.msg);
-				});
-		} catch (err) {
-			console.log(err);
-		}
-	};
 
 	return (
 		<div id="SignupPage" className="w-full h-full relative flex justify-center items-center ">
@@ -154,7 +117,7 @@ function Signup() {
 					</p>
 				</div>
 				<div className=" w-[4px] h-5/6 bg-black">.</div>
-				<form className="flex flex-col w-1/2 gap-10 relative" onSubmit={handleSubmit}>
+				<form className="flex flex-col w-1/2 gap-10 relative">
 					<div className="flex gap-5 mt-6 ">
 						<div className="flex flex-col gap-3">
 							<ColorInput

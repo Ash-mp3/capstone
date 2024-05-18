@@ -13,6 +13,7 @@ const createCourse = require("./adminControllers/createCourse");
 const createUser = require("./adminControllers/createUser");
 const editCourse = require("./adminControllers/editCourse");
 const deleteCourse = require("./adminControllers/deleteCourse");
+const editUser = require("../models/updateUser");
 
 adminRouter.get("/userList", async (req, res) => {
 	const result = await getUserList();
@@ -53,7 +54,6 @@ adminRouter.post("/createUser", expressjwt({ secret: secret, algorithms: ["HS256
 
 adminRouter.delete("/deleteCourse", expressjwt({ secret: secret, algorithms: ["HS256"] }), async (req, res) => {
 	const courseId = req.body.class_id;
-	console.log(courseId);
 	const result = await deleteCourse(courseId);
 	res.status(result.status).send({ msg: result.msg, success: result.success });
 });
@@ -62,6 +62,13 @@ adminRouter.post("/editCourse", expressjwt({ secret: secret, algorithms: ["HS256
 	const courseInfo = req.body;
 	delete courseInfo["spots_left"];
 	const result = await editCourse(courseInfo);
+	res.status(result.status).send({ msg: result.msg, success: result.success });
+});
+
+adminRouter.post("/editUser", expressjwt({ secret: secret, algorithms: ["HS256"] }), async (req, res) => {
+    const userId = req.body.userId;
+    const userInfo = req.body.userInfo
+	const result = await editUser( userId, userInfo);
 	res.status(result.status).send({ msg: result.msg, success: result.success });
 });
 

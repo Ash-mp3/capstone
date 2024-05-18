@@ -21,13 +21,12 @@ function Logout() {
 				}
 			})
 			.then((data) => {
-				console.log(data.loggedOut);
 				localStorage.setItem("token", "");
 				setLoggedOut(data.loggedOut);
 			});
 	}, []);
 	if (loggedOut) {
-		window.location.href = "/login";
+		window.location.href = "/Login";
 	}
 
 	return <>{!loggedOut ? <h1>Logging out</h1> : ""}</>;

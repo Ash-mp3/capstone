@@ -17,14 +17,14 @@ import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import handleStatus from "../controllers/handleStatus";
 
-const pages = ["Courses"];
-
 function ResponsiveAppBar({ isLoggedIn, onSearch, loading }) {
 	const [anchorElNav, setAnchorElNav] = useState(null);
 	const [anchorElUser, setAnchorElUser] = useState(null);
 	const [authorizeStatus, setAuthorizeStatus] = useState("loading...");
 	const [userName, setUserName] = useState();
-	const [settings, setSettings] = useState(["Profile", "Courses", "Logout"]);
+    const [settings, setSettings] = useState(["Profile", "Courses", "Logout"]);
+    
+    const location = useLocation()
 
 	const userListRef = useEffect(() => {
 		if (localStorage.getItem("user_role") === "admin") {
@@ -32,24 +32,15 @@ function ResponsiveAppBar({ isLoggedIn, onSearch, loading }) {
 		} else if (localStorage.getItem("user_role") === "student") {
 			setSettings(["Profile", "Courses", "Logout"]);
 		}
-	}, []);
-
-	const handleOpenNavMenu = (event) => {
-		setAnchorElNav(event.currentTarget);
-	};
+    }, []);
+    
 	const handleOpenUserMenu = (event) => {
 		setAnchorElUser(event.currentTarget);
-	};
-
-	const handleCloseNavMenu = () => {
-		setAnchorElNav(null);
 	};
 
 	const handleCloseUserMenu = () => {
 		setAnchorElUser(null);
 	};
-
-	const location = useLocation();
 
 	let title;
 	switch (location.pathname) {
@@ -71,16 +62,15 @@ function ResponsiveAppBar({ isLoggedIn, onSearch, loading }) {
 		case "/admin":
 			title = "Administrator";
 			break;
-		// Add more cases as needed
 		default:
 			title = "Capstone Project";
 	}
 
-	if (loading || (!isLoggedIn && (location.pathname === "/LogIn" || location.pathname === "/SignUp" || location.pathname === "/login" || location.pathname === "/"))) {
+	if (loading || (!isLoggedIn && (location.pathname === "/Login" || location.pathname === "/SignUp" || location.pathname === "/"))) {
 		return (
 			<>
 				<AppBar position="fixed">
-					<Container maxWidth="xl" class="bg-[#474787]">
+					<Container className="navBarContainer">
 						<Toolbar disableGutters>
 							<Avatar id="logoImage" src={Logo} sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
 							<Typography
@@ -110,7 +100,7 @@ function ResponsiveAppBar({ isLoggedIn, onSearch, loading }) {
 	return (
 		<>
 			<AppBar position="fixed">
-				<Container maxWidth="xl" class="bg-[#474787]">
+				<Container className="navBarContainer">
 					<Toolbar disableGutters>
 						<Avatar id="logoImage" src={Logo} sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
 						<Typography
@@ -130,15 +120,7 @@ function ResponsiveAppBar({ isLoggedIn, onSearch, loading }) {
 						>
 							{title}
 						</Typography>
-						<Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-							{location.pathname !== "/courses" && location.pathname !== "/admin" && location.pathname !== "/profile" && (
-								<Link to="/courses">
-									<Button onClick={handleCloseNavMenu} sx={{ my: 2, color: "lightgray", display: "block" }}>
-										Courses
-									</Button>
-								</Link>
-							)}
-						</Box>
+						<Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}></Box>
 						{location.pathname !== "/profile" && location.pathname !== "/admin" && <SearchBar onSearch={onSearch}></SearchBar>}
 						{location.pathname === "/admin" && <SearchBar onSearch={onSearch}></SearchBar>}
 						<Box className="ml-14" sx={{ flexGrow: 0 }}>

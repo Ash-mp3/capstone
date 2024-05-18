@@ -81,9 +81,8 @@ apiRouter.post("/updateUser", expressjwt({ secret: secret, algorithms: ["HS256"]
 	const userInfo = req.body;
 	const auth = req.headers.authorization;
 	const token = auth.slice(7, auth.length);
-	const userId = jwt.decode(token).id;
+    const userId = jwt.decode(token).id;
 	const result = await updateUser(userId, userInfo);
-
 	res.status(result.status).send({ msg: result.msg });
 });
 

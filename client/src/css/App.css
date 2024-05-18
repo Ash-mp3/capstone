@@ -8,6 +8,11 @@ input{
   z-index: 1;
 }
 
+.navBarContainer {
+    background-color: #474787;
+    min-width: 100%;
+ }
+
 #LoginPage,
 #SignupPage {
   background-color: #ECECEC;
