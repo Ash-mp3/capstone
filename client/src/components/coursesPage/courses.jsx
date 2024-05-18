@@ -20,7 +20,6 @@ function Courses() {
 	};
 
 	const handleSearch = (event) => {
-		console.log(event.target.value);
 		setSearchTerm(event.target.value);
 	};
 
@@ -46,7 +45,7 @@ function Courses() {
 				setEnrolledCourses(data.enrolledCourses);
 			})
 			.catch((err) => {
-				console.log(err);
+				console.error(err);
 			});
 	}, []);
 

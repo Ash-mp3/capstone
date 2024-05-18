@@ -38,7 +38,7 @@ function Profile() {
 					setInfo(data);
 				});
 		} catch (err) {
-			console.log(err);
+			console.error(err);
 		}
 	}, []);
 

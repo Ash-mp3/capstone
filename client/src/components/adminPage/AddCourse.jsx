@@ -45,7 +45,6 @@ function CourseForm({ onAddCourse }) {
 					onAddCourse(course);
 				});
 		} catch (err) {
-			console.log(err);
 			setAddCourseMsg("failed to create course");
 			setAddCourseStatus(false);
 			handleSnackClick();

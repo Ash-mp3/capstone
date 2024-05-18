@@ -14,7 +14,6 @@ const createSaltedPassword = async (plaintextPassword) => {
 
 const createUser = async (userInfo) => {
 	userInfo[3] = await createSaltedPassword(userInfo[3]);
-	console.log("userInfo", userInfo);
 	const createUserQuery = `
     INSERT INTO users (first_name, last_name, email, password, username)
       VALUES ($1, $2, $3, $4, $5)

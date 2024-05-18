@@ -4,6 +4,7 @@ import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import { SearchContext } from "./SearchContext";
 import AnchorLink from "react-anchor-link-smooth-scroll";
+import { useLocation } from "react-router-dom";
 
 const Search = styled("div")(({ theme }) => ({
 	position: "relative",
@@ -35,7 +36,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 	width: "100%",
 	"& .MuiInputBase-input": {
 		padding: theme.spacing(1, 1, 1, 0),
-		// vertical padding + font size from searchIcon
 		paddingLeft: `calc(1em + ${theme.spacing(4)})`,
 		transition: theme.transitions.create("width"),
 		[theme.breakpoints.up("sm")]: {
@@ -54,20 +54,35 @@ export default function SearchAppBar() {
 		setSearchTerm(event.target.value);
 	};
 
+	const location = useLocation();
+
 	return (
-		<Search>
-			<SearchIconWrapper>
-				<SearchIcon />
-			</SearchIconWrapper>
-			<AnchorLink href="#registeredUsers">
-				<StyledInputBase
-					placeholder={
-						location.pathname === "/courses" ? "Courses..." : "Students..."
-					}
-					inputProps={{ "aria-label": "search" }}
-					onChange={(event) => handleSearch(event)}
-				/>
-			</AnchorLink>
-		</Search>
+		<div>
+			{location.pathname === "/admin" ? (
+				<Search>
+					<SearchIconWrapper>
+						<SearchIcon />
+					</SearchIconWrapper>
+					<AnchorLink href="#registeredUsers">
+						<StyledInputBase
+							placeholder={location.pathname === "/courses" ? "Courses..." : "Students..."}
+							inputProps={{ "aria-label": "search" }}
+							onChange={(event) => handleSearch(event)}
+						/>
+					</AnchorLink>
+				</Search>
+			) : (
+				<Search>
+					<SearchIconWrapper>
+						<SearchIcon />
+					</SearchIconWrapper>
+                        <StyledInputBase
+                            placeholder={location.pathname === "/courses" ? "Courses..." : "Students..."}
+                            inputProps={{ "aria-label": "search" }}
+                            onChange={(event) => handleSearch(event)}
+                        />
+				</Search>
+			)}
+		</div>
 	);
 }
