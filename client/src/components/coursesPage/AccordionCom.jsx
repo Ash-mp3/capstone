@@ -12,8 +12,17 @@ import addClass from '../../controllers/addClass';
 import removeClass from '../../controllers/removeClass';
 import Courses from './courses';
 
+
+import Snackbar from "@mui/material/Snackbar";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
+import { Alert } from "@mui/material";
+
 //functions
 import { formatSchedule } from '../../functions/scheduleFunctions';
+
+
+import { useState, Fragment } from "react";
 
 const ColorButton = styled(Button)(({ theme }) => ({
 	color: theme.palette.getContrastText("#474787"),
@@ -26,12 +35,20 @@ const ColorButton = styled(Button)(({ theme }) => ({
 export default function AccordionCom(props) {
   const { title, description, tuition_cost, credit_hours, class_id, spots_left, enrolledIn, schedule, enrolledCourses, updateEnrolledCourses } = props
 
+
+  const [snackOk, setSnackOk] = useState(false)
+  const [openSnack, setOpenSnack] = useState(false);
+  const [snackMsg, setSnackMsg] = useState('')
+
 	async function handleAddCourse(class_id) {
 		class_id = `${class_id}`;
 		const data = await addClass(class_id);
 		if (data.ok) {
 			updateEnrolledCourses([...enrolledCourses, { class_id: class_id }]);
 		}
+		setSnackMsg(data.msg);
+		setSnackOk(data.ok);
+		setOpenSnack(true)
 	}
 	async function handleRemoveCourse(class_id) {
 		class_id = `${class_id}`;
@@ -39,7 +56,27 @@ export default function AccordionCom(props) {
 		if (data.ok) {
 			updateEnrolledCourses(enrolledCourses.filter((enrolledCourse) => enrolledCourse.class_id !== class_id));
 		}
+		setSnackMsg(data.msg);
+		setSnackOk(data.ok);
+		setOpenSnack(true)
 	}
+
+
+	const handleSnackClose = (event, reason) => {
+		if (reason === "clickaway") {
+			return;
+		}
+		setOpenSnack(false);
+	};
+
+	const action = (
+		<Fragment>
+			<IconButton size="small" aria-label="close" color="inherit" onClick={handleSnackClose}>
+				<CloseIcon fontSize="small" />
+			</IconButton>
+		</Fragment>
+	);
+
 	return (
 		<Accordion sx={{ border: "1px solid gray" }}>
 			<AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1-content" id="panel1-header">
@@ -65,6 +102,11 @@ export default function AccordionCom(props) {
 					</ColorButton>
 				)}
 			</AccordionActions>
+			<Snackbar open={openSnack} autoHideDuration={6000} onClose={handleSnackClose} action={action}>
+				<Alert onClose={handleSnackClose} severity={snackOk ? "success" : "error"} ariant="filled" x={{ width: "100%" }}>
+					{snackMsg}
+				</Alert>
+			</Snackbar>
 		</Accordion>
 	);
 }
