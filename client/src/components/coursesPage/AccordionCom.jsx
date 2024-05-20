@@ -8,8 +8,12 @@ import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 
 //controllers
-import addClass from "../../controllers/addClass";
-import removeClass from "../../controllers/removeClass";
+import addClass from '../../controllers/addClass';
+import removeClass from '../../controllers/removeClass';
+import Courses from './courses';
+
+//functions
+import { formatSchedule } from '../../functions/scheduleFunctions';
 
 const ColorButton = styled(Button)(({ theme }) => ({
 	color: theme.palette.getContrastText("#474787"),
@@ -20,7 +24,7 @@ const ColorButton = styled(Button)(({ theme }) => ({
 }));
 
 export default function AccordionCom(props) {
-	const { title, description, tuition_cost, credit_hours, class_id, spots_left, enrolledIn, enrolledCourses, updateEnrolledCourses } = props;
+  const { title, description, tuition_cost, credit_hours, class_id, spots_left, enrolledIn, schedule, enrolledCourses, updateEnrolledCourses } = props
 
 	async function handleAddCourse(class_id) {
 		class_id = `${class_id}`;
@@ -48,6 +52,7 @@ export default function AccordionCom(props) {
 				<Typography>Tuition Cost: ${tuition_cost}</Typography>
 				<Typography>Credit Hours: {credit_hours}</Typography>
 				<Typography>Spots Left: {spots_left}</Typography>
+        <Typography>Schedule: {formatSchedule(schedule)}</Typography>
 			</AccordionDetails>
 			<AccordionActions>
 				{!enrolledIn ? (
