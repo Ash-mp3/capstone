@@ -1,6 +1,8 @@
 import React from 'react';
 
 function CreditHours({courses}) {
+
+
   // Calculate total credit hours
   // const classes = courses
   const totalCreditHours = courses.reduce((total, cls) => total + cls.credit_hours, 0);
