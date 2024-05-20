@@ -21,3 +21,13 @@
 {"level":"info","message":"connected to database","timestamp":"2024-03-20 07:32::38.213 AM"}
 {"level":"info","message":"Server listening on 3001","timestamp":"2024-05-20 11:07::18.644 AM"}
 {"level":"info","message":"connected to database","timestamp":"2024-05-20 11:07::19.117 AM"}
+{"level":"info","message":"Server listening on undefined","timestamp":"2024-05-20 01:56::22.316 PM"}
+{"level":"error","message":"connection error","timestamp":"2024-05-20 01:56::22.378 PM"}
+{"level":"info","message":"Server listening on undefined","timestamp":"2024-05-20 01:58::05.803 PM"}
+{"level":"error","message":"connection error","timestamp":"2024-05-20 01:58::05.833 PM"}
+{"level":"info","message":"Server listening on undefined","timestamp":"2024-05-20 01:59::17.555 PM"}
+{"level":"error","message":"connection error","timestamp":"2024-05-20 01:59::17.685 PM"}
+{"level":"info","message":"Server listening on 3001","timestamp":"2024-05-20 02:00::56.355 PM"}
+{"level":"error","message":"connection error","timestamp":"2024-05-20 02:00::56.387 PM"}
+{"level":"info","message":"Server listening on 3001","timestamp":"2024-05-20 03:10::46.404 PM"}
+{"level":"info","message":"connected to database","timestamp":"2024-05-20 03:10::46.802 PM"}
