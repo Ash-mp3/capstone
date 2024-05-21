@@ -51,19 +51,19 @@ export function parseSchedule(schedule){
         const nextLetter = schedule[i+1]
 
         //test if the letter and next letter form a date
-        if(letter  === 'F'){
+        if(letter.toUpperCase()  === 'F'){
             scheduleDays.push('Friday')
         } 
-        else if(letter === 'T' && nextLetter === 'H'){
+        else if(letter.toUpperCase() === 'T' && nextLetter.toUpperCase() === 'H'){
             scheduleDays.push('Thursday')
         } 
-        else if(letter === 'W'){
+        else if(letter.toUpperCase() === 'W'){
             scheduleDays.push('Wednesday')
         } 
-        else if(letter === 'T'){
+        else if(letter.toUpperCase() === 'T'){
             scheduleDays.push('Tuesday')
         } 
-        else if(letter === 'M'){
+        else if(letter.toUpperCase() === 'M'){
             scheduleDays.push('Monday')
         }
 
