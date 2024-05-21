@@ -121,3 +121,5 @@
 {"level":"info","message":"connected to database","timestamp":"2024-05-20 10:00::37.159 PM"}
 {"level":"info","message":"Server listening on 3001","timestamp":"2024-05-20 10:28::31.846 PM"}
 {"level":"info","message":"connected to database","timestamp":"2024-05-20 10:28::32.331 PM"}
+{"level":"info","message":"Server listening on 3001","timestamp":"2024-05-21 07:31::30.033 AM"}
+{"level":"info","message":"connected to database","timestamp":"2024-05-21 07:31::30.507 AM"}
