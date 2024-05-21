@@ -1,14 +1,12 @@
 function schedulesConflict(newCourse, oldCourses){
     const parsedSchedule = parseSchedule(newCourse.schedule)
     for(const day of parsedSchedule.scheduleDays){
-        for(const hour of parsedSchedule.scheduleHours){
-            const enrolled = enrolledDuring(day, hour, oldCourses)
-            if(enrolled.isEnrolled){
-                return({
-                    conflict: true,
-                    conflictingCourse: enrolled.course
-                })
-            }
+        const enrolled = enrolledDuring(day, parsedSchedule.scheduleHours, oldCourses)
+        if(enrolled.isEnrolled){
+            return({
+                conflict: true,
+                conflictingCourse: enrolled.course
+            })
         }
     }
     return({
@@ -19,13 +17,13 @@ module.exports = schedulesConflict
 
 
 //returns true if the user is enrolled during a time
-function enrolledDuring(day, hour, courses){
+function enrolledDuring(day, hours, courses){
     for (const course of courses) {
         const schedule = parseSchedule(course.schedule);
 
         for (const scheduleDay of schedule.scheduleDays) {
             const isCorrectDay = scheduleDay === day;
-            const isCorrectHour = schedule.scheduleHours[0] <= hour && schedule.scheduleHours[1]-1 >= hour;
+            const isCorrectHour = schedule.scheduleHours[0] < hours[1] && schedule.scheduleHours[1] > hours[0];
 
             if (isCorrectDay && isCorrectHour) {
                 return {
@@ -70,19 +68,19 @@ function parseSchedule(schedule){
         const nextLetter = schedule[i+1]
 
         //test if the letter and next letter form a date
-        if(letter  === 'F'){
+        if(letter.toUpperCase()  === 'F'){
             scheduleDays.push('Friday')
         } 
-        else if(letter === 'T' && nextLetter === 'H'){
+        else if(letter.toUpperCase() === 'T' && nextLetter.toUpperCase() === 'H'){
             scheduleDays.push('Thursday')
         } 
-        else if(letter === 'W'){
+        else if(letter.toUpperCase() === 'W'){
             scheduleDays.push('Wednesday')
         } 
-        else if(letter === 'T'){
+        else if(letter.toUpperCase() === 'T'){
             scheduleDays.push('Tuesday')
         } 
-        else if(letter === 'M'){
+        else if(letter.toUpperCase() === 'M'){
             scheduleDays.push('Monday')
         }
 
