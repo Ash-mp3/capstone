@@ -13,6 +13,10 @@ input{
     min-width: 100%;
  }
 
+ #LoginPage{
+  margin-top: 50px;
+ }
+
 #LoginPage,
 #SignupPage {
   background-color: #ECECEC;
@@ -83,6 +87,8 @@ hr {
 
 #loginFooter,
 #SignupFooter {
+  position: fixed;
+  bottom: 0;
   box-shadow: 0 -5px 20px gray;
   background-color: #474787;
   color: #AAABB8;
