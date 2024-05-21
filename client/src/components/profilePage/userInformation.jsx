@@ -192,9 +192,9 @@ export default function userInformation(props) {
 					{!isEditable ? "Edit" : "Save"}
 				</Button>
 			</div>
-			<div id="userSchedule" className="mb-10 mx-10">
+			<div id="userSchedule" className="mb-10 mx-10 border-2">
 				<h2 className="display flex place-content-center my-10 underline">Your Schedule</h2>
-				<TimeTable courses={courses}></TimeTable>
+				<TimeTable courses={courses} ></TimeTable>
 			</div>
 			<div id="userTuition&Credits" className="flex w-full justify-center mb-8">
 				<CreditComp courses={courses} />

@@ -40,7 +40,6 @@ function Courses() {
 		})
 			.then((res) => {
 				setAuthorizeStatus(handleStatus(res));
-
 				return res.json();
 			})
 			.then((data) => {
