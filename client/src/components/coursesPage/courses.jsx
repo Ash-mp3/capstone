@@ -4,6 +4,8 @@ import AccordionCom from "./AccordionCom";
 import ResponsiveAppBar from "../ResponsiveAppBar";
 import Footer from "../Footer";
 
+
+
 import { SearchContext } from "../SearchContext";
 import handleStatus from "../../controllers/handleStatus";
 import AuthDisplay from "../AuthDisplay";
@@ -14,6 +16,8 @@ function Courses() {
 	const [enrolledCourses, setEnrolledCourses] = useState([]);
 	const [authorizeStatus, setAuthorizeStatus] = useState("loading...");
 	const { searchTerm, setSearchTerm } = useContext(SearchContext);
+
+
 
 	const updateEnrolledCourses = (newCourses) => {
 		setEnrolledCourses(newCourses);
@@ -36,9 +40,7 @@ function Courses() {
 		})
 			.then((res) => {
 				setAuthorizeStatus(handleStatus(res));
-				if (res.ok) {
-					return res.json();
-				}
+				return res.json();
 			})
 			.then((data) => {
 				setCourses(data.courses);
@@ -48,6 +50,7 @@ function Courses() {
 				console.error(err);
 			});
 	}, []);
+
 
 	return (
 		<SearchContext.Provider value={{ searchTerm, setSearchTerm }}>
@@ -94,6 +97,7 @@ function Courses() {
 							}
 						</div>
 
+							
 						<Footer></Footer>
 					</div>
 				) : (

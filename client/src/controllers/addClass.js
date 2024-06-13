@@ -18,6 +18,6 @@ export default async function addClass(class_id) {
 		return { msg: data.msg, ok: ok };
 	} catch (error) {
 		console.error("Error adding class:", error);
-		return { msg: "Error adding class", ok: false };
+		return { msg: data.msg||"Error adding class", ok: false };
 	}
 }

@@ -31,6 +31,6 @@ app.get("*", (req, res) => {
 	res.sendFile(path.resolve(__dirname, "../client/dist", "index.html"));
 });
 
-app.listen(3001, () => {
+app.listen(PORT, () => {
 	logger.info(`Server listening on ${PORT}`);
 });

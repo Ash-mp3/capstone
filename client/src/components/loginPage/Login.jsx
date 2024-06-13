@@ -27,7 +27,7 @@ function Login() {
 	};
 
 	//Sign the User in
-	function SignIn() {
+	function SignIn(email, password) {
 		fetch(`/api/login`, {
 			method: "POST",
 			headers: {
@@ -53,16 +53,16 @@ function Login() {
 	}
 
 	return (
-		<div id="LoginPage" className="w-full h-full relative flex justify-center items-center ">
+		<div id="LoginPage" className="w-full h-full relative flex justify-center items-center">
 			<header id="LoginHeader" className="w-full flex justify-center absolute top-0">
 				<ResponsiveAppBar user_role={user_role} />
 			</header>
 			<div id="LoginInfo">
-				<h1 className="text-[60px]">Welcome back!</h1>
+				<h1 className="text-[60px] text-center">Welcome back!</h1>
 				<form className="LoginForm">
 					<input placeholder="Email Address" onChange={handleEmailChange} autoComplete="username" value={email} />
 					<input placeholder="Password" onChange={handlePasswordChange} autoComplete="current-password" value={password} type="password" />
-					<ColorButton className="w-1/2" onClick={SignIn}>
+					<ColorButton className="w-1/2" onClick={() => SignIn(email, password)}>
 						Log In
 					</ColorButton>
 				</form>
@@ -77,7 +77,25 @@ function Login() {
 						<ColorButton className="w-5/6">Sign Up</ColorButton>
 					</Link>
 				</div>
+
+
+				<div className="flex">
+					<div className="sample-user flex justify-center">
+						<ColorButton onClick={() => SignIn("user2@mail", "2")}>
+							Log In as sample user
+						</ColorButton>
+					</div>
+					<div className="sample-user flex justify-center">
+						<ColorButton onClick={() => SignIn("user1@mail", "1")}>
+							Log in as sample admin
+						</ColorButton>
+					</div>
+				</div>
+
+
 			</div>
+
+
 			<footer id="loginFooter" className="w-full h-[25px] flex justify-center items-center absolute bottom-0">
 				<p>Help</p>
 				<p>@2023 - MtecPro</p>

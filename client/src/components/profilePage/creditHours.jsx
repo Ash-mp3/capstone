@@ -1,14 +1,16 @@
 import React from "react";
 
-function CreditHours({ courses }) {
-	// Calculate total credit hours
-	// const classes = courses
-	const totalCreditHours = courses.reduce((total, cls) => total + cls.credit_hours, 0);
-	return (
-		<div id="userCreditHours" className="w-1/3 h-full border-2 border-solid border-black place-self-center rounded-md grid grid-col-2 place-content-center my-2 mx-2 py-2">
-			<div id="creditHoursBanner" className="display flex place-content-center m-2">
-				<h2>Credit Hours</h2>
-			</div>
+function CreditHours({courses}) {
+
+
+  // Calculate total credit hours
+  // const classes = courses
+  const totalCreditHours = courses.reduce((total, cls) => total + cls.credit_hours, 0);
+  return (
+    <div id='userCreditHours' className='w-1/3 h-full border-2 border-solid border-black place-self-center rounded-md grid grid-col-2 place-content-center my-2 mx-2 py-2'>
+      <div id='creditHoursBanner' className='display flex place-content-center m-2'>
+        <h2>Credit Hours</h2>
+      </div>
 
 			<hr className="w-full" />
 

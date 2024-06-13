@@ -6,6 +6,7 @@ import handleStatus from "../../controllers/handleStatus";
 import AuthDisplay from "../AuthDisplay";
 
 function Profile() {
+    const [loading, setLoading] = useState(true);
 	const [info, setInfo] = useState({
 		courses: [],
 		username: "",
@@ -68,3 +69,18 @@ function Profile() {
 }
 
 export default Profile;
+	// <div>
+	// 				<ResponsiveAppBar />
+	// 				<UserInfo
+	// 					courses={info.courses}
+	// 					username={info.username}
+	// 					email={info.email}
+	// 					firstName={info.first_name}
+	// 					lastName={info.last_name}
+	// 					phoneNum={info.phone_number}
+	// 					address={info.address}
+	// 					city={info.city}
+	// 					country={info.country}
+	// 				/>
+	// 				<Footer />
+	// 			</div>
