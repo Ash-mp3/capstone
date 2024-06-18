@@ -9,6 +9,7 @@ function CourseForm({ onAddCourse }) {
 	const [openSnack, setOpenSnack] = useState(false);
 	const [addCourseMsg, setAddCourseMsg] = useState();
 	const [addCourseStatus, setAddCourseStatus] = useState();
+	const [hover, setHover] = useState(false);
 	const [course, setCourse] = useState({
 		title: "",
 		description: "",
@@ -18,6 +19,34 @@ function CourseForm({ onAddCourse }) {
 		schedule: "",
 		classroom_number: "",
 	});
+	
+	const buttonStyle = {
+		backgroundColor: hover ? "#2C2F33" : "#474787",
+		color: "white",
+	};
+	
+	const handleSnackOpen = () => {
+		setOpenSnack(true);
+	};
+	
+	const handleSnackClose = (event, reason) => {
+		if (reason === "clickaway") {
+			return;
+		}
+		setOpenSnack(false);
+	};
+	
+	const action = (
+		<Fragment>
+			<IconButton size="small" aria-label="close" color="inherit" onClick={handleSnackClose}>
+				<CloseIcon fontSize="small" />
+			</IconButton>
+		</Fragment>
+	);
+	
+	const toggleHover = () => {
+		setHover(!hover);
+	};
 
 	const handleInputChange = (event) => {
 		setCourse({
@@ -25,7 +54,7 @@ function CourseForm({ onAddCourse }) {
 			[event.target.name]: event.target.value,
 		});
 	};
-
+	
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 		try {
@@ -37,17 +66,17 @@ function CourseForm({ onAddCourse }) {
 				},
 				body: JSON.stringify(course),
 			})
-				.then((res) => res.json())
-				.then((data) => {
-					setAddCourseMsg(data.msg);
-					setAddCourseStatus(data.success);
-					handleSnackClick();
-					onAddCourse(course);
-				});
+			.then((res) => res.json())
+			.then((data) => {
+				setAddCourseMsg(data.msg);
+				setAddCourseStatus(data.success);
+				handleSnackOpen();
+				onAddCourse(course);
+			});
 		} catch (err) {
 			setAddCourseMsg("failed to create course");
 			setAddCourseStatus(false);
-			handleSnackClick();
+			handleSnackOpen();
 		}
 		setCourse({
 			title: "",
@@ -59,37 +88,8 @@ function CourseForm({ onAddCourse }) {
 			classroom_number: "",
 		});
 	};
-
-	const [hover, setHover] = useState(false);
-
-	const toggleHover = () => {
-		setHover(!hover);
-	};
-
-	const buttonStyle = {
-		backgroundColor: hover ? "#2C2F33" : "#474787",
-		color: "white",
-	};
-
-	const handleSnackClick = () => {
-		setOpenSnack(true);
-	};
-
-	const handleSnackClose = (event, reason) => {
-		if (reason === "clickaway") {
-			return;
-		}
-		setOpenSnack(false);
-	};
-
-	const action = (
-		<Fragment>
-			<IconButton size="small" aria-label="close" color="inherit" onClick={handleSnackClose}>
-				<CloseIcon fontSize="small" />
-			</IconButton>
-		</Fragment>
-	);
-
+	
+	
 	return (
 		<div className="pt-8 mb-4">
 			<h1 className="text-center underline text-xl font-bold py-2">Add Course</h1>
@@ -125,7 +125,7 @@ function CourseForm({ onAddCourse }) {
 				<Button style={buttonStyle} onMouseEnter={toggleHover} onMouseLeave={toggleHover} type="submit">
 					Submit
 				</Button>
-				<Snackbar open={openSnack} autoHideDuration={6000} onClose={handleSnackClose} action={action}>
+				<Snackbar open={openSnack} autoHideDuration={6000} onClose={handleSnackClose} action={action} anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
 					<Alert onClose={handleSnackClose} severity={addCourseStatus ? "success" : "error"} ariant="filled" x={{ width: "100%" }}>
 						{addCourseMsg}
 					</Alert>

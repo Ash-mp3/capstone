@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionActions from "@mui/material/AccordionActions";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -20,10 +20,17 @@ const ColorButton = styled(Button)(({ theme }) => ({
 	},
 }));
 
-export default function AccordionRegistered({ user, onRemoveUser, allCourses, onEditUser, openSnackBar }) {
+export default function AccordionRegistered({ user, onRemoveUser, allCourses, onEditUser, handleSnackOpen }) {
 	const [courses, setCourses] = useState(user.courses);
 	const [selectedCourse, setSelectedCourse] = useState("");
+	const [userPfp, setUserPfp] = useState("");
 
+
+	useEffect(() => {
+		// when a new user is created this page does not update so it cant see the username
+		// console.log(user.username);
+		setUserPfp(user.username.slice(0, 1));
+	}, [user])
 	const handleAddCourse = () => {
 		let selectedCourseId;
 		allCourses.forEach((course) => {
@@ -56,7 +63,8 @@ export default function AccordionRegistered({ user, onRemoveUser, allCourses, on
 					return res.json();
 				})
 				.then((data) => {
-					openSnackBar(data);
+					console.log(data)
+					handleSnackOpen(data);
 				});
 		} 
 	};
@@ -80,7 +88,7 @@ export default function AccordionRegistered({ user, onRemoveUser, allCourses, on
 				return res.json();
 			})
 			.then((data) => {
-				openSnackBar(data);
+				handleSnackOpen(data);
 			});
 	};
 
@@ -93,7 +101,7 @@ export default function AccordionRegistered({ user, onRemoveUser, allCourses, on
 		<Accordion sx={{ border: "1px solid gray", marginBottom: "10px" }}>
 			<AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1-content" id="panel1-header" sx={{ borderBottom: "1px solid gray" }}>
 				<Box display="flex" alignItems="center" width="100%">
-					<Avatar>{user.username.charAt(0)}</Avatar>
+					<Avatar>{userPfp}</Avatar>
 					<Box flexGrow={1} ml={1}>
 						{user.username}
 					</Box>
