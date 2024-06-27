@@ -71,6 +71,7 @@ function AddStudent({ onAddUser }) {
                     handleSnackOpen();
                     onAddUser({
                         name: `${student.firstName} ${student.lastName}`,
+                        username: student.temporaryUsername,
                         courses: [],
                     });
                 });
