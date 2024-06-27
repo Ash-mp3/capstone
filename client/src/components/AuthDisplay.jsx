@@ -7,13 +7,11 @@ export default function AuthDisplay(props) {
 	location.pathname === "/";
 	if (authorizeStatus === "loading...") {
 		return (
-			<>
-				<div className="relative h-screen flex flex-col justify-center items-center">
-					<ResponsiveAppBar loading={true} />
-					<img className="m-auto" src={loadingIcon} alt="Loading icon" />
-					<Footer className="absolute bottom-0" />
-				</div>
-			</>
+			<div className="relative h-screen flex flex-col justify-center items-center">
+				<ResponsiveAppBar loading={true} />
+				<img className="m-auto" src={loadingIcon} alt="Loading icon" />
+				<Footer className="absolute bottom-0" />
+			</div>
 		);
 	} else {
 		{
