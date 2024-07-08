@@ -32,9 +32,9 @@ const updateUser = async (userId, userInfo) => {
 		}
 	}
 	if (updateStatus) {
-		return { status: 201, msg: "Updated user info successfully!" };
+		return { status: 201, msg: "Updated user info successfully!", success: true };
 	} else {
-		return { status: 202, msg: "There was no new info to update." };
+		return { status: 202, msg: "There was no new info to update.", success: false };
 	}
 };
 

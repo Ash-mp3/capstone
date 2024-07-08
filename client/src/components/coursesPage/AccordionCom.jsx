@@ -102,7 +102,7 @@ export default function AccordionCom(props) {
 					</ColorButton>
 				)}
 			</AccordionActions>
-			<Snackbar open={openSnack} autoHideDuration={6000} onClose={handleSnackClose} action={action}>
+			<Snackbar open={openSnack} autoHideDuration={6000} onClose={handleSnackClose} action={action} anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
 				<Alert onClose={handleSnackClose} severity={snackOk ? "success" : "error"} ariant="filled" x={{ width: "100%" }}>
 					{snackMsg}
 				</Alert>
