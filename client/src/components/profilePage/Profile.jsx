@@ -4,9 +4,11 @@ import Footer from "../Footer";
 import UserInfo from "./userInformation";
 import handleStatus from "../../controllers/handleStatus";
 import AuthDisplay from "../AuthDisplay";
+import loadingIcon from "../assets/loadingIcon.svg";
 
 function Profile() {
-    const [loading, setLoading] = useState(true);
+	const [loading, setLoading] = useState(true);
+	const [authorizeStatus, setAuthorizeStatus] = useState("loading...");
 	const [info, setInfo] = useState({
 		courses: [],
 		username: "",
@@ -18,7 +20,8 @@ function Profile() {
 		city: "",
 		country: "",
 	});
-	const [authorizeStatus, setAuthorizeStatus] = useState("loading...");
+
+
 
 	useEffect(() => {
 		try {
@@ -31,9 +34,8 @@ function Profile() {
 			})
 				.then((res) => {
 					setAuthorizeStatus(handleStatus(res));
-					if (res.ok) {
-						return res.json();
-					}
+					setLoading(false);
+					return res.json();
 				})
 				.then((data) => {
 					setInfo(data);
@@ -44,43 +46,41 @@ function Profile() {
 	}, []);
 
 	return (
-		<div className="Courses">
+		<div className="Profile bg-[#ECECEC] h-screen">
 			{authorizeStatus === "authorized" ? (
-				<div>
-					<ResponsiveAppBar />
-					<UserInfo
-						courses={info.courses}
-						username={info.username}
-						email={info.email}
-						firstName={info.first_name}
-						lastName={info.last_name}
-						phoneNum={info.phone_number}
-						address={info.address}
-						city={info.city}
-						country={info.country}
-					/>
-					<Footer />
+			<div className="h-full">
+				<ResponsiveAppBar />
+				<div className=" mx-8 my-6 min-h-screen">
+				{loading === false ? 
+					( 
+						<UserInfo
+							courses={info.courses}
+							username={info.username}
+							email={info.email}
+							firstName={info.first_name}
+							lastName={info.last_name}
+							phoneNum={info.phone_number}
+							address={info.address}
+							city={info.city}
+							country={info.country}
+						/> 
+					) 
+					: 
+					(	
+						<div>
+							<img src={loadingIcon} alt="loadingIcon" />
+						</div> 
+					)
+				}
 				</div>
+				<Footer></Footer>
+			</div>
 			) : (
-				<AuthDisplay authorizestatus={authorizeStatus} />
+				//if the user is not authorized, display the authorize status
+				<AuthDisplay authorizeStatus={authorizeStatus} />
 			)}
 		</div>
 	);
 }
 
 export default Profile;
-	// <div>
-	// 				<ResponsiveAppBar />
-	// 				<UserInfo
-	// 					courses={info.courses}
-	// 					username={info.username}
-	// 					email={info.email}
-	// 					firstName={info.first_name}
-	// 					lastName={info.last_name}
-	// 					phoneNum={info.phone_number}
-	// 					address={info.address}
-	// 					city={info.city}
-	// 					country={info.country}
-	// 				/>
-	// 				<Footer />
-	// 			</div>

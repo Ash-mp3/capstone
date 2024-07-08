@@ -1,18 +1,21 @@
-import * as React from "react";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, Fragment } from "react";
 import { Button } from "@mui/material";
 import TimeTable from "./timetable.jsx";
 import TuitionComp from "./tuitionComponent.jsx";
 import CreditComp from "./creditHours.jsx";
 import Avatar from "@mui/material/Avatar";
 import Snackbar from "@mui/material/Snackbar";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
+import { Alert } from "@mui/material";
 
 export default function userInformation(props) {
 	const { courses, username, email, firstName, lastName, phoneNum, address, city, country } = props;
 	const [userInfo, setUserInfo] = useState();
     const [isEditable, setIsEditable] = useState();
-    const [toastOpen, setToastOpen] = useState(false);
-    const toastMessage = useRef("");
+	const [snackOk, setSnackOk] = useState(false)
+  	const [openSnack, setOpenSnack] = useState(false);
+  	const [snackMsg, setSnackMsg] = useState('')
 
 	useEffect(() => {
 		setUserInfo({ username: username, email: email, first_name: firstName, last_name: lastName, phone_number: phoneNum, address: address, city: city, country: country, password: "" });
@@ -21,15 +24,6 @@ export default function userInformation(props) {
 	const handleInputChange = (event) => {
 		setUserInfo({ ...userInfo, [event.currentTarget.id]: event.target.value });
     };
-    
-    const handleCloseToast = () => {
-		setToastOpen(false);
-	};
-
-    const openSnackBar = (msg, type) => {
-		toastMessage.current = msg || toastMessage;
-		setToastOpen(true);
-	};
 
 	const updateUserInfo = async () => {
 		if (isEditable) {
@@ -44,13 +38,30 @@ export default function userInformation(props) {
 				})
 					.then((res) => res.json())
                     .then((data) => {
-                        openSnackBar(data.msg)
+                        setSnackMsg(data.msg);
+						setSnackOk(data.success);
+						setOpenSnack(true);
 					});
 			} catch (err) {
 				console.error(err);
 			}
 		}
 	};
+
+	const handleSnackClose = (event, reason) => {
+		if (reason === "clickaway") {
+			return;
+		}
+		setOpenSnack(false);
+	};
+
+	const action = (
+		<Fragment>
+			<IconButton size="small" aria-label="close" color="inherit" onClick={handleSnackClose}>
+				<CloseIcon fontSize="small" />
+			</IconButton>
+		</Fragment>
+	);
 
 	return (
 		<div id="userPage" className="grid grid-cols-1 mt-2">
@@ -200,8 +211,11 @@ export default function userInformation(props) {
 				<CreditComp courses={courses} />
 				<TuitionComp courses={courses} />
             </div>
-            <Snackbar open={toastOpen} autoHideDuration={6000} onClose={handleCloseToast} message={toastMessage.current} />
+            <Snackbar open={openSnack} autoHideDuration={6000} onClose={handleSnackClose} action={action} anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
+				<Alert onClose={handleSnackClose} severity={snackOk ? "success" : "error"} ariant="filled" x={{ width: "100%" }}>
+					{snackMsg}
+				</Alert>
+			</Snackbar>
         </div>
-        
 	);
 }

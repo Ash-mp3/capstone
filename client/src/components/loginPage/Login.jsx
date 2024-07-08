@@ -1,9 +1,13 @@
-import { useState } from "react";
+import { useState, Fragment } from "react";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 import ResponsiveAppBar from "../ResponsiveAppBar";
 import Footer from "../Footer";
+import Snackbar from "@mui/material/Snackbar";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
+import { Alert } from "@mui/material";
 
 const ColorButton = styled(Button)(({ theme }) => ({
 	color: theme.palette.getContrastText("#474787"),
@@ -14,11 +18,13 @@ const ColorButton = styled(Button)(({ theme }) => ({
 }));
 
 function Login() {
-	const [token, setToken] = useState("");
 	const [loggedIn, setLoggedIn] = useState(false);
 	const [user_role, setUser_role] = useState();
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const [openSnack, setOpenSnack] = useState(false);
+  	const [snackMsg, setSnackMsg] = useState('')
+
 
 	const handleEmailChange = (e) => {
 		setEmail(e.target.value);
@@ -44,7 +50,9 @@ function Login() {
 					localStorage.setItem("token", data.token);
 					localStorage.setItem("user_role", data.user_role);
 				} else {
-					alert(data.msg);
+					setSnackMsg(data.msg);
+					setOpenSnack(true);
+					// alert(data.msg);
 				}
 			});
 	}
@@ -52,6 +60,21 @@ function Login() {
 	if (loggedIn) {
 		window.location.href = "/courses";
 	}
+
+	const handleSnackClose = (event, reason) => {
+		if (reason === "clickaway") {
+			return;
+		}
+		setOpenSnack(false);
+	};
+
+	const action = (
+		<Fragment>
+			<IconButton size="small" aria-label="close" color="inherit" onClick={handleSnackClose}>
+				<CloseIcon fontSize="small" />
+			</IconButton>
+		</Fragment>
+	);
 
 	return (
 		<div id="LoginPage" className="w-full h-full relative flex flex-col justify-center items-center">
@@ -92,6 +115,11 @@ function Login() {
 				</div>
 			</div>
 			<Footer />
+			<Snackbar open={openSnack} autoHideDuration={6000} onClose={handleSnackClose} action={action} anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
+				<Alert onClose={handleSnackClose} severity={"error"} ariant="filled" x={{ width: "100%" }}>
+					{snackMsg}
+				</Alert>
+			</Snackbar>
 		</div>
 	);
 }

@@ -1,97 +1,91 @@
 /* login page */
 
 * {
-  font-family: 'Open Sans',
-    sans-serif;
+    font-family: 'Open Sans', sans-serif;
 }
-input{
-  z-index: 1;
+input {
+    z-index: 1;
 }
 
 .navBarContainer {
     background-color: #474787;
     min-width: 100%;
- }
-
- /* #LoginPage{
-  margin-top: 50px;
- } */
+}
 
 #LoginPage,
 #SignupPage {
-  background-color: #ECECEC;
+    background-color: #ececec;
 }
 
 #LoginHeader,
 #SignupHeader {
-  background-color: #474787;
-  box-shadow: 0 5px 20px gray;
-  z-index: 2;
+    background-color: #474787;
+    box-shadow: 0 5px 20px gray;
+    z-index: 2;
 }
 
 #LoginInfo {
-  width: 40%;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  gap: 30px;
+    width: 40%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 30px;
 }
 
 #SignupInfo {
-  width: 60%;
-  height: 60%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 15%;
-
+    width: 60%;
+    height: 60%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15%;
 }
 
 .LoginForm {
-  width: 80%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 20px;
-  gap: 25px;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 20px;
+    gap: 25px;
 }
 
 .LoginForm input,
 button {
-  width: 65%;
-  font-size: 20px;
-  padding: 10px 15px;
-  border-radius: 5px;
+    width: 65%;
+    font-size: 20px;
+    padding: 10px 15px;
+    border-radius: 5px;
 }
 
 hr {
-  border: 1px solid black;
-  width: 40%;
-  height: 1px;
+    border: 1px solid black;
+    width: 40%;
+    height: 1px;
 }
 
 .OrLine {
-  width: 55%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
+    width: 55%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
 }
 
 .signUp {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
 }
 
 #loginFooter,
 #SignupFooter {
-  position: fixed;
-  bottom: 0;
-  box-shadow: 0 -5px 20px gray;
-  background-color: #474787;
-  color: #AAABB8;
-  gap: 70px;
-  z-index: 2;
+    position: fixed;
+    bottom: 0;
+    box-shadow: 0 -5px 20px gray;
+    background-color: #474787;
+    color: #aaabb8;
+    gap: 70px;
+    z-index: 2;
 }
